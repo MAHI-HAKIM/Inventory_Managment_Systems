@@ -2,10 +2,11 @@ C:\Users\mahia\Desktop\Inventory_Managment_System\bin\Debug\Inventory_Managment_
 C:\Users\mahia\Desktop\Inventory_Managment_System\bin\Debug\Inventory_Managment_System.exe
 C:\Users\mahia\Desktop\Inventory_Managment_System\bin\Debug\Inventory_Managment_System.pdb
 C:\Users\mahia\Desktop\Inventory_Managment_System\obj\Debug\Inventory_Managment_System.csproj.AssemblyReference.cache
-C:\Users\mahia\Desktop\Inventory_Managment_System\obj\Debug\Inventory_Managment_System.Form1.resources
 C:\Users\mahia\Desktop\Inventory_Managment_System\obj\Debug\Inventory_Managment_System.Properties.Resources.resources
 C:\Users\mahia\Desktop\Inventory_Managment_System\obj\Debug\Inventory_Managment_System.csproj.GenerateResource.cache
 C:\Users\mahia\Desktop\Inventory_Managment_System\obj\Debug\Inventory_Managment_System.csproj.CoreCompileInputs.cache
 C:\Users\mahia\Desktop\Inventory_Managment_System\obj\Debug\Inventory_Managment_System.exe
 C:\Users\mahia\Desktop\Inventory_Managment_System\obj\Debug\Inventory_Managment_System.pdb
 C:\Users\mahia\Desktop\Inventory_Managment_System\obj\Debug\Inventory_Managment_System.SignUp_Form.resources
+C:\Users\mahia\Desktop\Inventory_Managment_System\obj\Debug\Inventory_Managment_System.Login_Form.resources
+C:\Users\mahia\Desktop\Inventory_Managment_System\obj\Debug\Inventory_Managment_System.Welcome_Form.resources

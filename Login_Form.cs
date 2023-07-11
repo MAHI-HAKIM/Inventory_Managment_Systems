@@ -12,67 +12,52 @@ using System.Data.SqlClient;
 
 namespace Inventory_Managment_System
 {
-    public partial class Form1 : Form
+    public partial class Login_Form : Form
     {
-        SqlConnection conn = new SqlConnection(@"Data Source=HP-ENVY-MAHI\MSSQLSERVER03;Initial Catalog=Practice;Integrated Security=True");
         DBConnection dbConnection = new DBConnection();
 
-        public Form1()
+        public Login_Form()
         {
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
+      
         private void login_btn_Click(object sender, EventArgs e)
         {
-            string Username = "", Password = "";
+            // Retrieve all the input values
+            string username = username_txt.Text;
+            string password = password_txt.Text;
 
-            Username = username_txt.Text;
-            Password = password_txt.Text;
+            // Open a connection to the database
+            SqlConnection connection = dbConnection.OpenConnection();
 
-            try
+            // Select the user from the database
+            using (SqlCommand cmd = new SqlCommand("SELECT * FROM Users WHERE Username = @username AND Password = @password", connection))
             {
-                String querry = "Select * From Login Where Username = '" + username_txt.Text + "' AND Password = '" + password_txt.Text + "'";
-                SqlDataAdapter sda = new SqlDataAdapter(querry, conn);
+                cmd.Parameters.AddWithValue("@username", username);
+                cmd.Parameters.AddWithValue("@password", password);
 
-                DataTable dtable = new DataTable();
-
-                sda.Fill(dtable);
-
-                if (dtable.Rows.Count > 0)
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    Username = username_txt.Text;
-                    Password = password_txt.Text;
+                    if (reader.Read())
+                    {
+                        Welcome_Form welcomeForm = new Welcome_Form();
+                        welcomeForm.WelcomeMessage = "Welcome";
+                        welcomeForm.FirstNameMessage = reader["FirstName"].ToString();
+                        welcomeForm.LastNameMessage = reader["LastName"].ToString();
 
-                    ////////////////
-                    Welcome welc = new Welcome();
 
-                    welc.Show();
-                    this.Hide();
-
-                }
-                else
-                {
-                    MessageBox.Show("Invalid login details", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //username_txt.Clear();
-                    password_txt.Clear();
-
-                    username_txt.Focus();
-
+                        this.Hide();
+                        welcomeForm.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Invalid login credentials. Please try again.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
             }
-            catch
-            {
-                MessageBox.Show("Error");
-            }
-            finally
-            {
-
-            }
+            // Close the connection
+            dbConnection.CloseConnection();
         }
 
         private void clear_btn_Click(object sender, EventArgs e)
@@ -113,6 +98,13 @@ namespace Inventory_Managment_System
             {
                 MessageBox.Show("Connection to database failed.");
             }
+        }
+
+        private void signup_btn_Click(object sender, EventArgs e)
+        {
+            SignUp_Form sg = new SignUp_Form();
+            this.Hide();
+            sg.Show();
         }
     }
 }

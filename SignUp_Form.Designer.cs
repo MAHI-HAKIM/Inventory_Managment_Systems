@@ -41,6 +41,8 @@ namespace Inventory_Managment_System
             this.username_txt = new System.Windows.Forms.TextBox();
             this.cmbRole = new System.Windows.Forms.ComboBox();
             this.signup_btn = new System.Windows.Forms.Button();
+            this.exit_btn = new System.Windows.Forms.Button();
+            this.back_btn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -144,11 +146,34 @@ namespace Inventory_Managment_System
             this.signup_btn.UseVisualStyleBackColor = true;
             this.signup_btn.Click += new System.EventHandler(this.signup_btn_Click);
             // 
+            // exit_btn
+            // 
+            this.exit_btn.Location = new System.Drawing.Point(553, 347);
+            this.exit_btn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.exit_btn.Name = "exit_btn";
+            this.exit_btn.Size = new System.Drawing.Size(94, 43);
+            this.exit_btn.TabIndex = 12;
+            this.exit_btn.Text = "Exit";
+            this.exit_btn.UseVisualStyleBackColor = true;
+            this.exit_btn.Click += new System.EventHandler(this.exit_btn_Click);
+            // 
+            // back_btn
+            // 
+            this.back_btn.Location = new System.Drawing.Point(26, 347);
+            this.back_btn.Name = "back_btn";
+            this.back_btn.Size = new System.Drawing.Size(159, 47);
+            this.back_btn.TabIndex = 13;
+            this.back_btn.Text = "Back";
+            this.back_btn.UseVisualStyleBackColor = true;
+            this.back_btn.Click += new System.EventHandler(this.back_btn_Click);
+            // 
             // SignUp_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.back_btn);
+            this.Controls.Add(this.exit_btn);
             this.Controls.Add(this.signup_btn);
             this.Controls.Add(this.cmbRole);
             this.Controls.Add(this.username_txt);
@@ -163,6 +188,7 @@ namespace Inventory_Managment_System
             this.Controls.Add(this.label1);
             this.Name = "SignUp_Form";
             this.Text = "SignUp_Form";
+            this.Load += new System.EventHandler(this.SignUp_Form_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -182,5 +208,7 @@ namespace Inventory_Managment_System
         private System.Windows.Forms.TextBox username_txt;
         private System.Windows.Forms.ComboBox cmbRole;
         private System.Windows.Forms.Button signup_btn;
+        private System.Windows.Forms.Button exit_btn;
+        private System.Windows.Forms.Button back_btn;
     }
 }
