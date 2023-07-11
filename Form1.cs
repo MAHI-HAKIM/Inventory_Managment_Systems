@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Security.Cryptography; //Simpler way to Hash and Salt Passwords for a better Securtiy
 using System.Data.SqlClient;
 
 namespace Inventory_Managment_System
@@ -14,7 +15,7 @@ namespace Inventory_Managment_System
     public partial class Form1 : Form
     {
         SqlConnection conn = new SqlConnection(@"Data Source=HP-ENVY-MAHI\MSSQLSERVER03;Initial Catalog=Practice;Integrated Security=True");
-
+        DBConnection dbConnection = new DBConnection();
 
         public Form1()
         {
@@ -96,6 +97,21 @@ namespace Inventory_Managment_System
             {
                 this.Show();
                 username_txt.Focus();
+            }
+        }
+
+        private void test_btn_Click(object sender, EventArgs e)
+        {
+            SqlConnection connection = dbConnection.OpenConnection();
+
+            if (connection.State == System.Data.ConnectionState.Open)
+            {
+                MessageBox.Show("Connection to database successful.");
+                dbConnection.CloseConnection();
+            }
+            else
+            {
+                MessageBox.Show("Connection to database failed.");
             }
         }
     }

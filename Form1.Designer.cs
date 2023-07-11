@@ -37,6 +37,7 @@ namespace Inventory_Managment_System
             this.clear_btn = new System.Windows.Forms.Button();
             this.login_btn = new System.Windows.Forms.Button();
             this.exit_btn = new System.Windows.Forms.Button();
+            this.test_btn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -116,11 +117,22 @@ namespace Inventory_Managment_System
             this.exit_btn.UseVisualStyleBackColor = true;
             this.exit_btn.Click += new System.EventHandler(this.exit_btn_Click);
             // 
+            // test_btn
+            // 
+            this.test_btn.Location = new System.Drawing.Point(12, 285);
+            this.test_btn.Name = "test_btn";
+            this.test_btn.Size = new System.Drawing.Size(136, 61);
+            this.test_btn.TabIndex = 8;
+            this.test_btn.Text = "Test";
+            this.test_btn.UseVisualStyleBackColor = true;
+            this.test_btn.Click += new System.EventHandler(this.test_btn_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(685, 358);
+            this.Controls.Add(this.test_btn);
             this.Controls.Add(this.exit_btn);
             this.Controls.Add(this.login_btn);
             this.Controls.Add(this.clear_btn);
@@ -148,6 +160,7 @@ namespace Inventory_Managment_System
         private System.Windows.Forms.Button clear_btn;
         private System.Windows.Forms.Button login_btn;
         private System.Windows.Forms.Button exit_btn;
+        private System.Windows.Forms.Button test_btn;
     }
 }
 
