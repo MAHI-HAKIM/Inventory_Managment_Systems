@@ -7,8 +7,8 @@ using System.Windows.Forms;
 namespace Inventory_Managment_System
 {
     static class Program
-    { 
-        // helllo
+    {
+        
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -17,7 +17,7 @@ namespace Inventory_Managment_System
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new SignUp_Form());
+            Application.Run(new Login_Form());
         }
     }
 }
