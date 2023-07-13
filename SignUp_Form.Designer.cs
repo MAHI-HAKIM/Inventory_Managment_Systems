@@ -36,7 +36,7 @@ namespace Inventory_Managment_System
             this.label5 = new System.Windows.Forms.Label();
             this.lastname_txt = new System.Windows.Forms.TextBox();
             this.firstname_txt = new System.Windows.Forms.TextBox();
-            this.email_txt = new System.Windows.Forms.TextBox();
+            this.phoneNo_txt = new System.Windows.Forms.TextBox();
             this.password_txt = new System.Windows.Forms.TextBox();
             this.username_txt = new System.Windows.Forms.TextBox();
             this.cmbRole = new System.Windows.Forms.ComboBox();
@@ -68,9 +68,9 @@ namespace Inventory_Managment_System
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(134, 173);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(42, 17);
+            this.label3.Size = new System.Drawing.Size(67, 17);
             this.label3.TabIndex = 2;
-            this.label3.Text = "Email";
+            this.label3.Text = "PhoneNo";
             // 
             // label4
             // 
@@ -104,12 +104,12 @@ namespace Inventory_Managment_System
             this.firstname_txt.Size = new System.Drawing.Size(194, 22);
             this.firstname_txt.TabIndex = 6;
             // 
-            // email_txt
+            // phoneNo_txt
             // 
-            this.email_txt.Location = new System.Drawing.Point(224, 170);
-            this.email_txt.Name = "email_txt";
-            this.email_txt.Size = new System.Drawing.Size(194, 22);
-            this.email_txt.TabIndex = 7;
+            this.phoneNo_txt.Location = new System.Drawing.Point(224, 170);
+            this.phoneNo_txt.Name = "phoneNo_txt";
+            this.phoneNo_txt.Size = new System.Drawing.Size(194, 22);
+            this.phoneNo_txt.TabIndex = 7;
             // 
             // password_txt
             // 
@@ -145,6 +145,7 @@ namespace Inventory_Managment_System
             this.signup_btn.Text = "Sign Up";
             this.signup_btn.UseVisualStyleBackColor = true;
             this.signup_btn.Click += new System.EventHandler(this.signup_btn_Click);
+            this.signup_btn.Enter += new System.EventHandler(this.signup_btn_Click);
             // 
             // exit_btn
             // 
@@ -169,6 +170,7 @@ namespace Inventory_Managment_System
             // 
             // SignUp_Form
             // 
+            this.AcceptButton = this.signup_btn;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
@@ -178,7 +180,7 @@ namespace Inventory_Managment_System
             this.Controls.Add(this.cmbRole);
             this.Controls.Add(this.username_txt);
             this.Controls.Add(this.password_txt);
-            this.Controls.Add(this.email_txt);
+            this.Controls.Add(this.phoneNo_txt);
             this.Controls.Add(this.firstname_txt);
             this.Controls.Add(this.lastname_txt);
             this.Controls.Add(this.label5);
@@ -203,7 +205,7 @@ namespace Inventory_Managment_System
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox lastname_txt;
         private System.Windows.Forms.TextBox firstname_txt;
-        private System.Windows.Forms.TextBox email_txt;
+        private System.Windows.Forms.TextBox phoneNo_txt;
         private System.Windows.Forms.TextBox password_txt;
         private System.Windows.Forms.TextBox username_txt;
         private System.Windows.Forms.ComboBox cmbRole;

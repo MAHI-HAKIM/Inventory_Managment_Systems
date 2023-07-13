@@ -38,7 +38,6 @@ namespace Inventory_Managment_System
             this.login_btn = new System.Windows.Forms.Button();
             this.exit_btn = new System.Windows.Forms.Button();
             this.test_btn = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.signup_btn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -121,7 +120,7 @@ namespace Inventory_Managment_System
             // 
             // test_btn
             // 
-            this.test_btn.Location = new System.Drawing.Point(12, 285);
+            this.test_btn.Location = new System.Drawing.Point(12, 244);
             this.test_btn.Name = "test_btn";
             this.test_btn.Size = new System.Drawing.Size(136, 61);
             this.test_btn.TabIndex = 8;
@@ -129,20 +128,11 @@ namespace Inventory_Managment_System
             this.test_btn.UseVisualStyleBackColor = true;
             this.test_btn.Click += new System.EventHandler(this.test_btn_Click);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(0, 0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // signup_btn
             // 
             this.signup_btn.Location = new System.Drawing.Point(531, 244);
             this.signup_btn.Name = "signup_btn";
-            this.signup_btn.Size = new System.Drawing.Size(115, 57);
+            this.signup_btn.Size = new System.Drawing.Size(129, 61);
             this.signup_btn.TabIndex = 10;
             this.signup_btn.Text = "SignUp";
             this.signup_btn.UseVisualStyleBackColor = true;
@@ -150,11 +140,11 @@ namespace Inventory_Managment_System
             // 
             // Login_Form
             // 
+            this.AcceptButton = this.login_btn;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(685, 358);
             this.Controls.Add(this.signup_btn);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.test_btn);
             this.Controls.Add(this.exit_btn);
             this.Controls.Add(this.login_btn);
@@ -167,6 +157,7 @@ namespace Inventory_Managment_System
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Login_Form";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Login_Form_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -183,7 +174,6 @@ namespace Inventory_Managment_System
         private System.Windows.Forms.Button login_btn;
         private System.Windows.Forms.Button exit_btn;
         private System.Windows.Forms.Button test_btn;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button signup_btn;
     }
 }
