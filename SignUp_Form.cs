@@ -16,6 +16,10 @@ namespace Inventory_Managment_System
         // Create a list that contains your TextBoxes and Buttons in the order they should be navigated
         List<Control> controls;
 
+        //Create a new connection instance to a Database
+        DBConnection dbConnection = new DBConnection();
+        PasswordWithSaltHasher hashing = new PasswordWithSaltHasher();
+
         public SignUp_Form()
         {
             InitializeComponent();
@@ -37,8 +41,6 @@ namespace Inventory_Managment_System
             password_txt.KeyPress += (s, e) => CheckSpace_KeyPress(s, e, "Password");
             phoneNo_txt.KeyPress += (s, e) => CheckSpace_KeyPress(s, e, "Phone Number");
 
-           
-
             // attach the TextChanged event to your TextBox controls
             username_txt.TextChanged += ResetColor_TextChanged;
             password_txt.TextChanged += ResetColor_TextChanged;
@@ -48,7 +50,7 @@ namespace Inventory_Managment_System
             phoneNo_txt.KeyPress += phoneNumber_txt_KeyPress;
         }
 
-        DBConnection dbConnection = new DBConnection();
+        #region //Form Related Controls
 
         private void SignUp_Form_Load(object sender, EventArgs e)
         {
@@ -56,34 +58,13 @@ namespace Inventory_Managment_System
             username_txt.Focus();
 
         }
-
-        private bool IsAdminExists()
-        {
-            // Open a connection to the database
-            SqlConnection connection = dbConnection.OpenConnection();
-
-            using (SqlCommand cmd = new SqlCommand("sp_CheckAdminExists", connection))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                int adminCount = (int)cmd.ExecuteScalar();
-
-                // Close the connection
-                dbConnection.CloseConnection();
-
-                return adminCount > 0;
-            }
-        }
-
         private void signup_btn_Click(object sender, EventArgs e)
         {
             // Validate all the input fields
             if (IsTextboxEmpty(username_txt, "Username") ||
                 IsTextboxEmpty(password_txt, "Password") ||
-                IsTextboxEmpty(phoneNo_txt, "Phone Number") ||
                 IsTextboxEmpty(firstname_txt, "First Name") ||
-                IsTextboxEmpty(lastname_txt, "Last Name") ||
-                IsComboBoxEmpty(cmbRole, "role"))
+                IsTextboxEmpty(lastname_txt, "Last Name"))
             {
                 return;
             }
@@ -100,20 +81,43 @@ namespace Inventory_Managment_System
             {
                 return;
             }
-            string selectedRole = cmbRole.SelectedItem.ToString();
+
+            string role = "";
+            if (admin_rd.Checked)
+            {
+                role = "Admin";
+            }
+            else if (employee_rd.Checked)
+            {
+                role = "Employee";
+            }
+            else
+            {
+                MessageBox.Show("Please select a role.", "Missing Role", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+
+            //string selectedRole = cmbRole.SelectedItem.ToString();
+
+            string salt = hashing.GenerateSalt();
+            string hashedPassword = hashing.HashPassword(password, salt);
+
 
             // Open a connection to the database
             SqlConnection connection = dbConnection.OpenConnection();
 
+
             // Insert the new user into the database
-            using (SqlCommand cmd = new SqlCommand("INSERT INTO Users (Username, Password, PhoneNo, FirstName, LastName, Role) VALUES (@username, @password, @PhoneNo, @firstName, @lastName, @role)", connection))
+            using (SqlCommand cmd = new SqlCommand("INSERT INTO Users (Username, PasswordHash, Salt, PhoneNo, FirstName, LastName, Role) VALUES (@username, @hashed, @salt, @phoneNo, @firstName, @lastName, @role)", connection))
             {
                 cmd.Parameters.AddWithValue("@username", username);
-                cmd.Parameters.AddWithValue("@password", password);
-                cmd.Parameters.AddWithValue("@PhoneNo", phoneNo);
+                cmd.Parameters.AddWithValue("@hashed", hashedPassword);
+                cmd.Parameters.AddWithValue("@salt", salt);
+                cmd.Parameters.AddWithValue("@phoneNo", phoneNo);
                 cmd.Parameters.AddWithValue("@firstName", firstName);
                 cmd.Parameters.AddWithValue("@lastName", lastName);
-                cmd.Parameters.AddWithValue("@role", selectedRole);
+                cmd.Parameters.AddWithValue("@role", role);
 
                 int affectedRows = cmd.ExecuteNonQuery(); // Get the number of affected rows
 
@@ -137,61 +141,90 @@ namespace Inventory_Managment_System
 
         }
 
-        private void SignUp_Form_KeyDown(object sender, KeyEventArgs e)
+        private void exit_btn_Click(object sender, EventArgs e)
         {
-            if (e.KeyCode == Keys.Down || e.KeyCode == Keys.Up)
+            DialogResult res;
+            res = MessageBox.Show("Do you want to exit", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (res == DialogResult.Yes)
             {
-                // Check if the button is currently focused
-                if (signup_btn.Focused)
-                {
-                    if (e.KeyCode == Keys.Down)
-                    {
-                        // Wrap back to the first TextBox
-                        controls[0].Focus();
-                    }
-                    else if (e.KeyCode == Keys.Up)
-                    {
-                        // Focus the last TextBox
-                        controls[controls.Count - 1].Focus();
-                    }
-                }
-                else
-                {
-                    // Find the current focused TextBox
-                    var focusedTextBox = controls.FirstOrDefault(tb => tb.Focused);
-
-                    // Get the index of the current focused TextBox
-                    int currentIndex = controls.IndexOf(focusedTextBox);
-
-                    // Calculate the next index
-                    int nextIndex = e.KeyCode == Keys.Down ? currentIndex + 1 : currentIndex - 1;
-
-                    // If the next index is valid, change the focus
-                    if (nextIndex >= 0 && nextIndex < controls.Count)
-                    {
-                        controls[nextIndex].Focus();
-                    }
-                    else if (e.KeyCode == Keys.Down && nextIndex >= controls.Count)
-                    {
-                        // If the down arrow key was pressed and we're at the end of the TextBoxes list,
-                        // move the focus to the button
-                        signup_btn.Focus();
-                    }
-                    else if (e.KeyCode == Keys.Up && nextIndex < 0)
-                    {
-                        // If the up arrow key was pressed and we're at the start of the TextBoxes list,
-                        // wrap around to the button
-                        signup_btn.Focus();
-                    }
-                }
-
-                // Suppress the key press to prevent further processing (like scrolling)
-                e.Handled = true;
-                e.SuppressKeyPress = true;
+                Application.Exit();
+            }
+            else
+            {
+                this.Show();
+                username_txt.Focus();
             }
         }
 
+        private void back_btn_Click(object sender, EventArgs e)
+        {
+            Login_Form lg = new Login_Form();
 
+            this.Hide();
+            lg.Show();
+
+        }
+
+        #endregion
+
+        #region //User Input Validator Functions
+
+        private bool IsTextboxEmpty(TextBox textBox, string fieldName)
+        {
+            if (string.IsNullOrWhiteSpace(textBox.Text))
+            {
+                MessageBox.Show(fieldName + " field cannot be empty.", "Missing Information", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                textBox.Focus(); // Set the focus to this textbox
+                return true;
+            }
+            return false;
+        }
+
+        private bool IsComboBoxEmpty(ComboBox comboBox, string fieldName)
+        {
+            if (comboBox.SelectedItem == null)
+            {
+                MessageBox.Show("Please select a " + fieldName + ".", "Missing Information", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                comboBox.Focus(); // Set the focus to this combobox
+                return true;
+            }
+            return false;
+        }
+
+        private void ClearFormControls()
+        {
+            // Clear all TextBox controls
+            username_txt.Clear();
+            password_txt.Clear();
+            phoneNo_txt.Clear();
+            firstname_txt.Clear();
+            lastname_txt.Clear();
+
+            // Clear the ComboBox
+            cmbRole.SelectedIndex = -1;
+
+            // Set focus on username_txt
+            username_txt.Focus();
+        }
+
+        private bool IsAdminExists()
+        {
+            // Open a connection to the database
+            SqlConnection connection = dbConnection.OpenConnection();
+
+            using (SqlCommand cmd = new SqlCommand("sp_CheckAdminExists", connection))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                int adminCount = (int)cmd.ExecuteScalar();
+
+                // Close the connection
+                dbConnection.CloseConnection();
+
+                return adminCount > 0;
+            }
+        }
 
         private void CheckSpace_KeyPress(object sender, KeyPressEventArgs e, string fieldName)
         {
@@ -235,6 +268,89 @@ namespace Inventory_Managment_System
             return "+251 " + phoneNumber.Substring(1);
         }
 
+        #endregion
+
+        #region //Additional Features
+        //private void SignUp_Form_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    if (e.KeyCode == Keys.Down || e.KeyCode == Keys.Up)
+        //    {
+        //        // Check if the button is currently focused
+        //        if (signup_btn.Focused)
+        //        {
+        //            if (e.KeyCode == Keys.Down)
+        //            {
+        //                // Wrap back to the first TextBox
+        //                controls[0].Focus();
+        //            }
+        //            else if (e.KeyCode == Keys.Up)
+        //            {
+        //                // Focus the last TextBox
+        //                controls[controls.Count - 1].Focus();
+        //            }
+        //        }
+        //        else
+        //        {
+        //            // Find the current focused TextBox
+        //            var focusedTextBox = controls.FirstOrDefault(tb => tb.Focused);
+
+        //            // Get the index of the current focused TextBox
+        //            int currentIndex = controls.IndexOf(focusedTextBox);
+
+        //            // Calculate the next index
+        //            int nextIndex = e.KeyCode == Keys.Down ? currentIndex + 1 : currentIndex - 1;
+
+        //            // If the next index is valid, change the focus
+        //            if (nextIndex >= 0 && nextIndex < controls.Count)
+        //            {
+        //                controls[nextIndex].Focus();
+        //            }
+        //            else if (e.KeyCode == Keys.Down && nextIndex >= controls.Count)
+        //            {
+        //                // If the down arrow key was pressed and we're at the end of the TextBoxes list,
+        //                // move the focus to the button
+        //                signup_btn.Focus();
+        //            }
+        //            else if (e.KeyCode == Keys.Up && nextIndex < 0)
+        //            {
+        //                // If the up arrow key was pressed and we're at the start of the TextBoxes list,
+        //                // wrap around to the button
+        //                signup_btn.Focus();
+        //            }
+        //        }
+
+        //        // Suppress the key press to prevent further processing (like scrolling)
+        //        e.Handled = true;
+        //        e.SuppressKeyPress = true;
+        //    }
+        //}
+
+
+        private void SignUp_Form_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Down || e.KeyCode == Keys.Up)
+            {
+                // Find the current focused textbox
+                var focusedTextBox = controls.FirstOrDefault(tb => tb.Focused);
+
+                // Get the index of the current focused textbox
+                int currentIndex = controls.IndexOf(focusedTextBox);
+
+                // Calculate the next index
+                int nextIndex = e.KeyCode == Keys.Down ? currentIndex + 1 : currentIndex - 1;
+
+                // If the next index is valid, change the focus
+                if (nextIndex >= 0 && nextIndex < controls.Count)
+                {
+                    controls[nextIndex].Focus();
+                }
+
+                // Suppress the key press to prevent further processing (like scrolling)
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+        }
+
         private void ResetColor_TextChanged(object sender, EventArgs e)
         {
             TextBox textBox = (TextBox)sender;
@@ -245,69 +361,6 @@ namespace Inventory_Managment_System
             }
         }
 
-
-        private bool IsTextboxEmpty(TextBox textBox, string fieldName)
-        {
-            if (string.IsNullOrWhiteSpace(textBox.Text))
-            {
-                MessageBox.Show(fieldName + " field cannot be empty.", "Missing Information", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                textBox.Focus(); // Set the focus to this textbox
-                return true;
-            }
-            return false;
-        }
-
-        private bool IsComboBoxEmpty(ComboBox comboBox, string fieldName)
-        {
-            if (comboBox.SelectedItem == null)
-            {
-                MessageBox.Show("Please select a " + fieldName + ".", "Missing Information", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                comboBox.Focus(); // Set the focus to this combobox
-                return true;
-            }
-            return false;
-        }
-
-        private void ClearFormControls()
-        {
-            // Clear all TextBox controls
-            username_txt.Clear();
-            password_txt.Clear();
-            phoneNo_txt.Clear();
-            firstname_txt.Clear();
-            lastname_txt.Clear();
-
-            // Clear the ComboBox
-            cmbRole.SelectedIndex = -1;
-
-            // Set focus on username_txt
-            username_txt.Focus();
-        }
-
-        private void exit_btn_Click(object sender, EventArgs e)
-        {
-            DialogResult res;
-            res = MessageBox.Show("Do you want to exit", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (res == DialogResult.Yes)
-            {
-                Application.Exit();
-            }
-            else
-            {
-                this.Show();
-                username_txt.Focus();
-            }
-        }
-
-        private void back_btn_Click(object sender, EventArgs e)
-        {
-            Login_Form lg = new Login_Form();
-
-            this.Hide();
-            lg.Show();
-
-        }
-
+        #endregion
     }
 }

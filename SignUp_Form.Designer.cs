@@ -43,6 +43,8 @@ namespace Inventory_Managment_System
             this.signup_btn = new System.Windows.Forms.Button();
             this.exit_btn = new System.Windows.Forms.Button();
             this.back_btn = new System.Windows.Forms.Button();
+            this.admin_rd = new System.Windows.Forms.RadioButton();
+            this.employee_rd = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // label1
@@ -131,7 +133,7 @@ namespace Inventory_Managment_System
             this.cmbRole.Items.AddRange(new object[] {
             "Admin",
             "Employee"});
-            this.cmbRole.Location = new System.Drawing.Point(570, 89);
+            this.cmbRole.Location = new System.Drawing.Point(515, 95);
             this.cmbRole.Name = "cmbRole";
             this.cmbRole.Size = new System.Drawing.Size(154, 24);
             this.cmbRole.TabIndex = 10;
@@ -168,12 +170,36 @@ namespace Inventory_Managment_System
             this.back_btn.UseVisualStyleBackColor = true;
             this.back_btn.Click += new System.EventHandler(this.back_btn_Click);
             // 
+            // admin_rd
+            // 
+            this.admin_rd.AutoSize = true;
+            this.admin_rd.Location = new System.Drawing.Point(515, 145);
+            this.admin_rd.Name = "admin_rd";
+            this.admin_rd.Size = new System.Drawing.Size(68, 21);
+            this.admin_rd.TabIndex = 14;
+            this.admin_rd.TabStop = true;
+            this.admin_rd.Text = "Admin";
+            this.admin_rd.UseVisualStyleBackColor = true;
+            // 
+            // employee_rd
+            // 
+            this.employee_rd.AutoSize = true;
+            this.employee_rd.Location = new System.Drawing.Point(515, 188);
+            this.employee_rd.Name = "employee_rd";
+            this.employee_rd.Size = new System.Drawing.Size(91, 21);
+            this.employee_rd.TabIndex = 15;
+            this.employee_rd.TabStop = true;
+            this.employee_rd.Text = "Employee";
+            this.employee_rd.UseVisualStyleBackColor = true;
+            // 
             // SignUp_Form
             // 
             this.AcceptButton = this.signup_btn;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.employee_rd);
+            this.Controls.Add(this.admin_rd);
             this.Controls.Add(this.back_btn);
             this.Controls.Add(this.exit_btn);
             this.Controls.Add(this.signup_btn);
@@ -212,5 +238,7 @@ namespace Inventory_Managment_System
         private System.Windows.Forms.Button signup_btn;
         private System.Windows.Forms.Button exit_btn;
         private System.Windows.Forms.Button back_btn;
+        private System.Windows.Forms.RadioButton admin_rd;
+        private System.Windows.Forms.RadioButton employee_rd;
     }
 }

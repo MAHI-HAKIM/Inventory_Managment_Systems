@@ -33,6 +33,8 @@ namespace Inventory_Managment_System
             this.labelFirstName = new System.Windows.Forms.Label();
             this.label_lastname = new System.Windows.Forms.Label();
             this.back_btn = new System.Windows.Forms.Button();
+            this.userDataGridView = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.userDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // labelWelcome
@@ -61,7 +63,7 @@ namespace Inventory_Managment_System
             this.label_lastname.AutoSize = true;
             this.label_lastname.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_lastname.ForeColor = System.Drawing.Color.Green;
-            this.label_lastname.Location = new System.Drawing.Point(435, 124);
+            this.label_lastname.Location = new System.Drawing.Point(382, 124);
             this.label_lastname.Name = "label_lastname";
             this.label_lastname.Size = new System.Drawing.Size(77, 20);
             this.label_lastname.TabIndex = 2;
@@ -69,19 +71,30 @@ namespace Inventory_Managment_System
             // 
             // back_btn
             // 
-            this.back_btn.Location = new System.Drawing.Point(276, 303);
+            this.back_btn.Location = new System.Drawing.Point(630, 112);
             this.back_btn.Name = "back_btn";
-            this.back_btn.Size = new System.Drawing.Size(211, 78);
+            this.back_btn.Size = new System.Drawing.Size(102, 32);
             this.back_btn.TabIndex = 3;
             this.back_btn.Text = "Go Back";
             this.back_btn.UseVisualStyleBackColor = true;
             this.back_btn.Click += new System.EventHandler(this.back_btn_Click);
+            // 
+            // userDataGridView
+            // 
+            this.userDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.userDataGridView.Location = new System.Drawing.Point(28, 187);
+            this.userDataGridView.Name = "userDataGridView";
+            this.userDataGridView.RowHeadersWidth = 51;
+            this.userDataGridView.RowTemplate.Height = 24;
+            this.userDataGridView.Size = new System.Drawing.Size(760, 251);
+            this.userDataGridView.TabIndex = 4;
             // 
             // Welcome_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.userDataGridView);
             this.Controls.Add(this.back_btn);
             this.Controls.Add(this.label_lastname);
             this.Controls.Add(this.labelFirstName);
@@ -89,6 +102,7 @@ namespace Inventory_Managment_System
             this.Name = "Welcome_Form";
             this.Text = "Welcome";
             this.Load += new System.EventHandler(this.Welcome_Form_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.userDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -100,5 +114,6 @@ namespace Inventory_Managment_System
         private System.Windows.Forms.Label labelFirstName;
         private System.Windows.Forms.Label label_lastname;
         private System.Windows.Forms.Button back_btn;
+        private System.Windows.Forms.DataGridView userDataGridView;
     }
 }

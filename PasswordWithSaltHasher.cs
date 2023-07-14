@@ -10,40 +10,31 @@ namespace Inventory_Managment_System
 
     public class PasswordWithSaltHasher
     {
-        public byte[] Salt { get; private set; }
-
-        public PasswordWithSaltHasher()
+        public string HashPassword(string password, string salt)
         {
-            new RNGCryptoServiceProvider().GetBytes(Salt = new byte[16]);
+            // Combine password and salt
+            string passwordAndSalt = password + salt;
+
+            // Create a SHA256 hash (you can also use SHA384 or SHA512)
+            SHA256 sha256 = SHA256.Create();
+            byte[] passwordAndSaltBytes = Encoding.UTF8.GetBytes(passwordAndSalt);
+            byte[] hashBytes = sha256.ComputeHash(passwordAndSaltBytes);
+
+            // Convert byte array to string
+            string hashString = Convert.ToBase64String(hashBytes);
+
+            return hashString;
         }
 
-        public byte[] Hash(string password)
+        public string GenerateSalt()
         {
-            var pbkdf2 = new Rfc2898DeriveBytes(password, Salt, 10000);
-            byte[] hash = pbkdf2.GetBytes(20);
+            RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
+            byte[] saltBytes = new byte[32]; // 256 bits
+            rng.GetBytes(saltBytes);
 
-            byte[] hashBytes = new byte[36];
-            Array.Copy(Salt, 0, hashBytes, 0, 16);
-            Array.Copy(hash, 0, hashBytes, 16, 20);
+            string saltString = Convert.ToBase64String(saltBytes);
 
-            return hashBytes;
-        }
-
-        public bool Verify(byte[] savedPasswordHash, string passwordToCheck)
-        {
-            byte[] salt = new byte[16];
-            Array.Copy(savedPasswordHash, 0, salt, 0, 16);
-
-            var pbkdf2 = new Rfc2898DeriveBytes(passwordToCheck, salt, 10000);
-            byte[] hash = pbkdf2.GetBytes(20);
-
-            for (int i = 0; i < 20; i++)
-            {
-                if (savedPasswordHash[i + 16] != hash[i])
-                    return false;
-            }
-
-            return true;
+            return saltString;
         }
     }
 

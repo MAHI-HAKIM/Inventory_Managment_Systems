@@ -25,16 +25,16 @@ namespace Inventory_Managment_System
             HandleDbOperations hdo = new HandleDbOperations();
 
 
-            //if (hdo.IsAdminExists())
-            //{
-            //    Application.Run(loginForm); // Run Login form if admin exists
-            //}
-            //else
-            //{
-            //    Application.Run(signUpForm); // Run Signup form if no admin exists
-            //}
+            if (hdo.IsAdminExists())
+            {
+                Application.Run(loginForm); // Run Login form if admin exists
+            }
+            else
+            {
+                Application.Run(signUpForm); // Run Signup form if no admin exists
+            }
 
-            Application.Run(new SignUp_Form());
+            //Application.Run(new SignUp_Form());
         }
     }
 }
