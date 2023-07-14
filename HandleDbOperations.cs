@@ -3,22 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data.SqlClient;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace Inventory_Managment_System
 {
     class HandleDbOperations
     {
         
-    DBConnection dbConnection = new DBConnection();
+         DBConnection dbConnection = new DBConnection();
 
         public bool IsAdminExists()
         {
-            // Open a connection to the database
-            SqlConnection connection = dbConnection.OpenConnection();
 
-            using (SqlCommand cmd = new SqlCommand("sp_CheckAdminExists", connection))
+            // Open a connection to the database
+             dbConnection.OpenConnection();
+
+            using (SqlCommand cmd = new SqlCommand("sp_CheckAdminExists", dbConnection.Connection))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
 
@@ -31,5 +32,5 @@ namespace Inventory_Managment_System
             }
         }
     }
-
 }
+

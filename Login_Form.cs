@@ -48,6 +48,9 @@ namespace Inventory_Managment_System
         private void login_btn_Click(object sender, EventArgs e)
         {
 
+            try
+            {
+
             // Validate all the input fields
             if (IsTextboxEmpty(username_txt, "Username") ||
                 IsTextboxEmpty(password_txt, "Password"))
@@ -62,8 +65,9 @@ namespace Inventory_Managment_System
             // Retrieve the salt and hashed password from the database
             string storedSalt, storedHashedPassword , firstname , lastname;
 
-            SqlConnection connection = dbConnection.OpenConnection();
-            using (SqlCommand cmd = new SqlCommand("SELECT FirstName , LastName , Salt, PasswordHash FROM Users WHERE Username = @username", connection))
+             dbConnection.OpenConnection();
+
+            using (SqlCommand cmd = new SqlCommand("SELECT FirstName,LastName,Salt,PasswordHash FROM Users WHERE Username = @username", dbConnection.Connection))
             {
                 cmd.Parameters.AddWithValue("@username", enteredUsername);
 
@@ -103,6 +107,22 @@ namespace Inventory_Managment_System
                 // If they don't match, the entered password is incorrect.
                 MessageBox.Show("Invalid username or password.");
             }
+            }
+            catch (SqlException ex)
+            {
+                // This block will catch any SQL related exceptions
+                MessageBox.Show("A SQL error occurred: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                // This block will catch any general exceptions
+                MessageBox.Show("An error occurred: " + ex.Message);
+            }
+            finally
+            {
+                dbConnection.CloseConnection();
+            }
+
         }
 
         private void clear_btn_Click(object sender, EventArgs e)
@@ -132,17 +152,34 @@ namespace Inventory_Managment_System
 
         private void test_btn_Click(object sender, EventArgs e)
         {
-            SqlConnection connection = dbConnection.OpenConnection();
-
-            if (connection.State == System.Data.ConnectionState.Open)
+            try
             {
-                MessageBox.Show("Connection to database successful.");
+                 dbConnection.OpenConnection();
+
+                if (dbConnection.Connection.State == System.Data.ConnectionState.Open)
+                {
+                    MessageBox.Show("Connection to database successful.");
+                }
+                else
+                {
+                    MessageBox.Show("Connection to database failed.");
+                }
+            }
+            catch (SqlException ex)
+            {
+                // This block will catch any SQL related exceptions
+                MessageBox.Show("A SQL error occurred: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                // This block will catch any general exceptions
+                MessageBox.Show("An error occurred: " + ex.Message);
+            }
+            finally
+            {
                 dbConnection.CloseConnection();
             }
-            else
-            {
-                MessageBox.Show("Connection to database failed.");
-            }
+
         }
 
         private void signup_btn_Click(object sender, EventArgs e)

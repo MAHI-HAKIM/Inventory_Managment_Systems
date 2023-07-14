@@ -18,38 +18,26 @@ namespace Inventory_Managment_System
             connection = new SqlConnection(ConnectionString);
         }
 
-        public SqlConnection OpenConnection()
+        public SqlConnection Connection
+        {
+            get { return connection; }
+        }
+
+        //Opens the database connection if it is closed
+        public void OpenConnection()
         {
             if (connection.State == System.Data.ConnectionState.Closed)
             {
                 connection.Open();
             }
-
-            return connection;
         }
-
-        public bool TestConnection()
-        {
-            try
-            {
-                connection.Open();
-                connection.Close();
-                return true;
-            }
-            catch (SqlException)
-            {
-                return false;
-            }
-        }
-
-        public SqlConnection CloseConnection()
+        // Closes the database connection if it is open
+        public void CloseConnection()
         {
             if (connection.State == System.Data.ConnectionState.Open)
             {
                 connection.Close();
             }
-            return connection;
-
         }
     }
 }

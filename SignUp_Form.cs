@@ -103,13 +103,14 @@ namespace Inventory_Managment_System
             string salt = hashing.GenerateSalt();
             string hashedPassword = hashing.HashPassword(password, salt);
 
-
+            try 
+            {
             // Open a connection to the database
-            SqlConnection connection = dbConnection.OpenConnection();
+             dbConnection.OpenConnection();
 
 
             // Insert the new user into the database
-            using (SqlCommand cmd = new SqlCommand("INSERT INTO Users (Username, PasswordHash, Salt, PhoneNo, FirstName, LastName, Role) VALUES (@username, @hashed, @salt, @phoneNo, @firstName, @lastName, @role)", connection))
+            using (SqlCommand cmd = new SqlCommand("INSERT INTO Users (Username, PasswordHash, Salt, PhoneNo, FirstName, LastName, Role) VALUES (@username, @hashed, @salt, @phoneNo, @firstName, @lastName, @role)", dbConnection.Connection))
             {
                 cmd.Parameters.AddWithValue("@username", username);
                 cmd.Parameters.AddWithValue("@hashed", hashedPassword);
@@ -138,6 +139,13 @@ namespace Inventory_Managment_System
 
             // Close the connection
             dbConnection.CloseConnection();
+            }
+            catch (Exception ex)
+            {
+                // Log the exception and display a user-friendly message
+                // Note: you might want to log the exception details somewhere, for example in a file or a logging service
+                MessageBox.Show("An error occurred while attempting to sign up. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
         }
 
@@ -211,9 +219,9 @@ namespace Inventory_Managment_System
         private bool IsAdminExists()
         {
             // Open a connection to the database
-            SqlConnection connection = dbConnection.OpenConnection();
+            dbConnection.OpenConnection();
 
-            using (SqlCommand cmd = new SqlCommand("sp_CheckAdminExists", connection))
+            using (SqlCommand cmd = new SqlCommand("sp_CheckAdminExists", dbConnection.Connection))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
 
@@ -271,61 +279,7 @@ namespace Inventory_Managment_System
         #endregion
 
         #region //Additional Features
-        //private void SignUp_Form_KeyDown(object sender, KeyEventArgs e)
-        //{
-        //    if (e.KeyCode == Keys.Down || e.KeyCode == Keys.Up)
-        //    {
-        //        // Check if the button is currently focused
-        //        if (signup_btn.Focused)
-        //        {
-        //            if (e.KeyCode == Keys.Down)
-        //            {
-        //                // Wrap back to the first TextBox
-        //                controls[0].Focus();
-        //            }
-        //            else if (e.KeyCode == Keys.Up)
-        //            {
-        //                // Focus the last TextBox
-        //                controls[controls.Count - 1].Focus();
-        //            }
-        //        }
-        //        else
-        //        {
-        //            // Find the current focused TextBox
-        //            var focusedTextBox = controls.FirstOrDefault(tb => tb.Focused);
-
-        //            // Get the index of the current focused TextBox
-        //            int currentIndex = controls.IndexOf(focusedTextBox);
-
-        //            // Calculate the next index
-        //            int nextIndex = e.KeyCode == Keys.Down ? currentIndex + 1 : currentIndex - 1;
-
-        //            // If the next index is valid, change the focus
-        //            if (nextIndex >= 0 && nextIndex < controls.Count)
-        //            {
-        //                controls[nextIndex].Focus();
-        //            }
-        //            else if (e.KeyCode == Keys.Down && nextIndex >= controls.Count)
-        //            {
-        //                // If the down arrow key was pressed and we're at the end of the TextBoxes list,
-        //                // move the focus to the button
-        //                signup_btn.Focus();
-        //            }
-        //            else if (e.KeyCode == Keys.Up && nextIndex < 0)
-        //            {
-        //                // If the up arrow key was pressed and we're at the start of the TextBoxes list,
-        //                // wrap around to the button
-        //                signup_btn.Focus();
-        //            }
-        //        }
-
-        //        // Suppress the key press to prevent further processing (like scrolling)
-        //        e.Handled = true;
-        //        e.SuppressKeyPress = true;
-        //    }
-        //}
-
-
+        
         private void SignUp_Form_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Down || e.KeyCode == Keys.Up)

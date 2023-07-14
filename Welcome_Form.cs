@@ -57,21 +57,5 @@ namespace Inventory_Managment_System
             lg.Show();
 
         }
-
-        private void LoadUserData()
-        {
-            using (SqlConnection connection = dbConnection.OpenConnection())
-            {
-                using (SqlCommand cmd = new SqlCommand("SELECT UserId , Username ,FirstName, LastName, PhoneNo FROM Users", connection))
-                {
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-
-                    // Bind data to DataGridView
-                    userDataGridView.DataSource = dt;
-                }
-            }
-        }
     }
 }
