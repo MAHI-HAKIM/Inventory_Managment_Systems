@@ -72,6 +72,7 @@ namespace Inventory_Managment_System
             this.password_txt.Location = new System.Drawing.Point(246, 129);
             this.password_txt.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.password_txt.Name = "password_txt";
+            this.password_txt.PasswordChar = '*';
             this.password_txt.Size = new System.Drawing.Size(259, 22);
             this.password_txt.TabIndex = 3;
             // 

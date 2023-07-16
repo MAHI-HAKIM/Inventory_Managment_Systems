@@ -15,7 +15,6 @@ namespace Inventory_Managment_System
 
         public bool IsAdminExists()
         {
-
             // Open a connection to the database
              dbConnection.OpenConnection();
 
@@ -29,6 +28,20 @@ namespace Inventory_Managment_System
                 dbConnection.CloseConnection();
 
                 return adminCount > 0;
+            }
+        }
+
+        public bool DoesUserExist(string username)
+        {
+            using (var connection = dbConnection.OpenConnection())
+            {
+                using (var command = new SqlCommand("SELECT COUNT(*) FROM Users WHERE Username = @Username", connection))
+                {
+                    command.Parameters.AddWithValue("@Username", username);
+
+                    int userCount = (int)command.ExecuteScalar();
+                    return userCount > 0;
+                }
             }
         }
     }

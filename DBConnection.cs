@@ -8,9 +8,10 @@ using System.Data.SqlClient;
 
 namespace Inventory_Managment_System
 {
-    class DBConnection
+    class DBConnection : IDBConnection
     {
         private SqlConnection connection;
+
         private const string ConnectionString = (@"Data Source=HP-ENVY-MAHI\MSSQLSERVER03;Initial Catalog=Inventory_MG;Integrated Security=True");
 
         public DBConnection()
@@ -20,24 +21,27 @@ namespace Inventory_Managment_System
 
         public SqlConnection Connection
         {
-            get { return connection; }
+            get { return this.connection; }
         }
 
         //Opens the database connection if it is closed
-        public void OpenConnection()
+        public SqlConnection OpenConnection()
         {
             if (connection.State == System.Data.ConnectionState.Closed)
             {
                 connection.Open();
             }
+            return connection;
         }
         // Closes the database connection if it is open
         public void CloseConnection()
         {
-            if (connection.State == System.Data.ConnectionState.Open)
+            if (Connection != null && connection.State == System.Data.ConnectionState.Open)
             {
                 connection.Close();
             }
         }
+
+ 
     }
 }

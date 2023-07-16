@@ -19,14 +19,30 @@ namespace Inventory_Managment_System
         public Welcome_Form()
         {
             InitializeComponent();
-           // LoadUserData();
         }
 
         private void Welcome_Form_Load(object sender, EventArgs e)
         {
+            LoadUser();
 
         }
 
+        public void LoadUser()
+        {
+            string query = "SELECT FirstName, LastName, PhoneNo FROM Users";
+
+            dbConnection.OpenConnection();
+
+            using (SqlCommand command = new SqlCommand(query, dbConnection.Connection))
+            {
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                DataTable dataTable = new DataTable();
+                adapter.Fill(dataTable);
+
+                userDataGridView.DataSource = dataTable;
+            }
+            dbConnection.CloseConnection();
+        }
 
         public Welcome_Form(string firstName, string lastName)
         {

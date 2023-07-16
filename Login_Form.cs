@@ -14,28 +14,40 @@ namespace Inventory_Managment_System
 {
     public partial class Login_Form : Form
     {
+        // Create a list that contains your TextBoxes and Buttons in the order they should be navigated
         List<Control> controls;
 
-        DBConnection dbConnection = new DBConnection();
-        PasswordWithSaltHasher hasher = new PasswordWithSaltHasher();
+        //Some Class initializing
+        IFormValidator validator;
+        DBConnection dbConnection;
+        PasswordWithSaltHasher hasher;
 
         public Login_Form()
         {
             InitializeComponent();
 
+            // Initialize the Control list here
             controls = new List<Control> { username_txt, password_txt};
 
-            // Add the KeyDown event handler
-            this.KeyDown += Login_Form_KeyDown;
+            // Initialize the IDatabaseConnection object here
+            dbConnection = new DBConnection();
+            // Initialize the IFormValidator object here
+            validator = new FormValidator();
+            // Initialize the PassWordWithSaltHasher object here
+            hasher = new PasswordWithSaltHasher();
+
+            // Set KeyPreview to true
             this.KeyPreview = true;
+            validator.SetupNavigation(this, controls);
 
             // attach the KeyPress event to your TextBox controls
-            username_txt.KeyPress += (s, e) => CheckSpace_KeyPress(s, e, "Username");
-            password_txt.KeyPress += (s, e) => CheckSpace_KeyPress(s, e, "Password");
+            // attach the KeyPress event to your TextBox controls
+            username_txt.KeyPress += (sender, e) => validator.CheckSpace_KeyPress(sender as Control, e, "Username");
+            password_txt.KeyPress += (sender, e) => validator.CheckSpace_KeyPress(sender as Control, e, "Password");
 
             // attach the TextChanged event to your TextBox controls
-            username_txt.TextChanged += ResetColor_TextChanged;
-            password_txt.TextChanged += ResetColor_TextChanged;
+            validator.ResetColor_TextChanged(username_txt);
+            validator.ResetColor_TextChanged(password_txt);
         }
 
         #region Form Related Control Functions
@@ -47,66 +59,65 @@ namespace Inventory_Managment_System
 
         private void login_btn_Click(object sender, EventArgs e)
         {
-
             try
             {
-
-            // Validate all the input fields
-            if (IsTextboxEmpty(username_txt, "Username") ||
-                IsTextboxEmpty(password_txt, "Password"))
-            {
-                return;
-            }
-
-            // Get user input
-            string enteredUsername = username_txt.Text;
-            string enteredPassword = password_txt.Text;
-
-            // Retrieve the salt and hashed password from the database
-            string storedSalt, storedHashedPassword , firstname , lastname;
-
-             dbConnection.OpenConnection();
-
-            using (SqlCommand cmd = new SqlCommand("SELECT FirstName,LastName,Salt,PasswordHash FROM Users WHERE Username = @username", dbConnection.Connection))
-            {
-                cmd.Parameters.AddWithValue("@username", enteredUsername);
-
-                using (SqlDataReader reader = cmd.ExecuteReader())
+                // Validate all the input fields
+                if (validator.IsTextBoxEmpty(username_txt, "Name") ||
+                   validator.IsTextBoxEmpty(password_txt, "Password"))
                 {
-                    if (reader.Read())
+                    return;
+                }
+                // Get user input
+                string enteredUsername = username_txt.Text;
+                string enteredPassword = password_txt.Text;
+
+                // Retrieve the salt and hashed password from the database
+                string storedSalt, storedHashedPassword , firstname , lastname;
+
+                // Opening the connection
+                using (var connection = dbConnection.OpenConnection())
+                {
+                    string query = "SELECT FirstName,LastName,Salt,PasswordHash FROM Users WHERE Username = @username";
+                    using (SqlCommand cmd = new SqlCommand(query, dbConnection.Connection))
                     {
-                        storedSalt = reader["Salt"].ToString();
-                        storedHashedPassword = reader["PasswordHash"].ToString();
-                        firstname = reader["FirstName"].ToString();
-                        lastname = reader["LastName"].ToString();
+                        cmd.Parameters.AddWithValue("@username", enteredUsername);
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                storedSalt = reader["Salt"].ToString();
+                                storedHashedPassword = reader["PasswordHash"].ToString();
+                                firstname = reader["FirstName"].ToString();
+                                lastname = reader["LastName"].ToString();
+                            }
+                            else
+                            {
+                                // No user with the entered username found in the database
+                                MessageBox.Show("Invalid username or password.");
+                                return;
+                            }
+                        }
+                    }
+
+                    // Hash the entered password with the retrieved salt
+                    string hashedEnteredPassword = hasher.HashPassword(enteredPassword, storedSalt);
+
+                    // Compare the newly hashed password with the retrieved hashed password
+                    if (hashedEnteredPassword == storedHashedPassword)
+                    {
+                        // If they match, the entered password is correct.
+                        // Authenticate the user and proceed to the welcome screen.
+                        Welcome_Form welcomeForm = new Welcome_Form(firstname, lastname);
+                        welcomeForm.Show();
+                        this.Hide();
                     }
                     else
                     {
-                        // No user with the entered username found in the database
+                        // If they don't match, the entered password is incorrect.
                         MessageBox.Show("Invalid username or password.");
-                        return;
                     }
                 }
-            }
-            dbConnection.CloseConnection();
-
-            // Hash the entered password with the retrieved salt
-            string hashedEnteredPassword = hasher.HashPassword(enteredPassword, storedSalt);
-
-            // Compare the newly hashed password with the retrieved hashed password
-            if (hashedEnteredPassword == storedHashedPassword)
-            {
-                // If they match, the entered password is correct.
-                // Authenticate the user and proceed to the welcome screen.
-                Welcome_Form welcomeForm = new Welcome_Form(firstname , lastname);
-                welcomeForm.Show();
-                this.Hide();
-            }
-            else
-            {
-                // If they don't match, the entered password is incorrect.
-                MessageBox.Show("Invalid username or password.");
-            }
             }
             catch (SqlException ex)
             {
@@ -122,18 +133,14 @@ namespace Inventory_Managment_System
             {
                 dbConnection.CloseConnection();
             }
-
         }
-
         private void clear_btn_Click(object sender, EventArgs e)
         {
 
-            username_txt.Clear();
-            password_txt.Clear();
+            validator.ClearFormControls(controls);
 
             username_txt.Focus();
         }
-
         private void exit_btn_Click(object sender, EventArgs e)
         {
             DialogResult res;
@@ -149,7 +156,6 @@ namespace Inventory_Managment_System
                 username_txt.Focus();
             }
         }
-
         private void test_btn_Click(object sender, EventArgs e)
         {
             try
@@ -181,76 +187,12 @@ namespace Inventory_Managment_System
             }
 
         }
-
         private void signup_btn_Click(object sender, EventArgs e)
         {
             SignUp_Form sg = new SignUp_Form();
             this.Hide();
             sg.Show();
         }
-
         #endregion
-
-        #region Additional User Input Validator Control
-        private void Login_Form_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Down || e.KeyCode == Keys.Up)
-            {
-                // Find the current focused textbox
-                var focusedTextBox = controls.FirstOrDefault(tb => tb.Focused);
-
-                // Get the index of the current focused textbox
-                int currentIndex = controls.IndexOf(focusedTextBox);
-
-                // Calculate the next index
-                int nextIndex = e.KeyCode == Keys.Down ? currentIndex + 1 : currentIndex - 1;
-
-                // If the next index is valid, change the focus
-                if (nextIndex >= 0 && nextIndex < controls.Count)
-                {
-                    controls[nextIndex].Focus();
-                }
-
-                // Suppress the key press to prevent further processing (like scrolling)
-                e.Handled = true;
-                e.SuppressKeyPress = true;
-            }
-        }
-
-        private void CheckSpace_KeyPress(object sender, KeyPressEventArgs e, string fieldName)
-        {
-            if (e.KeyChar == ' ') // ASCII value for space
-            {
-                e.Handled = true; // Stops the character from being entered into the TextBox
-                ((TextBox)sender).ForeColor = Color.Red; // Change the TextBox's text color to red
-                MessageBox.Show(fieldName + " cannot contain spaces.", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                ResetColor_TextChanged(sender, e); // Reset color after showing the MessageBox
-
-            }
-        }
-
-        private void ResetColor_TextChanged(object sender, EventArgs e)
-        {
-            TextBox textBox = (TextBox)sender;
-
-            if (!textBox.Text.Contains(" ")) // If the TextBox's text no longer contains a space
-            {
-                textBox.ForeColor = SystemColors.WindowText; // Reset the TextBox's text color to default
-            }
-        }
-
-        private bool IsTextboxEmpty(TextBox textBox, string fieldName)
-        {
-            if (string.IsNullOrWhiteSpace(textBox.Text))
-            {
-                MessageBox.Show(fieldName + " field cannot be empty.", "Missing Information", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                textBox.Focus(); // Set the focus to this textbox
-                return true;
-            }
-            return false;
-        }
-
-        #endregion
-
     }
 }
