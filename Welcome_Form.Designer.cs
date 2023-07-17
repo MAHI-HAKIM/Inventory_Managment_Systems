@@ -82,11 +82,11 @@ namespace Inventory_Managment_System
             // userDataGridView
             // 
             this.userDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.userDataGridView.Location = new System.Drawing.Point(28, 187);
+            this.userDataGridView.Location = new System.Drawing.Point(55, 187);
             this.userDataGridView.Name = "userDataGridView";
             this.userDataGridView.RowHeadersWidth = 51;
             this.userDataGridView.RowTemplate.Height = 24;
-            this.userDataGridView.Size = new System.Drawing.Size(760, 251);
+            this.userDataGridView.Size = new System.Drawing.Size(574, 251);
             this.userDataGridView.TabIndex = 4;
             // 
             // Welcome_Form

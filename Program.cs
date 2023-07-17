@@ -18,14 +18,12 @@ namespace Inventory_Managment_System
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            IHandleDbOperation hdo = new HandleDbOperations();
 
             SignUp_Form signUpForm = new SignUp_Form();
             Login_Form loginForm = new Login_Form();
 
-            HandleDbOperations hdo = new HandleDbOperations();
-
-
-            if (hdo.IsAdminExists())
+            if (hdo.SuperAdminExists())
             {
                 Application.Run(loginForm); // Run Login form if admin exists
             }

@@ -29,7 +29,7 @@ namespace Inventory_Managment_System
 
         public void LoadUser()
         {
-            string query = "SELECT FirstName, LastName, PhoneNo FROM Users";
+            string query = "SELECT FirstName, LastName, PhoneNo , Address FROM ContactInfo";
 
             dbConnection.OpenConnection();
 

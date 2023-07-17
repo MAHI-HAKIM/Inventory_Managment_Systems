@@ -25,6 +25,28 @@ namespace Inventory_Managment_System
             }
             return false;
         }
+
+        public Role? ValidateRoleSelection(bool isSuperAdminChecked, bool isAdminChecked, bool isEmployeeChecked)
+        {
+            if (isSuperAdminChecked)
+            {
+                return Role.SuperAdmin;
+            }
+            else if (isAdminChecked)
+            {
+                return Role.Admin;
+            }
+            else if (isEmployeeChecked)
+            {
+                return Role.Employee;
+            }
+            else
+            {
+                MessageBox.Show("Please select a role.", "Role Not Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return null;
+            }
+        }
+
         public string ValidateRole(RadioButton adminRadio, RadioButton employeeRadio)
         {
             if (adminRadio.Checked)
@@ -56,6 +78,17 @@ namespace Inventory_Managment_System
                     radioButton.Checked = false;
                 }
                 // If you have more types of controls that can be cleared, add more else if blocks here.
+            }
+        }
+        public void UncheckRadioButtons(List<Control> containers)
+        {
+            foreach (Control container in containers)
+            {
+                 if (container is RadioButton)
+                 {
+                    RadioButton radioButton = (RadioButton)container;
+                    radioButton.Checked = false;
+                 }
             }
         }
         public void CheckSpace_KeyPress(Control control, KeyPressEventArgs e, string fieldName)

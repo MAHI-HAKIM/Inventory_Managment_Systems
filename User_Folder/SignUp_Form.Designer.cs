@@ -39,12 +39,16 @@ namespace Inventory_Managment_System
             this.phoneNo_txt = new System.Windows.Forms.TextBox();
             this.password_txt = new System.Windows.Forms.TextBox();
             this.username_txt = new System.Windows.Forms.TextBox();
-            this.cmbRole = new System.Windows.Forms.ComboBox();
             this.signup_btn = new System.Windows.Forms.Button();
             this.exit_btn = new System.Windows.Forms.Button();
             this.back_btn = new System.Windows.Forms.Button();
             this.admin_rd = new System.Windows.Forms.RadioButton();
             this.employee_rd = new System.Windows.Forms.RadioButton();
+            this.address_txt = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.superad_rd = new System.Windows.Forms.RadioButton();
+            this.deleteUser_txt = new System.Windows.Forms.TextBox();
+            this.deleteUser_btn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -86,7 +90,7 @@ namespace Inventory_Managment_System
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(134, 289);
+            this.label5.Location = new System.Drawing.Point(134, 279);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(72, 17);
             this.label5.TabIndex = 4;
@@ -94,7 +98,7 @@ namespace Inventory_Managment_System
             // 
             // lastname_txt
             // 
-            this.lastname_txt.Location = new System.Drawing.Point(224, 289);
+            this.lastname_txt.Location = new System.Drawing.Point(224, 274);
             this.lastname_txt.Name = "lastname_txt";
             this.lastname_txt.Size = new System.Drawing.Size(194, 22);
             this.lastname_txt.TabIndex = 5;
@@ -127,20 +131,9 @@ namespace Inventory_Managment_System
             this.username_txt.Size = new System.Drawing.Size(194, 22);
             this.username_txt.TabIndex = 9;
             // 
-            // cmbRole
-            // 
-            this.cmbRole.FormattingEnabled = true;
-            this.cmbRole.Items.AddRange(new object[] {
-            "Admin",
-            "Employee"});
-            this.cmbRole.Location = new System.Drawing.Point(515, 95);
-            this.cmbRole.Name = "cmbRole";
-            this.cmbRole.Size = new System.Drawing.Size(154, 24);
-            this.cmbRole.TabIndex = 10;
-            // 
             // signup_btn
             // 
-            this.signup_btn.Location = new System.Drawing.Point(239, 347);
+            this.signup_btn.Location = new System.Drawing.Point(246, 379);
             this.signup_btn.Name = "signup_btn";
             this.signup_btn.Size = new System.Drawing.Size(159, 47);
             this.signup_btn.TabIndex = 11;
@@ -162,7 +155,7 @@ namespace Inventory_Managment_System
             // 
             // back_btn
             // 
-            this.back_btn.Location = new System.Drawing.Point(26, 347);
+            this.back_btn.Location = new System.Drawing.Point(22, 379);
             this.back_btn.Name = "back_btn";
             this.back_btn.Size = new System.Drawing.Size(159, 47);
             this.back_btn.TabIndex = 13;
@@ -192,18 +185,66 @@ namespace Inventory_Managment_System
             this.employee_rd.Text = "Employee";
             this.employee_rd.UseVisualStyleBackColor = true;
             // 
+            // address_txt
+            // 
+            this.address_txt.Location = new System.Drawing.Point(224, 319);
+            this.address_txt.Name = "address_txt";
+            this.address_txt.Size = new System.Drawing.Size(194, 22);
+            this.address_txt.TabIndex = 16;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(135, 322);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(60, 17);
+            this.label6.TabIndex = 17;
+            this.label6.Text = "Address";
+            // 
+            // superad_rd
+            // 
+            this.superad_rd.AutoSize = true;
+            this.superad_rd.Location = new System.Drawing.Point(515, 229);
+            this.superad_rd.Name = "superad_rd";
+            this.superad_rd.Size = new System.Drawing.Size(110, 21);
+            this.superad_rd.TabIndex = 18;
+            this.superad_rd.TabStop = true;
+            this.superad_rd.Text = "Super Admin";
+            this.superad_rd.UseVisualStyleBackColor = true;
+            // 
+            // deleteUser_txt
+            // 
+            this.deleteUser_txt.Location = new System.Drawing.Point(488, 58);
+            this.deleteUser_txt.Name = "deleteUser_txt";
+            this.deleteUser_txt.Size = new System.Drawing.Size(194, 22);
+            this.deleteUser_txt.TabIndex = 19;
+            // 
+            // deleteUser_btn
+            // 
+            this.deleteUser_btn.Location = new System.Drawing.Point(503, 92);
+            this.deleteUser_btn.Name = "deleteUser_btn";
+            this.deleteUser_btn.Size = new System.Drawing.Size(159, 37);
+            this.deleteUser_btn.TabIndex = 20;
+            this.deleteUser_btn.Text = "Delete";
+            this.deleteUser_btn.UseVisualStyleBackColor = true;
+            this.deleteUser_btn.Click += new System.EventHandler(this.deleteUser_btn_Click);
+            // 
             // SignUp_Form
             // 
             this.AcceptButton = this.signup_btn;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.deleteUser_btn);
+            this.Controls.Add(this.deleteUser_txt);
+            this.Controls.Add(this.superad_rd);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.address_txt);
             this.Controls.Add(this.employee_rd);
             this.Controls.Add(this.admin_rd);
             this.Controls.Add(this.back_btn);
             this.Controls.Add(this.exit_btn);
             this.Controls.Add(this.signup_btn);
-            this.Controls.Add(this.cmbRole);
             this.Controls.Add(this.username_txt);
             this.Controls.Add(this.password_txt);
             this.Controls.Add(this.phoneNo_txt);
@@ -234,11 +275,15 @@ namespace Inventory_Managment_System
         private System.Windows.Forms.TextBox phoneNo_txt;
         private System.Windows.Forms.TextBox password_txt;
         private System.Windows.Forms.TextBox username_txt;
-        private System.Windows.Forms.ComboBox cmbRole;
         private System.Windows.Forms.Button signup_btn;
         private System.Windows.Forms.Button exit_btn;
         private System.Windows.Forms.Button back_btn;
         private System.Windows.Forms.RadioButton admin_rd;
         private System.Windows.Forms.RadioButton employee_rd;
+        private System.Windows.Forms.TextBox address_txt;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.RadioButton superad_rd;
+        private System.Windows.Forms.TextBox deleteUser_txt;
+        private System.Windows.Forms.Button deleteUser_btn;
     }
 }

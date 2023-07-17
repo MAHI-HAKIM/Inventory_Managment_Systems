@@ -8,11 +8,11 @@ using System.Data.SqlClient;
 
 namespace Inventory_Managment_System
 {
-    class DBConnection : IDBConnection
+    public class DBConnection : IDBConnection
     {
         private SqlConnection connection;
 
-        private const string ConnectionString = (@"Data Source=HP-ENVY-MAHI\MSSQLSERVER03;Initial Catalog=Inventory_MG;Integrated Security=True");
+        private const string ConnectionString = (@"Data Source=HP-ENVY-MAHI\MSSQLSERVER03;Initial Catalog=Inventory_MGS;Integrated Security=True");
 
         public DBConnection()
         {
@@ -41,7 +41,5 @@ namespace Inventory_Managment_System
                 connection.Close();
             }
         }
-
- 
     }
 }

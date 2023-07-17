@@ -46,24 +46,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DBConnection.cs" />
-    <Compile Include="FormValidator.cs" />
-    <Compile Include="HandleDbOperations.cs" />
-    <Compile Include="IDBConnection.cs" />
-    <Compile Include="IFormValidator.cs" />
-    <Compile Include="Login_Form.cs">
+    <Compile Include="IHandleDbOperation.cs" />
+    <Compile Include="User_Folder\ContactInfo.cs" />
+    <Compile Include="User_Folder\IUserRepository.cs" />
+    <Compile Include="User_Folder\Role.cs" />
+    <Compile Include="User_Folder\User.cs" />
+    <Compile Include="User_Folder\UserRepository.cs" />
+    <Compile Include="Validation_Folder\DBConnection.cs" />
+    <Compile Include="Validation_Folder\FormValidator.cs" />
+    <Compile Include="Validation_Folder\HandleDbOperations.cs" />
+    <Compile Include="Validation_Folder\IDBConnection.cs" />
+    <Compile Include="Validation_Folder\IFormValidator.cs" />
+    <Compile Include="User_Folder\Login_Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Login_Form.Designer.cs">
+    <Compile Include="User_Folder\Login_Form.Designer.cs">
       <DependentUpon>Login_Form.cs</DependentUpon>
     </Compile>
-    <Compile Include="PasswordWithSaltHasher.cs" />
+    <Compile Include="User_Folder\PasswordWithSaltHasher.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SignUp_Form.cs">
+    <Compile Include="User_Folder\SignUp_Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SignUp_Form.Designer.cs">
+    <Compile Include="User_Folder\SignUp_Form.Designer.cs">
       <DependentUpon>SignUp_Form.cs</DependentUpon>
     </Compile>
     <Compile Include="Welcome_Form.cs">
@@ -72,7 +78,7 @@
     <Compile Include="Welcome_Form.Designer.cs">
       <DependentUpon>Welcome_Form.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Login_Form.resx">
+    <EmbeddedResource Include="User_Folder\Login_Form.resx">
       <DependentUpon>Login_Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -84,7 +90,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="SignUp_Form.resx">
+    <EmbeddedResource Include="User_Folder\SignUp_Form.resx">
       <DependentUpon>SignUp_Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Welcome_Form.resx">

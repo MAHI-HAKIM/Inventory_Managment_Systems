@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Inventory_Managment_System
 {
-    class IUserRepository
-    {
-    }
+        public enum Role
+        {
+            SuperAdmin,
+            Admin,
+            Employee
+        }
 }

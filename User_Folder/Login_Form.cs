@@ -19,7 +19,7 @@ namespace Inventory_Managment_System
 
         //Some Class initializing
         IFormValidator validator;
-        DBConnection dbConnection;
+        IDBConnection dbConnection;
         PasswordWithSaltHasher hasher;
 
         public Login_Form()
@@ -71,52 +71,21 @@ namespace Inventory_Managment_System
                 string enteredUsername = username_txt.Text;
                 string enteredPassword = password_txt.Text;
 
-                // Retrieve the salt and hashed password from the database
-                string storedSalt, storedHashedPassword , firstname , lastname;
+                UserRepository userRepository = new UserRepository();
+                User user = userRepository.LogUserIn(enteredUsername, enteredPassword);
 
-                // Opening the connection
-                using (var connection = dbConnection.OpenConnection())
+                if (user != null)
                 {
-                    string query = "SELECT FirstName,LastName,Salt,PasswordHash FROM Users WHERE Username = @username";
-                    using (SqlCommand cmd = new SqlCommand(query, dbConnection.Connection))
-                    {
-                        cmd.Parameters.AddWithValue("@username", enteredUsername);
-
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                storedSalt = reader["Salt"].ToString();
-                                storedHashedPassword = reader["PasswordHash"].ToString();
-                                firstname = reader["FirstName"].ToString();
-                                lastname = reader["LastName"].ToString();
-                            }
-                            else
-                            {
-                                // No user with the entered username found in the database
-                                MessageBox.Show("Invalid username or password.");
-                                return;
-                            }
-                        }
-                    }
-
-                    // Hash the entered password with the retrieved salt
-                    string hashedEnteredPassword = hasher.HashPassword(enteredPassword, storedSalt);
-
-                    // Compare the newly hashed password with the retrieved hashed password
-                    if (hashedEnteredPassword == storedHashedPassword)
-                    {
-                        // If they match, the entered password is correct.
-                        // Authenticate the user and proceed to the welcome screen.
-                        Welcome_Form welcomeForm = new Welcome_Form(firstname, lastname);
-                        welcomeForm.Show();
-                        this.Hide();
-                    }
-                    else
-                    {
-                        // If they don't match, the entered password is incorrect.
-                        MessageBox.Show("Invalid username or password.");
-                    }
+                    // If user is not null, it means the login was successful.
+                    // Authenticate the user and proceed to the welcome screen.
+                    Welcome_Form welcomeForm = new Welcome_Form(user.Contact.FirstName, user.Contact.LastName);
+                    welcomeForm.Show();
+                    this.Hide();
+                }
+                else
+                {
+                    // If user is null, it means the login was not successful.
+                    MessageBox.Show("Invalid username or password.");
                 }
             }
             catch (SqlException ex)
@@ -134,6 +103,7 @@ namespace Inventory_Managment_System
                 dbConnection.CloseConnection();
             }
         }
+
         private void clear_btn_Click(object sender, EventArgs e)
         {
 
