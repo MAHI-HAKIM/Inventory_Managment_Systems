@@ -11,8 +11,12 @@ namespace Inventory_Managment_System
     public class DBConnection : IDBConnection
     {
         private SqlConnection connection;
+<<<<<<< Updated upstream:Validation_Folder/DBConnection.cs
 
         private const string ConnectionString = (@"Data Source=HP-ENVY-MAHI\MSSQLSERVER03;Initial Catalog=Inventory_MGS;Integrated Security=True");
+=======
+        private const string ConnectionString = (@"Data Source=C:\Program Files\Microsoft SQL Server\MSSQL16.SQLEXPRESS\MSSQL\DATA;Initial Catalog=Inventory_MG;Integrated Security=True");
+>>>>>>> Stashed changes:DBConnection.cs
 
         public DBConnection()
         {

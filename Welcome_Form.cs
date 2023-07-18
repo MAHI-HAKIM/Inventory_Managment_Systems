@@ -73,5 +73,10 @@ namespace Inventory_Managment_System
             lg.Show();
 
         }
+
+        private void labelFirstName_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
