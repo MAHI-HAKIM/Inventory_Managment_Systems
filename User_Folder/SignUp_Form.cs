@@ -45,20 +45,20 @@ namespace Inventory_Managment_System
 
             // Set KeyPreview to true
             this.KeyPreview = true;
-            validator.SetupNavigation(this, controls);
+            //validator.SetupNavigation(this, controls);
 
             // Add a Shown event handler
             this.Shown += SignUp_Form_Load;
 
             // attach the KeyPress event to your TextBox controls
-            username_txt.KeyPress += (sender, e) => validator.CheckSpace_KeyPress(sender as Control, e, "Username");
-            password_txt.KeyPress += (sender, e) => validator.CheckSpace_KeyPress(sender as Control, e, "Password");
-            phoneNo_txt.KeyPress += (sender, e) => validator.CheckSpace_KeyPress(sender as Control, e, "Phone Number");
+            //username_txt.KeyPress += (sender, e) => validator.CheckSpace_KeyPress(sender as Control, e, "Username");
+            //password_txt.KeyPress += (sender, e) => validator.CheckSpace_KeyPress(sender as Control, e, "Password");
+            //phoneNo_txt.KeyPress += (sender, e) => validator.CheckSpace_KeyPress(sender as Control, e, "Phone Number");
 
             // attach the TextChanged event to your TextBox controls
-            validator.ResetColor_TextChanged(username_txt);
-            validator.ResetColor_TextChanged(password_txt);
-            validator.ResetColor_TextChanged(phoneNo_txt);
+            //validator.ResetColor_TextChanged(username_txt);
+            //validator.ResetColor_TextChanged(password_txt);
+            //validator.ResetColor_TextChanged(phoneNo_txt);
 
             //check if any charachter rather than a numeric is entered
             phoneNo_txt.KeyPress += (sender, e) => validator.CheckNumeric_KeyPress(sender as Control, e , "Phone Number");
@@ -72,8 +72,12 @@ namespace Inventory_Managment_System
             {
                 superad_rd.Visible = false;
             }
-
+            if (hdo.AdminExist())
+            {
+                admin_rd.Visible = false;
+            }
             // Set focus on username_txt
+
             username_txt.Focus();
 
         }
@@ -180,7 +184,7 @@ namespace Inventory_Managment_System
         }
         private void back_btn_Click(object sender, EventArgs e)
         {
-            Login_Form lg = new Login_Form();
+            Login_Page lg = new Login_Page();
 
             this.Hide();
             lg.Show();

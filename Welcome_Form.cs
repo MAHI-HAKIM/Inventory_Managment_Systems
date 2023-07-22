@@ -68,7 +68,7 @@ namespace Inventory_Managment_System
 
         private void back_btn_Click(object sender, EventArgs e)
         {
-            Login_Form lg = new Login_Form();
+            Login_Page lg = new Login_Page();
             this.Hide();
             lg.Show();
 

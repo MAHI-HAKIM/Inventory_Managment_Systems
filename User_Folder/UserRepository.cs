@@ -116,9 +116,11 @@ namespace Inventory_Managment_System
                 }
             }
         }
+
         public User LogUserIn(string enteredUsername, string enteredPassword)
         {
             dbConnection.OpenConnection();
+
             string query = "SELECT u.Username, u.PasswordHash, u.Salt, u.Role, c.FirstName, c.LastName, c.PhoneNo, c.Address FROM Users u " +
                            "INNER JOIN ContactInfo c ON u.ContactId = c.ContactId " +
                            "WHERE BINARY_CHECKSUM(u.Username) = BINARY_CHECKSUM(@Username)";
@@ -143,6 +145,14 @@ namespace Inventory_Managment_System
                         string storedSalt = reader["Salt"].ToString();
                         string storedHashedPassword = reader["PasswordHash"].ToString();
 
+                        // Compare the hashed password with the stored hashed password
+                        string hashedEnteredPassword = hasher.HashPassword(enteredPassword, storedSalt);
+                        if (hashedEnteredPassword != storedHashedPassword)
+                        {
+                            // Passwords don't match
+                            return null;
+                        }
+
                         user = new User
                         {
                             Username = enteredUsername,
@@ -156,6 +166,7 @@ namespace Inventory_Managment_System
                 }
             }
         }
+
     }
 
 }

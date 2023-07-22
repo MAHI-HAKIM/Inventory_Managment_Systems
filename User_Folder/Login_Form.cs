@@ -38,16 +38,16 @@ namespace Inventory_Managment_System
 
             // Set KeyPreview to true
             this.KeyPreview = true;
-            validator.SetupNavigation(this, controls);
+            //validator.SetupNavigation(this, controls);
 
             // attach the KeyPress event to your TextBox controls
             // attach the KeyPress event to your TextBox controls
-            username_txt.KeyPress += (sender, e) => validator.CheckSpace_KeyPress(sender as Control, e, "Username");
-            password_txt.KeyPress += (sender, e) => validator.CheckSpace_KeyPress(sender as Control, e, "Password");
+            //username_txt.KeyPress += (sender, e) => validator.CheckSpace_KeyPress(sender as Control, e, "Username");
+            //password_txt.KeyPress += (sender, e) => validator.CheckSpace_KeyPress(sender as Control, e, "Password");
 
             // attach the TextChanged event to your TextBox controls
-            validator.ResetColor_TextChanged(username_txt);
-            validator.ResetColor_TextChanged(password_txt);
+            //validator.ResetColor_TextChanged(username_txt);
+            //validator.ResetColor_TextChanged(password_txt);
         }
 
         #region Form Related Control Functions
@@ -126,6 +126,7 @@ namespace Inventory_Managment_System
                 username_txt.Focus();
             }
         }
+
         private void test_btn_Click(object sender, EventArgs e)
         {
             try

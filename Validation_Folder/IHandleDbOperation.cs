@@ -9,9 +9,11 @@ namespace Inventory_Managment_System
     public interface IHandleDbOperation
     {
         bool SuperAdminExists();
+        bool AdminExist();
         bool AnyUserExists();
         bool UserExistsById(int userId);
         bool DoesUserExist(string username);
+
         //bool UserExists(string username);
     }
 }

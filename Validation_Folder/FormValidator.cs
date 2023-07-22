@@ -91,12 +91,12 @@ namespace Inventory_Managment_System
                  }
             }
         }
-        public void CheckSpace_KeyPress(Control control, KeyPressEventArgs e, string fieldName)
+        public void CheckSpace_KeyPress(Guna.UI2.WinForms.Guna2TextBox control, KeyPressEventArgs e, string fieldName)
         {
             if (e.KeyChar == ' ') // ASCII value for space
             {
                 e.Handled = true; // Stops the character from being entered into the TextBox
-                ((TextBox)control).ForeColor = Color.Red; // Change the TextBox's text color to red
+                ((Guna.UI2.WinForms.Guna2TextBox)control).ForeColor = Color.Red; // Change the TextBox's text color to red
                 MessageBox.Show(fieldName + " cannot contain spaces.", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 ResetColor_TextChanged(control); // Reset color after showing the MessageBox
             }
@@ -104,7 +104,7 @@ namespace Inventory_Managment_System
 
         public void CheckNumeric_KeyPress(Control control, KeyPressEventArgs e,String fieldName)
         {
-            TextBox textBox = control as TextBox;
+            Guna.UI2.WinForms.Guna2TextBox textBox = control as Guna.UI2.WinForms.Guna2TextBox;
 
             if (textBox != null)
             {
@@ -144,15 +144,15 @@ namespace Inventory_Managment_System
             return null;
         }
 
-        public void ResetColor_TextChanged(Control control)
+        public void ResetColor_TextChanged(Guna.UI2.WinForms.Guna2TextBox control)
         {
-            if (control is TextBox)
+            if (control is Guna.UI2.WinForms.Guna2TextBox)
             {
-                TextBox textBox = (TextBox)control;
+                Guna.UI2.WinForms.Guna2TextBox textBox = (Guna.UI2.WinForms.Guna2TextBox)control;
                 textBox.ForeColor = SystemColors.WindowText; // Or any default color
             }
         }
-        public void SetupNavigation(Form form, List<Control> controls)
+        public void SetupNavigation(Form form, List<Guna.UI2.WinForms.Guna2TextBox> controls)
         {
             form.KeyDown += (sender, e) =>
             {

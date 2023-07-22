@@ -12,11 +12,26 @@ namespace Inventory_Managment_System
     {
          IDBConnection dbConnection = new DBConnection();
 
+       
         public bool SuperAdminExists()
         {
             dbConnection.OpenConnection();
 
             string query = "SELECT COUNT(*) FROM Users WHERE Role = 'SuperAdmin'";
+
+            SqlCommand command = new SqlCommand(query, dbConnection.Connection);
+            int count = (int)command.ExecuteScalar();
+
+            dbConnection.CloseConnection();
+
+            return count > 0;
+        }
+
+        public bool AdminExist()
+        {
+            dbConnection.OpenConnection();
+
+            string query = "SELECT COUNT(*) FROM Users WHERE Role = 'Admin'";
 
             SqlCommand command = new SqlCommand(query, dbConnection.Connection);
             int count = (int)command.ExecuteScalar();

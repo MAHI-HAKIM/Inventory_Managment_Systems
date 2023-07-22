@@ -17,10 +17,10 @@ namespace Inventory_Managment_System
         string ValidateRole(RadioButton adminRadio, RadioButton employeeRadio);
         void ClearFormControls(List<Control> controls);
         void UncheckRadioButtons(List<Control> container);
-        void CheckSpace_KeyPress(Control control, KeyPressEventArgs e, string fieldName);
+        void CheckSpace_KeyPress(Guna.UI2.WinForms.Guna2TextBox control, KeyPressEventArgs e, string fieldName);
         void CheckNumeric_KeyPress(Control control, KeyPressEventArgs e, String fieldName);
         string ValidateAndTransformPhoneNumber(Control control);
-        void ResetColor_TextChanged(Control control);
-        void SetupNavigation(Form form, List<Control> controls);
+        void ResetColor_TextChanged(Guna.UI2.WinForms.Guna2TextBox control);
+        void SetupNavigation(Form form, List<Guna.UI2.WinForms.Guna2TextBox> controls);
     }
 }

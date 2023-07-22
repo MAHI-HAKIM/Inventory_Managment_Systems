@@ -10,3 +10,5 @@ C:\Users\mahia\Desktop\Inventory_Managment_System\obj\Debug\Inventory_Managment_
 C:\Users\mahia\Desktop\Inventory_Managment_System\obj\Debug\Inventory_Managment_System.SignUp_Form.resources
 C:\Users\mahia\Desktop\Inventory_Managment_System\obj\Debug\Inventory_Managment_System.Login_Form.resources
 C:\Users\mahia\Desktop\Inventory_Managment_System\obj\Debug\Inventory_Managment_System.Welcome_Form.resources
+C:\Users\mahia\Desktop\Inventory_Managment_System\bin\Debug\Guna.UI2.dll
+C:\Users\mahia\Desktop\Inventory_Managment_System\obj\Debug\Inventory_Managment_System.Login_Page.resources
