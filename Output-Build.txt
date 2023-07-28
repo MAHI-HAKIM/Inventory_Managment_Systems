@@ -1,0 +1,9 @@
+﻿Build started...
+1>------ Build started: Project: Inventory_Managment_System, Configuration: Debug Any CPU ------
+1>C:\Users\ammar\Desktop\Github\Inventory_Managment_Systems\User_Folder\SignUp_Form.cs(22,9,22,23): error CS0246: The type or namespace name 'IFormValidator' could not be found (are you missing a using directive or an assembly reference?)
+1>C:\Users\ammar\Desktop\Github\Inventory_Managment_Systems\User_Folder\Login_Form.cs(21,9,21,23): error CS0246: The type or namespace name 'IFormValidator' could not be found (are you missing a using directive or an assembly reference?)
+1>C:\Users\ammar\Desktop\Github\Inventory_Managment_Systems\User_Folder\Login_Form.cs(22,9,22,22): error CS0246: The type or namespace name 'IDBConnection' could not be found (are you missing a using directive or an assembly reference?)
+1>C:\Users\ammar\Desktop\Github\Inventory_Managment_Systems\User_Folder\SignUp_Form.cs(23,9,23,22): error CS0246: The type or namespace name 'IDBConnection' could not be found (are you missing a using directive or an assembly reference?)
+1>C:\Users\ammar\Desktop\Github\Inventory_Managment_Systems\User_Folder\SignUp_Form.cs(24,9,24,27): error CS0246: The type or namespace name 'IHandleDbOperation' could not be found (are you missing a using directive or an assembly reference?)
+1>C:\Users\ammar\Desktop\Github\Inventory_Managment_Systems\Welcome_Form.cs(17,9,17,21): error CS0246: The type or namespace name 'DBConnection' could not be found (are you missing a using directive or an assembly reference?)
+========== Build: 0 succeeded, 1 failed, 0 up-to-date, 0 skipped ==========
