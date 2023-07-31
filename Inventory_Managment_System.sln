@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User interface", "User interface.csproj", "{E077514E-EF58-4C0B-9941-2ECC246DF2B5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User interfaces", "User interfaces.csproj", "{E077514E-EF58-4C0B-9941-2ECC246DF2B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database Connection", "Database Connection\Database Connection.csproj", "{043BB267-BDE1-4558-B6A1-20E158FFF973}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Database Connection", "Database Connection\Database Connection.csproj", "{043BB267-BDE1-4558-B6A1-20E158FFF973}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User", "User\User.csproj", "{FAA17CE0-B90F-45D1-A131-AEAEF34E9122}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "User", "User\User.csproj", "{FAA17CE0-B90F-45D1-A131-AEAEF34E9122}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Validators", "Validators\Validators.csproj", "{E6DC74B3-CEFA-464D-BCE4-71E9D24DA7B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Validators", "Validators\Validators.csproj", "{E6DC74B3-CEFA-464D-BCE4-71E9D24DA7B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User Interface", "User Interface\User Interface.csproj", "{1E927B76-B1AD-42D9-8D40-9FFFEE7118C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{E6DC74B3-CEFA-464D-BCE4-71E9D24DA7B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6DC74B3-CEFA-464D-BCE4-71E9D24DA7B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6DC74B3-CEFA-464D-BCE4-71E9D24DA7B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E927B76-B1AD-42D9-8D40-9FFFEE7118C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E927B76-B1AD-42D9-8D40-9FFFEE7118C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E927B76-B1AD-42D9-8D40-9FFFEE7118C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E927B76-B1AD-42D9-8D40-9FFFEE7118C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

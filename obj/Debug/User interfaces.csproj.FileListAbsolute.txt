@@ -1,0 +1,7 @@
+C:\Users\ammar\Desktop\Github\Inventory_Managment_Systems\obj\Debug\User interfaces.csproj.AssemblyReference.cache
+C:\Users\ammar\Desktop\Github\Inventory_Managment_Systems\obj\Debug\User interfaces.csproj.SuggestedBindingRedirects.cache
+C:\Users\ammar\Desktop\Github\Inventory_Managment_Systems\obj\Debug\Inventory_Managment_System.Properties.Resources.resources
+C:\Users\ammar\Desktop\Github\Inventory_Managment_Systems\obj\Debug\User interfaces.csproj.GenerateResource.cache
+C:\Users\ammar\Desktop\Github\Inventory_Managment_Systems\obj\Debug\User interfaces.csproj.CoreCompileInputs.cache
+C:\Users\ammar\Desktop\Github\Inventory_Managment_Systems\obj\Debug\Inventory_Managment_System.exe
+C:\Users\ammar\Desktop\Github\Inventory_Managment_Systems\obj\Debug\Inventory_Managment_System.pdb
