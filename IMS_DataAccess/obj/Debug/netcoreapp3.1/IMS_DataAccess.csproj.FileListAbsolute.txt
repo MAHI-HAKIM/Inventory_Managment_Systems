@@ -1,0 +1,5 @@
+C:\Users\mahia\Desktop\Inventory_Managment_System\IMS_DataAccess\obj\Debug\netcoreapp3.1\IMS_DataAccess.csproj.AssemblyReference.cache
+C:\Users\mahia\Desktop\Inventory_Managment_System\IMS_DataAccess\obj\Debug\netcoreapp3.1\IMS_DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mahia\Desktop\Inventory_Managment_System\IMS_DataAccess\obj\Debug\netcoreapp3.1\IMS_DataAccess.AssemblyInfoInputs.cache
+C:\Users\mahia\Desktop\Inventory_Managment_System\IMS_DataAccess\obj\Debug\netcoreapp3.1\IMS_DataAccess.AssemblyInfo.cs
+C:\Users\mahia\Desktop\Inventory_Managment_System\IMS_DataAccess\obj\Debug\netcoreapp3.1\IMS_DataAccess.csproj.CoreCompileInputs.cache

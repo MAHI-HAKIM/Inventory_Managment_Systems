@@ -1,0 +1,12 @@
+C:\Users\mahia\Desktop\Inventory_Managment_System\IMS_DataAccess\bin\Debug\net6.0\IMS_DataAccess.deps.json
+C:\Users\mahia\Desktop\Inventory_Managment_System\IMS_DataAccess\bin\Debug\net6.0\IMS_DataAccess.dll
+C:\Users\mahia\Desktop\Inventory_Managment_System\IMS_DataAccess\bin\Debug\net6.0\IMS_DataAccess.pdb
+C:\Users\mahia\Desktop\Inventory_Managment_System\IMS_DataAccess\obj\Debug\net6.0\IMS_DataAccess.csproj.AssemblyReference.cache
+C:\Users\mahia\Desktop\Inventory_Managment_System\IMS_DataAccess\obj\Debug\net6.0\IMS_DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mahia\Desktop\Inventory_Managment_System\IMS_DataAccess\obj\Debug\net6.0\IMS_DataAccess.AssemblyInfoInputs.cache
+C:\Users\mahia\Desktop\Inventory_Managment_System\IMS_DataAccess\obj\Debug\net6.0\IMS_DataAccess.AssemblyInfo.cs
+C:\Users\mahia\Desktop\Inventory_Managment_System\IMS_DataAccess\obj\Debug\net6.0\IMS_DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\mahia\Desktop\Inventory_Managment_System\IMS_DataAccess\obj\Debug\net6.0\IMS_DataAccess.dll
+C:\Users\mahia\Desktop\Inventory_Managment_System\IMS_DataAccess\obj\Debug\net6.0\refint\IMS_DataAccess.dll
+C:\Users\mahia\Desktop\Inventory_Managment_System\IMS_DataAccess\obj\Debug\net6.0\IMS_DataAccess.pdb
+C:\Users\mahia\Desktop\Inventory_Managment_System\IMS_DataAccess\obj\Debug\net6.0\ref\IMS_DataAccess.dll
