@@ -1,6 +1,5 @@
 using IMS_DataAccess;
 using IMS_GUI.GUI_Form;
-using IMS_DataAccess;
 
 namespace IMS_GUI
 {
@@ -19,20 +18,20 @@ namespace IMS_GUI
             Signup_Form signUpForm = new Signup_Form();
             Login_Form loginForm = new Login_Form();
 
-            //if (hdo.SuperAdminExists())
-            //{
-            //    Application.Run(loginForm); // Run Login form if admin exists
-            //}
-            //else if (hdo.AdminExist())
-            //{
-            //    Application.Run(loginForm); // Run Login form if admin exists
-            //}
-            //else
-            //{
-            //    Application.Run(signUpForm); // Run Signup form if no admin exists
-            //}
+            if (hdo.SuperAdminExists())
+            {
+                Application.Run(loginForm); // Run Login form if admin exists
+            }
+            else if (hdo.AdminExist())
+            {
+                Application.Run(loginForm); // Run Login form if admin exists
+            }
+            else
+            {
+                Application.Run(signUpForm); // Run Signup form if no admin exists
+            }
 
-            Application.Run(new Admin_Form());
+            //Application.Run(new Admin_Form());
         }
     }
 }
