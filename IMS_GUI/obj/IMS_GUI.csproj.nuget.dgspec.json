@@ -108,6 +108,14 @@
             "Guna.UI2.WinForms": {
               "target": "Package",
               "version": "[2.0.4.4, )"
+            },
+            "MetroFramework": {
+              "target": "Package",
+              "version": "[1.2.0.3, )"
+            },
+            "ReaLTaiizor": {
+              "target": "Package",
+              "version": "[3.7.9.4, )"
             }
           },
           "imports": [

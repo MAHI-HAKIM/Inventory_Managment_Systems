@@ -13,5 +13,11 @@
     <Compile Update="GUI_Form\Welcom_Form.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Home_Page.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="User_Page.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

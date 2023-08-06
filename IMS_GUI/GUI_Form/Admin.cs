@@ -16,7 +16,5 @@ namespace Inventory_Managment_System
         {
             InitializeComponent();
         }
-
-
     }
 }

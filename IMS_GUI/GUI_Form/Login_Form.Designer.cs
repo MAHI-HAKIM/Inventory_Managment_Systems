@@ -39,6 +39,7 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login_Form));
             login_elipse = new Guna.UI2.WinForms.Guna2Elipse(components);
             username_txt = new Guna.UI2.WinForms.Guna2TextBox();
             password_txt = new Guna.UI2.WinForms.Guna2TextBox();
@@ -50,6 +51,7 @@
             linkLabel1 = new LinkLabel();
             login_btn = new Guna.UI2.WinForms.Guna2GradientButton();
             signup_btn = new Guna.UI2.WinForms.Guna2GradientButton();
+            guna2DragControl1 = new Guna.UI2.WinForms.Guna2DragControl(components);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -140,11 +142,11 @@
             // exit_btn
             // 
             exit_btn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            exit_btn.BorderRadius = 2;
             exit_btn.CustomizableEdges = customizableEdges5;
             exit_btn.FillColor = Color.FromArgb(0, 0, 192);
+            exit_btn.HoverState.FillColor = Color.Red;
             exit_btn.IconColor = Color.White;
-            exit_btn.Location = new Point(1092, 2);
+            exit_btn.Location = new Point(1095, 0);
             exit_btn.Name = "exit_btn";
             exit_btn.ShadowDecoration.CustomizableEdges = customizableEdges6;
             exit_btn.Size = new Size(51, 36);
@@ -229,6 +231,12 @@
             signup_btn.Text = "Signup";
             signup_btn.Click += signup_btn_Click;
             // 
+            // guna2DragControl1
+            // 
+            guna2DragControl1.DockIndicatorTransparencyValue = 0.6D;
+            guna2DragControl1.TargetControl = this;
+            guna2DragControl1.UseTransparentDrag = true;
+            // 
             // Login_Form
             // 
             AutoScaleDimensions = new SizeF(120F, 120F);
@@ -245,6 +253,7 @@
             Controls.Add(password_txt);
             Controls.Add(username_txt);
             FormBorderStyle = FormBorderStyle.None;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Login_Form";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Login_Form";
@@ -269,5 +278,6 @@
         private Guna.UI2.WinForms.Guna2GradientButton login_btn;
         private LinkLabel linkLabel1;
         private Guna.UI2.WinForms.Guna2GradientButton signup_btn;
+        private Guna.UI2.WinForms.Guna2DragControl guna2DragControl1;
     }
 }

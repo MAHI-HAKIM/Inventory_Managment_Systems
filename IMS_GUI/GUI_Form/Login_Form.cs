@@ -87,13 +87,13 @@ namespace IMS_GUI.GUI_Form
                 {
                     // If user is not null, it means the login was successful.
                     // Authenticate the user and proceed to the welcome screen.
-                    Welcom_Form welcomeForm = new Welcom_Form(user.Contact.FirstName, user.Contact.LastName);
-
+                    //Welcom_Form welcomeForm = new Welcom_Form(user.Contact.FirstName, user.Contact.LastName);
+                    Admin_Form ad = new Admin_Form();
                     //Welcom_Form welcomeForm = new Welcom_Form();
 
-                    welcomeForm.FormClosed += (s, args) => this.Close();
+                    ad.FormClosed += (s, args) => this.Close();
                     this.Hide();
-                    welcomeForm.Show();
+                    ad.Show();
                 }
                 else
                 {
