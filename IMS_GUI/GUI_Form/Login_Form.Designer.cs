@@ -206,7 +206,7 @@
             login_btn.Size = new Size(146, 59);
             login_btn.TabIndex = 6;
             login_btn.Text = "Login";
-            login_btn.Click += login_btn_Click;
+            login_btn.MouseDown += login_btn_MouseDown;
             // 
             // signup_btn
             // 

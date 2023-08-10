@@ -100,7 +100,7 @@
             btn_setting.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             btn_setting.Size = new Size(48, 48);
             btn_setting.TabIndex = 6;
-            btn_setting.Click += btn_setting_Click;
+            btn_setting.MouseDown += btn_setting_MouseDown;
             // 
             // logout_btn
             // 
@@ -121,10 +121,11 @@
             logout_btn.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             logout_btn.Size = new Size(48, 48);
             logout_btn.TabIndex = 5;
-            logout_btn.Click += logout_btn_Click_1;
+            logout_btn.MouseDown += logout_btn_MouseDown;
             // 
             // btn_userpage
             // 
+            btn_userpage.Anchor = AnchorStyles.Top;
             btn_userpage.DisabledState.BorderColor = Color.DarkGray;
             btn_userpage.DisabledState.CustomBorderColor = Color.DarkGray;
             btn_userpage.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -136,13 +137,13 @@
             btn_userpage.HoverState.Image = Properties.Resources.group_2_;
             btn_userpage.Image = (Image)resources.GetObject("btn_userpage.Image");
             btn_userpage.ImageSize = new Size(23, 23);
-            btn_userpage.Location = new Point(8, 254);
+            btn_userpage.Location = new Point(9, 199);
             btn_userpage.Name = "btn_userpage";
             btn_userpage.ShadowDecoration.CustomizableEdges = customizableEdges9;
             btn_userpage.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             btn_userpage.Size = new Size(48, 48);
             btn_userpage.TabIndex = 4;
-            btn_userpage.Click += user_page_Click;
+            btn_userpage.MouseDown += btn_userpage_MouseDown;
             // 
             // btn_homepage
             // 
@@ -156,13 +157,13 @@
             btn_homepage.HoverState.FillColor = Color.FromArgb(192, 192, 255);
             btn_homepage.HoverState.Image = (Image)resources.GetObject("resource.Image1");
             btn_homepage.Image = (Image)resources.GetObject("btn_homepage.Image");
-            btn_homepage.Location = new Point(8, 181);
+            btn_homepage.Location = new Point(9, 112);
             btn_homepage.Name = "btn_homepage";
             btn_homepage.ShadowDecoration.CustomizableEdges = customizableEdges10;
             btn_homepage.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             btn_homepage.Size = new Size(48, 48);
             btn_homepage.TabIndex = 3;
-            btn_homepage.Click += home_page_Click;
+            btn_homepage.MouseDown += btn_homepage_MouseDown;
             // 
             // logo
             // 
@@ -193,7 +194,7 @@
             store.AutoSize = true;
             store.Font = new Font("Showcard Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
             store.ForeColor = Color.FromArgb(255, 128, 0);
-            store.Location = new Point(72, 11);
+            store.Location = new Point(67, 9);
             store.Name = "store";
             store.Size = new Size(80, 26);
             store.TabIndex = 6;
@@ -204,7 +205,7 @@
             Dera.AutoSize = true;
             Dera.Font = new Font("Showcard Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
             Dera.ForeColor = Color.Blue;
-            Dera.Location = new Point(7, 11);
+            Dera.Location = new Point(2, 9);
             Dera.Name = "Dera";
             Dera.Size = new Size(68, 26);
             Dera.TabIndex = 3;
@@ -256,7 +257,7 @@
             // menu_panel
             // 
             menu_panel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            menu_panel.BackColor = Color.FromArgb(255, 255, 192);
+            menu_panel.BackColor = Color.White;
             menu_panel.ForeColor = Color.Coral;
             menu_panel.Location = new Point(88, 66);
             menu_panel.Name = "menu_panel";
@@ -266,24 +267,28 @@
             // guna2DragControl1
             // 
             guna2DragControl1.DockIndicatorTransparencyValue = 0.6D;
+            guna2DragControl1.DragStartTransparencyValue = 1D;
             guna2DragControl1.TargetControl = Controlbox;
             guna2DragControl1.UseTransparentDrag = true;
             // 
             // guna2DragControl2
             // 
             guna2DragControl2.DockIndicatorTransparencyValue = 0.6D;
+            guna2DragControl2.DragStartTransparencyValue = 1D;
             guna2DragControl2.TargetControl = logo;
             guna2DragControl2.UseTransparentDrag = true;
             // 
             // guna2DragControl3
             // 
             guna2DragControl3.DockIndicatorTransparencyValue = 0.6D;
+            guna2DragControl3.DragStartTransparencyValue = 1D;
             guna2DragControl3.TargetControl = Dera;
             guna2DragControl3.UseTransparentDrag = true;
             // 
             // guna2DragControl4
             // 
             guna2DragControl4.DockIndicatorTransparencyValue = 0.6D;
+            guna2DragControl4.DragStartTransparencyValue = 1D;
             guna2DragControl4.TargetControl = store;
             guna2DragControl4.UseTransparentDrag = true;
             // 

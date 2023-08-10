@@ -19,5 +19,8 @@
     <Compile Update="User_Page.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="User_Panel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

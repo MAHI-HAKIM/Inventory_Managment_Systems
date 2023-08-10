@@ -71,7 +71,6 @@ namespace IMS_GUI
                     RadioButton radioButton = (RadioButton)control;
                     radioButton.Checked = false;
                 }
-                // If you have more types of controls that can be cleared, add more else if blocks here.
             }
         }
         public void UncheckRadioButtons(List<Control> containers)

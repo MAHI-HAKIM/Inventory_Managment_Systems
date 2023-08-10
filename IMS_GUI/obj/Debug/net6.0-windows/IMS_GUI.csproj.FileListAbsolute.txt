@@ -38,3 +38,4 @@ C:\Users\mahia\Desktop\Inventory_Managment_System\IMS_GUI\bin\Debug\net6.0-windo
 C:\Users\mahia\Desktop\Inventory_Managment_System\IMS_GUI\bin\Debug\net6.0-windows\ReaLTaiizor.dll
 C:\Users\mahia\Desktop\Inventory_Managment_System\IMS_GUI\obj\Debug\net6.0-windows\IMS_GUI.User_Page.resources
 C:\Users\mahia\Desktop\Inventory_Managment_System\IMS_GUI\obj\Debug\net6.0-windows\IMS_GUI.Home_Page.resources
+C:\Users\mahia\Desktop\Inventory_Managment_System\IMS_GUI\obj\Debug\net6.0-windows\IMS_GUI.User_Panel.resources

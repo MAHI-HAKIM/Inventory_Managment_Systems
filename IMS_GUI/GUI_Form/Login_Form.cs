@@ -48,7 +48,6 @@ namespace IMS_GUI.GUI_Form
 
             // attach the KeyPress event to your TextBox controls
             // attach the KeyPress event to your TextBox controls
-
             username_txt.KeyPress += (sender, e) => validator.CheckSpace_KeyPress(sender as Guna.UI2.WinForms.Guna2TextBox, e, "Username");
             password_txt.KeyPress += (sender, e) => validator.CheckSpace_KeyPress(sender as Guna.UI2.WinForms.Guna2TextBox, e, "Password");
 
@@ -65,59 +64,63 @@ namespace IMS_GUI.GUI_Form
         }
 
         #region Button Controls
-        private void login_btn_Click(object sender, EventArgs e)
+
+        private void login_btn_MouseDown(object sender, MouseEventArgs e)
         {
-            try
+            // Respond only to the left mouse button
+            if (e.Button == MouseButtons.Left)
             {
-
-                // Validate all the input fields
-                if (validator.IsTextBoxEmpty(username_txt, "Name") ||
-                    validator.IsTextBoxEmpty(password_txt, "Password"))
+                try
                 {
-                    return;
+
+                    // Validate all the input fields
+                    if (validator.IsTextBoxEmpty(username_txt, "Name") ||
+                        validator.IsTextBoxEmpty(password_txt, "Password"))
+                    {
+                        return;
+                    }
+                    // Get user input
+                    string enteredUsername = username_txt.Text;
+                    string enteredPassword = password_txt.Text;
+
+                    UserRepository userRepository = new UserRepository();
+                    User user = userRepository.LogUserIn(enteredUsername, enteredPassword);
+
+                    if (user != null)
+                    {
+                        // If user is not null, it means the login was successful.
+                        // Authenticate the user and proceed to the welcome screen.
+                        //Welcom_Form welcomeForm = new Welcom_Form(user.Contact.FirstName, user.Contact.LastName);
+                        Admin_Form ad = new Admin_Form();
+                        //Welcom_Form welcomeForm = new Welcom_Form();
+
+                        ad.FormClosed += (s, args) => this.Close();
+                        this.Hide();
+                        ad.Show();
+                    }
+                    else
+                    {
+                        // If user is null, it means the login was not successful.
+                        MessageBox.Show("Invalid username or password.");
+                        password_txt.Focus();
+                    }
                 }
-                // Get user input
-                string enteredUsername = username_txt.Text;
-                string enteredPassword = password_txt.Text;
-
-                UserRepository userRepository = new UserRepository();
-                User user = userRepository.LogUserIn(enteredUsername, enteredPassword);
-
-                if (user != null)
+                catch (SqlException ex)
                 {
-                    // If user is not null, it means the login was successful.
-                    // Authenticate the user and proceed to the welcome screen.
-                    //Welcom_Form welcomeForm = new Welcom_Form(user.Contact.FirstName, user.Contact.LastName);
-                    Admin_Form ad = new Admin_Form();
-                    //Welcom_Form welcomeForm = new Welcom_Form();
-
-                    ad.FormClosed += (s, args) => this.Close();
-                    this.Hide();
-                    ad.Show();
+                    // This block will catch any SQL related exceptions
+                    MessageBox.Show("A SQL error occurred: " + ex.Message);
                 }
-                else
+                catch (Exception ex)
                 {
-                    // If user is null, it means the login was not successful.
-                    MessageBox.Show("Invalid username or password.");
-                    password_txt.Focus();
+                    // This block will catch any general exceptions
+                    MessageBox.Show("An error occurred: " + ex.Message);
                 }
-            }
-            catch (SqlException ex)
-            {
-                // This block will catch any SQL related exceptions
-                MessageBox.Show("A SQL error occurred: " + ex.Message);
-            }
-            catch (Exception ex)
-            {
-                // This block will catch any general exceptions
-                MessageBox.Show("An error occurred: " + ex.Message);
-            }
-            finally
-            {
-                dbConnection.CloseConnection();
+                finally
+                {
+                    dbConnection.CloseConnection();
+                }
             }
         }
-
         private void signup_btn_Click(object sender, EventArgs e)
         {
             Signup_Form sg = new Signup_Form();
@@ -174,7 +177,7 @@ namespace IMS_GUI.GUI_Form
                 password_txt.IconRight = Properties.Resources.eye;
             }
         }
-        #endregion
 
+        #endregion
     }
 }
