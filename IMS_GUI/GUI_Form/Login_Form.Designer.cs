@@ -52,6 +52,8 @@
             login_btn = new Guna.UI2.WinForms.Guna2GradientButton();
             signup_btn = new Guna.UI2.WinForms.Guna2GradientButton();
             guna2DragControl1 = new Guna.UI2.WinForms.Guna2DragControl(components);
+            username_lbl = new Label();
+            password_label = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -86,6 +88,7 @@
             username_txt.Style = Guna.UI2.WinForms.Enums.TextBoxStyle.Material;
             username_txt.TabIndex = 4;
             username_txt.TextOffset = new Point(10, 0);
+            username_txt.TextChanged += username_txt_TextChanged;
             username_txt.Enter += username_txt_Enter;
             username_txt.Leave += username_txt_Leave;
             // 
@@ -116,6 +119,7 @@
             password_txt.TabIndex = 5;
             password_txt.TextOffset = new Point(10, 0);
             password_txt.IconRightClick += password_txt_IconRightClick;
+            password_txt.TextChanged += password_txt_TextChanged;
             password_txt.Enter += password_txt_Enter;
             password_txt.Leave += password_txt_Leave;
             // 
@@ -146,10 +150,10 @@
             exit_btn.FillColor = Color.FromArgb(0, 0, 192);
             exit_btn.HoverState.FillColor = Color.Red;
             exit_btn.IconColor = Color.White;
-            exit_btn.Location = new Point(1095, 0);
+            exit_btn.Location = new Point(1091, 0);
             exit_btn.Name = "exit_btn";
             exit_btn.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            exit_btn.Size = new Size(51, 36);
+            exit_btn.Size = new Size(55, 43);
             exit_btn.TabIndex = 8;
             exit_btn.Click += exit_btn_Click;
             // 
@@ -237,12 +241,36 @@
             guna2DragControl1.TargetControl = this;
             guna2DragControl1.UseTransparentDrag = true;
             // 
+            // username_lbl
+            // 
+            username_lbl.AutoSize = true;
+            username_lbl.ForeColor = Color.Red;
+            username_lbl.Location = new Point(738, 308);
+            username_lbl.Name = "username_lbl";
+            username_lbl.Size = new Size(177, 20);
+            username_lbl.TabIndex = 13;
+            username_lbl.Text = "Username can't be empty";
+            username_lbl.Visible = false;
+            // 
+            // password_label
+            // 
+            password_label.AutoSize = true;
+            password_label.ForeColor = Color.Red;
+            password_label.Location = new Point(738, 417);
+            password_label.Name = "password_label";
+            password_label.Size = new Size(172, 20);
+            password_label.TabIndex = 14;
+            password_label.Text = "Passwrod can't be empty";
+            password_label.Visible = false;
+            // 
             // Login_Form
             // 
             AutoScaleDimensions = new SizeF(120F, 120F);
             AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = SystemColors.ButtonHighlight;
             ClientSize = new Size(1147, 621);
+            Controls.Add(password_label);
+            Controls.Add(username_lbl);
             Controls.Add(signup_btn);
             Controls.Add(login_btn);
             Controls.Add(linkLabel1);
@@ -279,5 +307,7 @@
         private LinkLabel linkLabel1;
         private Guna.UI2.WinForms.Guna2GradientButton signup_btn;
         private Guna.UI2.WinForms.Guna2DragControl guna2DragControl1;
+        private Label password_label;
+        private Label username_lbl;
     }
 }

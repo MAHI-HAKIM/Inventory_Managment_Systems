@@ -1,0 +1,15 @@
+C:\Users\mahia\Desktop\Inventory_Managment_System\User_Repo\bin\Debug\net6.0\User_Repo.deps.json
+C:\Users\mahia\Desktop\Inventory_Managment_System\User_Repo\bin\Debug\net6.0\User_Repo.dll
+C:\Users\mahia\Desktop\Inventory_Managment_System\User_Repo\bin\Debug\net6.0\User_Repo.pdb
+C:\Users\mahia\Desktop\Inventory_Managment_System\User_Repo\bin\Debug\net6.0\IMS_DataAccess.dll
+C:\Users\mahia\Desktop\Inventory_Managment_System\User_Repo\bin\Debug\net6.0\IMS_DataAccess.pdb
+C:\Users\mahia\Desktop\Inventory_Managment_System\User_Repo\obj\Debug\net6.0\User_Repo.csproj.AssemblyReference.cache
+C:\Users\mahia\Desktop\Inventory_Managment_System\User_Repo\obj\Debug\net6.0\User_Repo.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mahia\Desktop\Inventory_Managment_System\User_Repo\obj\Debug\net6.0\User_Repo.AssemblyInfoInputs.cache
+C:\Users\mahia\Desktop\Inventory_Managment_System\User_Repo\obj\Debug\net6.0\User_Repo.AssemblyInfo.cs
+C:\Users\mahia\Desktop\Inventory_Managment_System\User_Repo\obj\Debug\net6.0\User_Repo.csproj.CoreCompileInputs.cache
+C:\Users\mahia\Desktop\Inventory_Managment_System\User_Repo\obj\Debug\net6.0\User_Repo.csproj.CopyComplete
+C:\Users\mahia\Desktop\Inventory_Managment_System\User_Repo\obj\Debug\net6.0\User_Repo.dll
+C:\Users\mahia\Desktop\Inventory_Managment_System\User_Repo\obj\Debug\net6.0\refint\User_Repo.dll
+C:\Users\mahia\Desktop\Inventory_Managment_System\User_Repo\obj\Debug\net6.0\User_Repo.pdb
+C:\Users\mahia\Desktop\Inventory_Managment_System\User_Repo\obj\Debug\net6.0\ref\User_Repo.dll

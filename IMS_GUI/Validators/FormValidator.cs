@@ -3,43 +3,44 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using User_Repo;
 using IMS_DataAccess;
+using Guna.UI2.WinForms;
 
 namespace IMS_GUI
 {
     public class FormValidator : IFormValidator
     {
-        public bool IsTextBoxEmpty(Control control, string controlName)
+        public bool IsTextBoxEmpty(Control control)
         {
             if (string.IsNullOrEmpty(control.Text))
             {
-                MessageBox.Show(controlName + " cannot be empty.", "Empty Field", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 control.Focus();
                 return true;
             }
             return false;
         }
 
-        public Role? ValidateRoleSelection(bool isSuperAdminChecked, bool isAdminChecked, bool isEmployeeChecked)
-        {
-            if (isSuperAdminChecked)
-            {
-                return Role.SuperAdmin;
-            }
-            else if (isAdminChecked)
-            {
-                return Role.Admin;
-            }
-            else if (isEmployeeChecked)
-            {
-                return Role.Employee;
-            }
-            else
-            {
-                MessageBox.Show("Please select a role.", "Role Not Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return null;
-            }
-        }
+        //public Role? ValidateRoleSelection(bool isSuperAdminChecked, bool isAdminChecked, bool isEmployeeChecked)
+        //{
+        //    if (isSuperAdminChecked)
+        //    {
+        //        return Role.SuperAdmin;
+        //    }
+        //    else if (isAdminChecked)
+        //    {
+        //        return Role.Admin;
+        //    }
+        //    else if (isEmployeeChecked)
+        //    {
+        //        return Role.Employee;
+        //    }
+        //    else
+        //    {
+        //        MessageBox.Show("Please select a role.", "Role Not Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //        return null;
+        //    }
+        //}
 
         public string ValidateRole(RadioButton adminRadio, RadioButton employeeRadio)
         {
@@ -66,13 +67,14 @@ namespace IMS_GUI
                     TextBox textBox = (TextBox)control;
                     textBox.Clear();
                 }
-                else if (control is RadioButton)
+                else if (control is Guna.UI2.WinForms.Guna2TextBox)
                 {
-                    RadioButton radioButton = (RadioButton)control;
-                    radioButton.Checked = false;
+                    Guna.UI2.WinForms.Guna2TextBox guna2TextBox = (Guna.UI2.WinForms.Guna2TextBox)control;
+                    guna2TextBox.Text = string.Empty;
                 }
             }
         }
+
         public void UncheckRadioButtons(List<Control> containers)
         {
             foreach (Control container in containers)
@@ -117,24 +119,34 @@ namespace IMS_GUI
 
         public string ValidateAndTransformPhoneNumber(Control control)
         {
-            TextBox textBox = control as TextBox;
+            string phoneNumber = "";
 
-            if (textBox != null)
+            // For standard TextBox
+            if (control is TextBox textBox)
             {
-                string phoneNumber = textBox.Text;
-
-                if (!phoneNumber.StartsWith("0") || phoneNumber.Length != 10)
-                {
-                    MessageBox.Show("Phone Number must start with '09' and be 10 digits long.", "Invalid Phone Number", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    textBox.Focus();
-                    return null;
-                }
-
-                // Convert phone number to international format
-                return "+251 " + phoneNumber.Substring(1);
+                phoneNumber = textBox.Text;
+            }
+            // For Guna2TextBox
+            else if (control is Guna.UI2.WinForms.Guna2TextBox guna2TextBox)
+            {
+                phoneNumber = guna2TextBox.Text;
+            }
+            else
+            {
+                // If you get here, it means neither a TextBox nor a Guna2TextBox was passed.
+                // Decide how you want to handle this scenario. Maybe return null or throw an exception.
+                return null;
             }
 
-            return null;
+            if (!phoneNumber.StartsWith("0") || phoneNumber.Length != 10)
+            {
+                MessageBox.Show("Phone Number must start with '09' and be 10 digits long.", "Invalid Phone Number", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                control.Focus(); // This focuses the control, be it TextBox or Guna2TextBox
+                return null;
+            }
+
+            // Convert phone number to international format
+            return "+251 " + phoneNumber.Substring(1);
         }
 
         public void ResetColor_TextChanged(Guna.UI2.WinForms.Guna2TextBox control)

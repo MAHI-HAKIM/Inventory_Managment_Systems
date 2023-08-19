@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Security.Cryptography; //Simpler way to Hash and Salt Passwords for a better Securtiy
 using IMS_DataAccess;
 using System.Data.SqlClient;
+using User_Repo;
 
 namespace IMS_GUI.GUI_Form
 {
@@ -64,61 +65,11 @@ namespace IMS_GUI.GUI_Form
         }
 
         #region Button Controls
-
         private void login_btn_MouseDown(object sender, MouseEventArgs e)
         {
-            // Respond only to the left mouse button
             if (e.Button == MouseButtons.Left)
             {
-                try
-                {
-
-                    // Validate all the input fields
-                    if (validator.IsTextBoxEmpty(username_txt, "Name") ||
-                        validator.IsTextBoxEmpty(password_txt, "Password"))
-                    {
-                        return;
-                    }
-                    // Get user input
-                    string enteredUsername = username_txt.Text;
-                    string enteredPassword = password_txt.Text;
-
-                    UserRepository userRepository = new UserRepository();
-                    User user = userRepository.LogUserIn(enteredUsername, enteredPassword);
-
-                    if (user != null)
-                    {
-                        // If user is not null, it means the login was successful.
-                        // Authenticate the user and proceed to the welcome screen.
-                        //Welcom_Form welcomeForm = new Welcom_Form(user.Contact.FirstName, user.Contact.LastName);
-                        Admin_Form ad = new Admin_Form();
-                        //Welcom_Form welcomeForm = new Welcom_Form();
-
-                        ad.FormClosed += (s, args) => this.Close();
-                        this.Hide();
-                        ad.Show();
-                    }
-                    else
-                    {
-                        // If user is null, it means the login was not successful.
-                        MessageBox.Show("Invalid username or password.");
-                        password_txt.Focus();
-                    }
-                }
-                catch (SqlException ex)
-                {
-                    // This block will catch any SQL related exceptions
-                    MessageBox.Show("A SQL error occurred: " + ex.Message);
-                }
-                catch (Exception ex)
-                {
-                    // This block will catch any general exceptions
-                    MessageBox.Show("An error occurred: " + ex.Message);
-                }
-                finally
-                {
-                    dbConnection.CloseConnection();
-                }
+                ValidateAndPerformLogin();
             }
         }
         private void signup_btn_Click(object sender, EventArgs e)
@@ -127,7 +78,6 @@ namespace IMS_GUI.GUI_Form
             this.Hide();
             sg.Show();
         }
-
         private void exit_btn_Click(object sender, EventArgs e)
         {
             // Close the application
@@ -136,11 +86,78 @@ namespace IMS_GUI.GUI_Form
         #endregion
 
         #region Additional Form Features
+        private void ValidateAndPerformLogin()
+        {
+            bool isUsernameEmpty = validator.IsTextBoxEmpty(username_txt);
+            bool isPasswordEmpty = validator.IsTextBoxEmpty(password_txt);
+
+            // Update label visibility based on textbox content
+            username_lbl.Visible = isUsernameEmpty;
+            password_label.Visible = isPasswordEmpty;
+
+            if (isUsernameEmpty || isPasswordEmpty)
+            {
+                if (isUsernameEmpty)
+                    username_txt.Focus();
+                else if (isPasswordEmpty)
+                    password_txt.Focus();
+
+                return;
+            }
+            try
+            {
+                //    Get user input
+                string enteredUsername = username_txt.Text;
+                string enteredPassword = password_txt.Text;
+
+                UserRepository userRepository = new UserRepository();
+                User user = userRepository.LogUserIn(enteredUsername, enteredPassword);
+
+                if (user != null)
+                {
+                    //If user is not null, it means the login was successful.
+                    if (user.IsActive)
+                    {
+                        // Successful login, and user is active
+                        // You can also check the RoleId to determine access permissions
+                        int roleId = user.RoleId;
+
+                        Admin_Form ad = new Admin_Form();
+                        ad.FormClosed += (s, args) => this.Close();
+                        this.Hide();
+                        ad.Show();
+
+                    }
+
+                }
+                else
+                {
+                    // If user is null, it means the login was not successful.
+                    MessageBox.Show("Invalid username or password.");
+                    password_txt.Focus();
+                }
+            }
+            catch (SqlException ex)
+            {
+                // This block will catch any SQL related exceptions
+                MessageBox.Show("A SQL error occurred: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                // This block will catch any general exceptions
+                MessageBox.Show("An error occurred: " + ex.Message);
+            }
+            finally
+            {
+                dbConnection.CloseConnection();
+            }
+        }
         private void Login_Form_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == (char)Keys.Return) // if the pressed key is Enter
+            if (e.KeyChar == (char)Keys.Enter) // if the pressed key is Enter
             {
-                login_btn.PerformClick(); // programmatically click the login button
+                e.Handled = true; // Prevent the beep sound
+                ValidateAndPerformLogin();
             }
         }
         private void username_txt_Enter(object sender, EventArgs e)
@@ -177,7 +194,16 @@ namespace IMS_GUI.GUI_Form
                 password_txt.IconRight = Properties.Resources.eye;
             }
         }
+        private void username_txt_TextChanged(object sender, EventArgs e)
+        {
+            username_lbl.Visible = false;
+        }
+        private void password_txt_TextChanged(object sender, EventArgs e)
+        {
+            password_label.Visible=false;
+        }
 
         #endregion
+
     }
 }

@@ -50,8 +50,8 @@
             Controlbox = new Panel();
             store = new Label();
             Dera = new Label();
-            maximize = new Guna.UI2.WinForms.Guna2ControlBox();
-            minimize = new Guna.UI2.WinForms.Guna2ControlBox();
+            maximize_btn = new Guna.UI2.WinForms.Guna2ControlBox();
+            minimize_btn = new Guna.UI2.WinForms.Guna2ControlBox();
             guna2ControlBox1 = new Guna.UI2.WinForms.Guna2ControlBox();
             menu_panel = new Panel();
             guna2DragControl1 = new Guna.UI2.WinForms.Guna2DragControl(components);
@@ -78,7 +78,7 @@
             side_panel.Dock = DockStyle.Left;
             side_panel.Location = new Point(0, 0);
             side_panel.Name = "side_panel";
-            side_panel.Size = new Size(64, 712);
+            side_panel.Size = new Size(64, 734);
             side_panel.TabIndex = 1;
             // 
             // btn_setting
@@ -94,7 +94,7 @@
             btn_setting.HoverState.FillColor = Color.FromArgb(192, 192, 255);
             btn_setting.HoverState.Image = Properties.Resources.settings_1_;
             btn_setting.Image = Properties.Resources.settings;
-            btn_setting.Location = new Point(8, 582);
+            btn_setting.Location = new Point(8, 604);
             btn_setting.Name = "btn_setting";
             btn_setting.ShadowDecoration.CustomizableEdges = customizableEdges7;
             btn_setting.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
@@ -115,7 +115,7 @@
             logout_btn.HoverState.FillColor = Color.Transparent;
             logout_btn.HoverState.Image = (Image)resources.GetObject("resource.Image");
             logout_btn.Image = (Image)resources.GetObject("logout_btn.Image");
-            logout_btn.Location = new Point(11, 648);
+            logout_btn.Location = new Point(11, 670);
             logout_btn.Name = "logout_btn";
             logout_btn.ShadowDecoration.CustomizableEdges = customizableEdges8;
             logout_btn.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
@@ -180,13 +180,13 @@
             Controlbox.BackColor = Color.White;
             Controlbox.Controls.Add(store);
             Controlbox.Controls.Add(Dera);
-            Controlbox.Controls.Add(maximize);
-            Controlbox.Controls.Add(minimize);
+            Controlbox.Controls.Add(maximize_btn);
+            Controlbox.Controls.Add(minimize_btn);
             Controlbox.Controls.Add(guna2ControlBox1);
             Controlbox.Dock = DockStyle.Top;
             Controlbox.Location = new Point(64, 0);
             Controlbox.Name = "Controlbox";
-            Controlbox.Size = new Size(1142, 42);
+            Controlbox.Size = new Size(1195, 42);
             Controlbox.TabIndex = 2;
             // 
             // store
@@ -211,34 +211,34 @@
             Dera.TabIndex = 3;
             Dera.Text = "Dera";
             // 
-            // maximize
+            // maximize_btn
             // 
-            maximize.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            maximize.ControlBoxType = Guna.UI2.WinForms.Enums.ControlBoxType.MaximizeBox;
-            maximize.CustomizableEdges = customizableEdges1;
-            maximize.FillColor = Color.Transparent;
-            maximize.HoverState.FillColor = Color.FromArgb(128, 128, 255);
-            maximize.IconColor = Color.Black;
-            maximize.Location = new Point(1030, -1);
-            maximize.Name = "maximize";
-            maximize.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            maximize.Size = new Size(56, 40);
-            maximize.TabIndex = 5;
+            maximize_btn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            maximize_btn.ControlBoxType = Guna.UI2.WinForms.Enums.ControlBoxType.MaximizeBox;
+            maximize_btn.CustomizableEdges = customizableEdges1;
+            maximize_btn.FillColor = Color.Transparent;
+            maximize_btn.HoverState.FillColor = Color.FromArgb(128, 128, 255);
+            maximize_btn.IconColor = Color.Black;
+            maximize_btn.Location = new Point(1084, -1);
+            maximize_btn.Name = "maximize_btn";
+            maximize_btn.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            maximize_btn.Size = new Size(56, 40);
+            maximize_btn.TabIndex = 5;
             // 
-            // minimize
+            // minimize_btn
             // 
-            minimize.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            minimize.ControlBoxType = Guna.UI2.WinForms.Enums.ControlBoxType.MinimizeBox;
-            minimize.CustomizableEdges = customizableEdges3;
-            minimize.FillColor = Color.Transparent;
-            minimize.ForeColor = Color.Black;
-            minimize.HoverState.FillColor = Color.FromArgb(192, 192, 255);
-            minimize.IconColor = Color.Black;
-            minimize.Location = new Point(972, -2);
-            minimize.Name = "minimize";
-            minimize.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            minimize.Size = new Size(56, 41);
-            minimize.TabIndex = 4;
+            minimize_btn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            minimize_btn.ControlBoxType = Guna.UI2.WinForms.Enums.ControlBoxType.MinimizeBox;
+            minimize_btn.CustomizableEdges = customizableEdges3;
+            minimize_btn.FillColor = Color.Transparent;
+            minimize_btn.ForeColor = Color.Black;
+            minimize_btn.HoverState.FillColor = Color.FromArgb(192, 192, 255);
+            minimize_btn.IconColor = Color.Black;
+            minimize_btn.Location = new Point(1024, -2);
+            minimize_btn.Name = "minimize_btn";
+            minimize_btn.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            minimize_btn.Size = new Size(56, 41);
+            minimize_btn.TabIndex = 4;
             // 
             // guna2ControlBox1
             // 
@@ -248,7 +248,7 @@
             guna2ControlBox1.FillColor = Color.Red;
             guna2ControlBox1.HoverState.FillColor = Color.FromArgb(192, 0, 0);
             guna2ControlBox1.IconColor = Color.White;
-            guna2ControlBox1.Location = new Point(1087, -2);
+            guna2ControlBox1.Location = new Point(1140, -2);
             guna2ControlBox1.Name = "guna2ControlBox1";
             guna2ControlBox1.ShadowDecoration.CustomizableEdges = customizableEdges6;
             guna2ControlBox1.Size = new Size(56, 41);
@@ -259,9 +259,9 @@
             menu_panel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             menu_panel.BackColor = Color.White;
             menu_panel.ForeColor = Color.Coral;
-            menu_panel.Location = new Point(88, 66);
+            menu_panel.Location = new Point(70, 48);
             menu_panel.Name = "menu_panel";
-            menu_panel.Size = new Size(1092, 630);
+            menu_panel.Size = new Size(1177, 674);
             menu_panel.TabIndex = 3;
             // 
             // guna2DragControl1
@@ -297,7 +297,7 @@
             AutoScaleDimensions = new SizeF(120F, 120F);
             AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = Color.FromArgb(224, 224, 224);
-            ClientSize = new Size(1206, 712);
+            ClientSize = new Size(1259, 734);
             Controls.Add(menu_panel);
             Controls.Add(Controlbox);
             Controls.Add(side_panel);
@@ -317,8 +317,8 @@
         #endregion
         private Guna.UI2.WinForms.Guna2Elipse Elipse;
         private Panel Controlbox;
-        private Guna.UI2.WinForms.Guna2ControlBox maximize;
-        private Guna.UI2.WinForms.Guna2ControlBox minimize;
+        private Guna.UI2.WinForms.Guna2ControlBox maximize_btn;
+        private Guna.UI2.WinForms.Guna2ControlBox minimize_btn;
         private Guna.UI2.WinForms.Guna2ControlBox guna2ControlBox1;
         private Panel side_panel;
         private Label store;

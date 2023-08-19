@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Guna.UI2.WinForms;
 using IMS_DataAccess;
+using User_Repo;
 
 namespace IMS_GUI
 {
     public interface IFormValidator
     {
-        bool IsTextBoxEmpty(Control control, string controlName);
-        Role? ValidateRoleSelection(bool isSuperAdminChecked, bool isAdminChecked, bool isEmployeeChecked);
+        bool IsTextBoxEmpty(Control control);
+
+        //Role? ValidateRoleSelection(bool isSuperAdminChecked, bool isAdminChecked, bool isEmployeeChecked);
         string ValidateRole(RadioButton adminRadio, RadioButton employeeRadio);
         void ClearFormControls(List<Control> controls);
         void UncheckRadioButtons(List<Control> container);

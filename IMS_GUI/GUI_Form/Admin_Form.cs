@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IMS_GUI.GUI_Pages.Admin_Pages;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,6 +22,8 @@ namespace IMS_GUI.GUI_Form
         }
         private void Admin_Form_Load(object sender, EventArgs e)
         {
+            ShowUserControl(typeof(UserMng_Page));
+
         }
 
         private void ShowUserControl(Type userControlType)
@@ -63,9 +66,9 @@ namespace IMS_GUI.GUI_Form
             {
                 ResetAllButtons();
                 ActivateButton(btn_userpage, Properties.Resources.group_2_);
-                ShowUserControl(typeof(User_Page));
+                ShowUserControl(typeof(UserMng_Page));
             }
-           
+
         }
 
         private void btn_homepage_MouseDown(object sender, MouseEventArgs e)
@@ -75,19 +78,19 @@ namespace IMS_GUI.GUI_Form
             {
                 ResetAllButtons();
                 ActivateButton(btn_homepage, Properties.Resources.dashboard__1_);
-                ShowUserControl(typeof(Home_Page));
+                ShowUserControl(typeof(UserMng_Page));
             }
 
-          
+
         }
 
         private void btn_setting_MouseDown(object sender, MouseEventArgs e)
         { // Respond only to the left mouse button
             if (e.Button == MouseButtons.Left)
             {
-                ResetAllButtons();
-                ActivateButton(btn_setting, Properties.Resources.settings_1_);
-                ShowUserControl(typeof(User_Page));
+                Signup_Form sg = new Signup_Form();
+                this.Hide();
+                sg.Show();
             }
 
         }

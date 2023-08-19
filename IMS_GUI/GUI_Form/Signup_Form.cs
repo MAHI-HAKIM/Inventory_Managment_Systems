@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using IMS_DataAccess;
+using User_Repo;
 using static Guna.UI2.WinForms.Suite.Descriptions;
 
 namespace IMS_GUI.GUI_Form
@@ -61,93 +62,93 @@ namespace IMS_GUI.GUI_Form
 
         private void signup_btn_Click(object sender, EventArgs e)
         {
-            // Step 1: Input validation
-            if (validator.IsTextBoxEmpty(username_txt, "UserName") ||
-                validator.IsTextBoxEmpty(password_txt, "Password") ||
-                validator.IsTextBoxEmpty(phoneNo_txt, "Phone Number") ||
-                validator.IsTextBoxEmpty(firstname_txt, "First Name") ||
-                validator.IsTextBoxEmpty(lastname_txt, "Last Name"))
-            {
-                return;
-            }
+            //// Step 1: Input validation
+            //if (validator.IsTextBoxEmpty(username_txt, "UserName") ||
+            //    validator.IsTextBoxEmpty(password_txt, "Password") ||
+            //    validator.IsTextBoxEmpty(phoneNo_txt, "Phone Number") ||
+            //    validator.IsTextBoxEmpty(firstname_txt, "First Name") ||
+            //    validator.IsTextBoxEmpty(lastname_txt, "Last Name"))
+            //{
+            //    return;
+            //}
 
-            // Validate and transform phone number
-            string phoneNumber = validator.ValidateAndTransformPhoneNumber(phoneNo_txt);
-            if (phoneNumber == null) return;
+            //// Validate and transform phone number
+            //string phoneNumber = validator.ValidateAndTransformPhoneNumber(phoneNo_txt);
+            //if (phoneNumber == null) return;
 
-            //Validate Role and Choose which role is selected
-            Role? role = validator.ValidateRoleSelection(superad_rd.Checked, admin_rd.Checked, employee_rd.Checked);
-            string enteredAddress = string.IsNullOrWhiteSpace(address_txt.Text) ? "ET" : address_txt.Text;
+            ////Validate Role and Choose which role is selected
+            ////Role? role = validator.ValidateRoleSelection(superad_rd.Checked, admin_rd.Checked, employee_rd.Checked);
+            //string enteredAddress = string.IsNullOrWhiteSpace(address_txt.Text) ? "ET" : address_txt.Text;
 
-            string password = password_txt.Text;
-            string salt = hashing.GenerateSalt();
-            string hashedPassword = hashing.HashPassword(password, salt);
+            //string password = password_txt.Text;
+            //string salt = hashing.GenerateSalt();
+            //string hashedPassword = hashing.HashPassword(password, salt);
 
-            if (role == null)
-            {
-                return; // Exit if no role was selected.
-            }
+            ////if (role == null)
+            ////{
+            ////    return; // Exit if no role was selected.
+            ////}
 
-            if (hdo.DoesUserExist(username_txt.Text))
-            {
-                MessageBox.Show("Username already exists.");
-                username_txt.Clear();
-                username_txt.Focus();
-            }
-            else
-            {
+            //if (hdo.DoesUserExist(username_txt.Text))
+            //{
+            //    MessageBox.Show("Username already exists.");
+            //    username_txt.Clear();
+            //    username_txt.Focus();
+            //}
+            //else
+            //{
 
-                // Step 2: Create User and ContactInfo objects
-                ContactInfo contact = new ContactInfo()
-                {
-                    FirstName = firstname_txt.Text,
-                    LastName = lastname_txt.Text,
-                    PhoneNo = phoneNumber,
-                    Address = enteredAddress
-                };
-                User user = new User()
-                {
-                    Username = username_txt.Text,
-                    PasswordHash = hashedPassword,
-                    Salt = salt,
-                    Role = (Role)role, // Or whichever role they've selected
-                    Contact = contact
-                };
+            //    // Step 2: Create User and ContactInfo objects
+            //    ContactInfo contact = new ContactInfo()
+            //    {
+            //        FirstName = firstname_txt.Text,
+            //        LastName = lastname_txt.Text,
+            //        PhoneNo = phoneNumber,
+            //        Address = enteredAddress
+            //    };
+            //    User user = new User()
+            //    {
+            //        Username = username_txt.Text,
+            //        PasswordHash = hashedPassword,
+            //        Salt = salt,
+            //        Role = (Role)role, // Or whichever role they've selected
+            //        Contact = contact
+            //    };
 
-                // Step 3: Use UserRepository to create the user
-                try
-                {
-                    // Use UserRepository to create the user
-                    IUserRepository userRepository = new UserRepository();
-                    userRepository.CreateUser(user);
+            //    // Step 3: Use UserRepository to create the user
+            //    try
+            //    {
+            //        // Use UserRepository to create the user
+            //        IUserRepository userRepository = new UserRepository();
+            //        userRepository.CreateUser(user);
 
-                    // Show a success message
-                    MessageBox.Show("Successfully signed up!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //        // Show a success message
+            //        MessageBox.Show("Successfully signed up!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    //validator.ClearFormControls(controls);
-                    //validator.UncheckRadioButtons(radios);
-                    //// Clear the form or close it, depending on your needs
-                }
-                catch (SqlException ex)
-                {
-                    // This block will catch any SQL related exceptions
-                    MessageBox.Show("A SQL error occurred: " + ex.Message);
-                }
-                catch (Exception ex)
-                {
-                    // This block will catch any general exceptions
-                    MessageBox.Show("An error occurred: " + ex.Message);
-                }
-                finally
-                {
-                    dbConnection.CloseConnection();
-                }
-            }
+            //        //validator.ClearFormControls(controls);
+            //        //validator.UncheckRadioButtons(radios);
+            //        //// Clear the form or close it, depending on your needs
+            //    }
+            //    catch (SqlException ex)
+            //    {
+            //        // This block will catch any SQL related exceptions
+            //        MessageBox.Show("A SQL error occurred: " + ex.Message);
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        // This block will catch any general exceptions
+            //        MessageBox.Show("An error occurred: " + ex.Message);
+            //    }
+            //    finally
+            //    {
+            //        dbConnection.CloseConnection();
+            //    }
+            //}
         }
 
         private void back_btn_Click(object sender, EventArgs e)
         {
-            Login_Form lg = new Login_Form();
+            Admin_Form lg = new Admin_Form();
             this.Hide();
             lg.Show();
         }
@@ -184,7 +185,7 @@ namespace IMS_GUI.GUI_Form
 
                 if (hdo.UserExistsById(userId))
                 {
-                    userRepository.DeleteUser(userId);
+                    //userRepository.DeleteUser(userId);
                     MessageBox.Show("User deleted successfully.");
                 }
                 else
