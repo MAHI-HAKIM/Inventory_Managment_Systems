@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace User_Repo
 {
-    public class User
+    public class Users
     {
         public int UserId { get; set; } // Auto-incremented by the database
         public string Username { get; set; } = "";
@@ -17,17 +17,5 @@ namespace User_Repo
         public DateTime RoleAssignment { get; set; }
         public int RoleId { get; set; } // This will reference a role from the Role table
         public ContactInfo UserContact { get; set; } // Embedded Contact object
-
-        //// Constructor
-        //public User(string username, string passwordHash, string salt, bool isActive, DateTime assignedDate, int roleId, ContactInfo contact)
-        //{
-        //    Username = username;
-        //    PasswordHash = passwordHash;
-        //    Salt = salt;
-        //    IsActive = isActive;
-        //    AssignedDate = assignedDate;
-        //    RoleId = roleId;
-        //    UserContact = contact;
-        //}
     }
 }

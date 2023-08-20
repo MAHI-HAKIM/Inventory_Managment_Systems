@@ -7,7 +7,6 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Data.Common;
 using IMS_DataAccess;
-using User_Repo.User_Repo;
 
 namespace User_Repo
 {
@@ -17,7 +16,7 @@ namespace User_Repo
 
         PasswordWithSaltHasher hasher = new PasswordWithSaltHasher();
 
-        public void CreateUser(User user)
+        public void CreateUser(Users user)
         {
             dbConnection.OpenConnection();
 
@@ -67,8 +66,6 @@ namespace User_Repo
                 }
             }
         }
-
-
         public void DeleteUser(int userId)
         {
             dbConnection.OpenConnection();
@@ -120,8 +117,7 @@ namespace User_Repo
                 }
             }
         }
-
-        public User LogUserIn(string enteredUsername, string enteredPassword)
+        public Users LogUserIn(string enteredUsername, string enteredPassword)
         {
             try
             {
@@ -136,7 +132,8 @@ namespace User_Repo
                     command.Parameters.AddWithValue("@Username", enteredUsername);
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        User user = null;
+                        Users user = null;
+
                         if (reader.Read())
                         {
                             int userId = Convert.ToInt32(reader["UserId"]);
@@ -155,7 +152,7 @@ namespace User_Repo
                             string hashedEnteredPassword = hasher.HashPassword(enteredPassword, storedSalt);
                             if (hashedEnteredPassword == storedHashedPassword)
                             {
-                                user = new User
+                                user = new Users
                                 {
                                     UserId = userId,
                                     Username = enteredUsername,
@@ -190,57 +187,82 @@ namespace User_Repo
                 dbConnection.CloseConnection();
             }
         }
-
-
-        public bool UpdateUserDetails(int userId, string newUsername, string newPasswordHash, string newSalt, int roleId, string newFirstName, string newLastName, string newPhoneNumber, string newAddress, bool isActive)
+        public bool UpdateUserDetails(Users updatedUser)
         {
             try
             {
                 dbConnection.OpenConnection();
 
-                // Fetch the ContactID associated with the user
-                //int contactId = GetContactIdByUserId(userId);
-
-                //if (contactId == -1)
-                //{
-                //    throw new Exception("User not found or associated with a contact.");
-                //}
-
-                // Construct your SQL query to update user information
-                string updateUserQuery = "UPDATE Users SET Username = @Username, PasswordHash = @PasswordHash, Salt = @Salt, RoleId = @RoleId, IsActive = @IsActive WHERE UserId = @UserId";
-                string updateContactQuery = "UPDATE ContactInfo SET FirstName = @FirstName, LastName = @LastName, PhoneNumber = @PhoneNumber, Address = @Address WHERE ContactId = @ContactId";
-
-                using (SqlCommand updateUserCommand = new SqlCommand(updateUserQuery, dbConnection.Connection))
-                using (SqlCommand updateContactCommand = new SqlCommand(updateContactQuery, dbConnection.Connection))
+                using (SqlTransaction transaction = dbConnection.Connection.BeginTransaction())
                 {
-                    updateUserCommand.Parameters.AddWithValue("@Username", newUsername);
-                    updateUserCommand.Parameters.AddWithValue("@PasswordHash", newPasswordHash);
-                    updateUserCommand.Parameters.AddWithValue("@Salt", newSalt);
-                    updateUserCommand.Parameters.AddWithValue("@RoleId", roleId);
-                    updateUserCommand.Parameters.AddWithValue("@IsActive", isActive);
-                    updateUserCommand.Parameters.AddWithValue("@UserId", userId);
+                    try
+                    {
+                        // Construct your SQL query to update user information excluding password and AssignedDate
+                        //string updateUserQuery = "UPDATE Users SET Username = @Username, IsActive = @IsActive RoleAssignment = @RoleAssignment, RoleId = @RoleId WHERE UserId = @UserId";
 
-                    updateContactCommand.Parameters.AddWithValue("@FirstName", newFirstName);
-                    updateContactCommand.Parameters.AddWithValue("@LastName", newLastName);
-                    updateContactCommand.Parameters.AddWithValue("@PhoneNumber", newPhoneNumber);
-                    updateContactCommand.Parameters.AddWithValue("@Address", newAddress);
-                    //updateContactCommand.Parameters.AddWithValue("@ContactId", contactId);
+                        string updateUserQuery = "UPDATE Users SET IsActive = @IsActive, RoleAssignment = @RoleAssignment, RoleID = @RoleID WHERE UserID = @UserID";
 
-                    int userRowsAffected = updateUserCommand.ExecuteNonQuery();
-                    int contactRowsAffected = updateContactCommand.ExecuteNonQuery();
+                        using (SqlCommand updateUserCommand = new SqlCommand(updateUserQuery, dbConnection.Connection, transaction))
+                        {
+                            updateUserCommand.Parameters.AddWithValue("@IsActive", updatedUser.IsActive);
+                            updateUserCommand.Parameters.AddWithValue("@RoleAssignment", updatedUser.RoleAssignment);
+                            updateUserCommand.Parameters.AddWithValue("@RoleId", updatedUser.RoleId);
+                            updateUserCommand.Parameters.AddWithValue("@UserID", updatedUser.UserId);
 
-                    return userRowsAffected > 0 && contactRowsAffected > 0; // Return true if both updates were successful
+
+                            int userRowsAffected = updateUserCommand.ExecuteNonQuery();
+
+                            if (userRowsAffected <= 0)
+                            {
+                                transaction.Rollback();
+                                return false; // User update failed
+                            }
+                        }
+
+                        // Only update contact information if there are changes
+                        if (!string.IsNullOrEmpty(updatedUser.UserContact.FirstName) || !string.IsNullOrEmpty(updatedUser.UserContact.LastName) || !string.IsNullOrEmpty(updatedUser.UserContact.PhoneNumber) || !string.IsNullOrEmpty(updatedUser.UserContact.Address))
+                        {
+                            //string updateContactQuery = "UPDATE ContactInfo SET FirstName = @FirstName, LastName = @LastName, PhoneNumber = @PhoneNumber, Address = @Address WHERE ContactId = @ContactId";
+                            string updateContactQuery = "UPDATE Contact SET Firstname = @Firstname, Lastname = @Lastname, PhoneNumber = @PhoneNumber, Address = @Address WHERE ContactID = (SELECT ContactID FROM Users WHERE UserID = @UserID)";
+                            using (SqlCommand updateContactCommand = new SqlCommand(updateContactQuery, dbConnection.Connection, transaction))
+                            {
+                                updateContactCommand.Parameters.AddWithValue("@FirstName", updatedUser.UserContact.FirstName);
+                                updateContactCommand.Parameters.AddWithValue("@LastName", updatedUser.UserContact.LastName);
+                                updateContactCommand.Parameters.AddWithValue("@PhoneNumber", updatedUser.UserContact.PhoneNumber);
+                                updateContactCommand.Parameters.AddWithValue("@Address", updatedUser.UserContact.Address);
+                                updateContactCommand.Parameters.AddWithValue("@UserID", updatedUser.UserId);
+
+
+
+                                int contactRowsAffected = updateContactCommand.ExecuteNonQuery();
+
+                                if (contactRowsAffected <= 0)
+                                {
+                                    transaction.Rollback();
+                                    return false; // Contact update failed
+                                }
+                            }
+
+                        }
+                        transaction.Commit();
+                        return true;
+                    }
+                    catch (SqlException ex)
+                    {
+                        // Handle database-related exceptions and log them
+                        // You might want to log ex.ToString() or store it in a log file
+                        transaction.Rollback();
+                        return false;
+                    }
+                    catch (Exception ex)
+                    {
+                        // Handle other general exceptions and log them
+                        // You might want to log ex.ToString() or store it in a log file
+
+                        transaction.Rollback();
+                        return false;
+                    }
                 }
-            }
-            catch (SqlException ex)
-            {
-                // Handle database-related exceptions here
-                throw new Exception("Database error: " + ex.Message, ex);
-            }
-            catch (Exception ex)
-            {
-                // Handle other general exceptions here
-                throw new Exception("An error occurred: " + ex.Message, ex);
             }
             finally
             {
@@ -248,14 +270,7 @@ namespace User_Repo
             }
         }
 
-
-
-
-
-
-
-
-
-
     }
 }
+
+

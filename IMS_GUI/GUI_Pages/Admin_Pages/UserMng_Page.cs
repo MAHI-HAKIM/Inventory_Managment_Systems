@@ -13,17 +13,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using User_Repo;
-using User_Repo.User_Access;
-using User_Repo.User_Repo;
 using static Guna.UI2.WinForms.Suite.Descriptions;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace IMS_GUI.GUI_Pages.Admin_Pages
 {
     public partial class UserMng_Page : UserControl
     {
-        List<Guna.UI2.WinForms.Guna2TextBox> textboxes;
+        List<Control> textboxes;
         List<UserDetails> userDetailsList;
         List<Role> rolesList;
+        private int UserID;
 
         //Some Class initializing
         IFormValidator validator;
@@ -40,7 +40,7 @@ namespace IMS_GUI.GUI_Pages.Admin_Pages
         {
             InitializeComponent();
 
-            textboxes = new List<Guna.UI2.WinForms.Guna2TextBox> { username_txt, password_txt, phonenumber_txt, firstname_txt, lastname_txt, address_txt };
+            textboxes = new List<Control> { username_txt, password_txt, phonenumber_txt, firstname_txt, lastname_txt, address_txt };
             rolesList = accessUser.FetchRoles();
 
             // Initialize the IDatabaseConnection object here
@@ -60,10 +60,19 @@ namespace IMS_GUI.GUI_Pages.Admin_Pages
             // attach the TextChanged event to your TextBox controls
             validator.ResetColor_TextChanged(username_txt);
             validator.ResetColor_TextChanged(password_txt);
-
+            
             //check if any charachter rather than a numeric is entered
             phonenumber_txt.KeyPress += (sender, e) => validator.CheckNumeric_KeyPress(sender as Control, e, "Phone Number");
         }
+
+        private enum FormMode
+        {
+            Add,
+            Update
+        }
+
+        private FormMode currentMode = FormMode.Add; // Default mode is Add
+
         private void UserMng_Page_Load(object sender, EventArgs e)
         {
             PopulateRoleComboBox();
@@ -73,6 +82,22 @@ namespace IMS_GUI.GUI_Pages.Admin_Pages
 
         #region Button Functionality
         private void save_btn_Click_1(object sender, EventArgs e)
+        {
+            if (currentMode == FormMode.Add)
+            {
+                Add_NewUser();
+            }
+            else if (currentMode == FormMode.Update) 
+            {
+                  Update_User();
+               // validator.UpdateUserInformation(1, true, DateTime.Now, 1, "Mahisha", "Hakim", "+251 915743030", "Ethiopia");
+            }
+
+
+
+        }
+
+        private void Add_NewUser()
         {
             if (!ValidateForm())
             {
@@ -104,7 +129,7 @@ namespace IMS_GUI.GUI_Pages.Admin_Pages
                 Role selectedRole = (Role)Role_cmb.SelectedItem;
 
                 // Create a new User object
-                User_Repo.User newUser = new User_Repo.User
+                Users newUser = new Users
                 {
                     Username = username_txt.Text,
                     PasswordHash = hashedPassword,
@@ -123,9 +148,9 @@ namespace IMS_GUI.GUI_Pages.Admin_Pages
 
                 // Show a success message
                 MessageBox.Show("Successfully signed up!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-               // validator.ClearFormControls(textboxes);
-                Users_Dgv.DataSource = null;
-                Users_Dgv.DataSource = accessUser.GetAllUserDetails();
+                // validator.ClearFormControls(textboxes);
+                Loaddata();
+                Users_Dgv.Refresh();
             }
             catch (SqlException ex)
             {
@@ -142,11 +167,88 @@ namespace IMS_GUI.GUI_Pages.Admin_Pages
                 dbConnection.CloseConnection();
             }
         }
+        private void Update_User()
+        {
+            if (!ValidateForm())
+            {
+                return;
+            }
+            string phoneNumber = validator.ValidateAndTransformPhoneNumber(phonenumber_txt);
+            if (phoneNumber == null) return;
+
+            string enteredAddress = string.IsNullOrWhiteSpace(address_txt.Text) ? "ET" : address_txt.Text;
+
+
+            // Fetch the existing user from the database
+            Users existingUser = accessUser.GetUserById(UserID);
+
+            if (existingUser == null)
+            {
+                MessageBox.Show("User not found.");
+                return;
+            }
+
+            // Prepare user information for update
+            Users updatedUser = new Users
+            {
+                UserId = UserID,
+                Username = username_txt.Text,
+                RoleId = (int)Role_cmb.SelectedValue,
+                IsActive = true, // Set to appropriate value
+                UserContact = new ContactInfo
+                {
+                    FirstName = firstname_txt.Text,
+                    LastName = lastname_txt.Text,
+                    PhoneNumber = phoneNumber,
+                    Address = enteredAddress,
+                }
+            };
+
+            // Check if the role is changing and update RoleAssignment if necessary
+            if (updatedUser.RoleId != existingUser.RoleId)
+            {
+                updatedUser.RoleAssignment = DateTime.Now;
+            }
+            else
+            {
+                updatedUser.RoleAssignment = existingUser.RoleAssignment;
+            }
+
+
+            // Use UserRepository to create the user
+              IUserRepository userRepository = new UserRepository();
+
+            // Call the update function and handle the result
+            bool updateResult = userRepository.UpdateUserDetails(updatedUser);
+
+            //bool updateResult = validator.UpdateUserInformation(UserID, true, updatedUser.RoleAssignment, updatedUser.RoleId, updatedUser.UserContact.FirstName,
+            //                                                    updatedUser.UserContact.LastName, updatedUser.UserContact.PhoneNumber, updatedUser.UserContact.Address);
+
+            if (updateResult)
+            {
+                MessageBox.Show("User updated successfully.");
+                validator.ClearFormControls(textboxes);
+                menu_panel.Visible = false;
+               
+
+                currentMode = FormMode.Add;
+                Loaddata(); // Refresh the data grid view
+            }
+            else
+            {
+                MessageBox.Show("Failed to update user.");
+            }
+
+        }
         private void add_btn_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
+                currentMode = FormMode.Add;
+                validator.ClearFormControls(textboxes);
                 menu_panel.Visible = true;
+                username_txt.Enabled = true;
+                password_txt.Enabled = true;
                 username_txt.Focus();
             }
         }
@@ -214,22 +316,43 @@ namespace IMS_GUI.GUI_Pages.Admin_Pages
                     dbConnection.CloseConnection();
                 }
             }
+
             else if (e.ColumnIndex == Edit.Index)
             {
-                // Validate and transform phone number
-                string phoneNumber = validator.ValidateAndTransformPhoneNumber(phonenumber_txt);
-                if (phoneNumber == null) return;
-                //MessageBox.Show("Successfully signed up!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                menu_panel.Visible = true;
 
-                string enteredAddress = string.IsNullOrWhiteSpace(address_txt.Text) ? "ET" : address_txt.Text;
+                currentMode = FormMode.Update;
+                username_txt.Enabled = false;
+                password_txt.Enabled = false; // Disable user input
 
-                string password = password_txt.Text;
-                string salt = hashing.GenerateSalt();
-                string hashedPassword = hashing.HashPassword(password, salt);
+
+                // Get the UserID associated with the clicked row's index
+                UserID = userDetailsList[e.RowIndex].UserId;
+
+                Users userToUpdate = accessUser.GetUserById(UserID);
+
+                if(userToUpdate != null) 
+                {
+                    username_txt.Text = userToUpdate.Username;
+                    password_txt.Text = "UnabletoAccess";
+                    password_txt.UseSystemPasswordChar = true; // Hide characters
+                    string UserPhonenumber = validator.FormatPhoneNumberForDisplay(userToUpdate.UserContact.PhoneNumber);
+                    phonenumber_txt.Text = UserPhonenumber;
+                    firstname_txt.Text= userToUpdate.UserContact.FirstName;
+                    lastname_txt.Text = userToUpdate.UserContact.LastName;
+                    address_txt.Text = userToUpdate.UserContact.Address;
+                    Role_cmb.SelectedValue = userToUpdate.RoleId;
+                }
             }
         }
         #endregion
 
+        private Users PopulateUser()
+        {
+            Users user = null;
+
+            return user;
+        }
         #region Access Functions
         private void Loaddata()
         {
@@ -251,7 +374,6 @@ namespace IMS_GUI.GUI_Pages.Admin_Pages
             {
                 MessageBox.Show($"An error occurred: {ex.Message}");
             }
-
         }
         private void PopulateRoleComboBox()
         {

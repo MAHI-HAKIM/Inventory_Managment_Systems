@@ -4,10 +4,11 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using User_Repo.User_Repo;
 using IMS_DataAccess;
+using System.Data.Common;
+using System.Data;
 
-namespace User_Repo.User_Access
+namespace User_Repo
 {
     public class User_Accessory : IUser_Accessory
     {
@@ -106,5 +107,69 @@ namespace User_Repo.User_Access
 
             return rolesList;
         }
+        public Users GetUserById(int userId)
+        {
+            try
+            {
+                dBConnection.OpenConnection();
+
+                string query = @" SELECT  u.UserId, u.Username, u.PasswordHash, u.Salt, u.IsActive, u.AssignedDate, u.RoleAssignment, u.RoleId,
+                                 c.ContactId, c.FirstName, c.LastName, c.PhoneNumber, c.Address
+                                 FROM Users u
+                                 INNER JOIN Contact c ON u.ContactId = c.ContactId
+                                 WHERE u.UserId = @UserId";
+
+                using (SqlCommand command = new SqlCommand(query, dBConnection.Connection))
+                {
+                    command.Parameters.AddWithValue("@UserId", userId);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            Users user = new Users
+                            {
+                                UserId = Convert.ToInt32(reader["UserId"]),
+                                Username = reader["Username"].ToString(),
+                                PasswordHash = reader["PasswordHash"].ToString(),
+                                Salt = reader["Salt"].ToString(),
+                                IsActive = Convert.ToBoolean(reader["IsActive"]),
+                                AssignedDate = Convert.ToDateTime(reader["AssignedDate"]),
+                                RoleAssignment = Convert.ToDateTime(reader["RoleAssignment"]),
+                                RoleId = Convert.ToInt32(reader["RoleId"]),
+
+                                UserContact = new ContactInfo
+                                {
+                                    ContactId = Convert.ToInt32(reader["ContactId"]),
+                                    FirstName = reader["FirstName"].ToString(),
+                                    LastName = reader["LastName"].ToString(),
+                                    PhoneNumber = reader["PhoneNumber"].ToString(),
+                                    Address = reader["Address"].ToString()
+                                }
+                            };
+
+                            return user;
+                        }
+                    }
+                }
+
+                return null; // User not found
+            }
+            catch (SqlException ex)
+            {
+                // Handle database-related exceptions here
+                throw new Exception("Database error: " + ex.Message, ex);
+            }
+            catch (Exception ex)
+            {
+                // Handle other general exceptions here
+                throw new Exception("An error occurred: " + ex.Message, ex);
+            }
+            finally
+            {
+                dBConnection.CloseConnection();
+            }
+        }
+
     }
 }

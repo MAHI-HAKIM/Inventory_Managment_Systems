@@ -8,12 +8,12 @@ namespace User_Repo
 {
     public interface IUserRepository
     {
-        void CreateUser(User user);
+        void CreateUser(Users user);
         void DeleteUser(int userId);
 
-        User LogUserIn(string enteredUsername, string enteredPassword);
+        Users LogUserIn(string enteredUsername, string enteredPassword);
 
-        bool UpdateUserDetails(int userId, string newUsername, string newPasswordHash, string newSalt, int roleId, string newFirstName, string newLastName, string newPhoneNumber, string newAddress, bool isActive);
+        bool UpdateUserDetails(Users updatedUser);
 
 
         // void UpdateUser(User user);

@@ -16,8 +16,9 @@ namespace IMS_GUI
         void CheckSpace_KeyPress(Guna.UI2.WinForms.Guna2TextBox control, KeyPressEventArgs e, string fieldName);
         void CheckNumeric_KeyPress(Control control, KeyPressEventArgs e, String fieldName);
         string ValidateAndTransformPhoneNumber(Control control);
+        string FormatPhoneNumberForDisplay(string phoneNumber);
         void ResetColor_TextChanged(Guna.UI2.WinForms.Guna2TextBox control);
-
         void SetupNavigation(Form form, List<Guna.UI2.WinForms.Guna2TextBox> controls);
+      
     }
 }

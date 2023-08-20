@@ -4,15 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using User_Repo;
-using IMS_DataAccess;
 using Guna.UI2.WinForms;
 using System.Windows.Forms;
 using Microsoft.VisualBasic.ApplicationServices;
+using System.Data.Common;
+using System.Data.SqlClient;
+using IMS_DataAccess;
+using System.Data;
+using System.Net;
 
 namespace IMS_GUI
 {
     public class FormValidator : IFormValidator
     {
+        IDBConnection dbConnection = new DBConnection();
         public bool IsTextBoxEmpty(Control control)
         {
             if (string.IsNullOrEmpty(control.Text))
@@ -102,6 +107,15 @@ namespace IMS_GUI
             return "+251 " + phoneNumber.Substring(1);
         }
 
+        public string FormatPhoneNumberForDisplay(string phoneNumber)
+        {
+            // Remove the '+251 ' prefix and return the last 10 digits
+            string last10Digits = phoneNumber.Substring(5).Replace(" ", "");
+
+            // Add a leading zero
+            return "0" + last10Digits;
+        }
+
         public void ResetColor_TextChanged(Guna.UI2.WinForms.Guna2TextBox control)
         {
             if (control is Guna.UI2.WinForms.Guna2TextBox)
@@ -139,5 +153,6 @@ namespace IMS_GUI
             };
         }
 
+  
     }
 }

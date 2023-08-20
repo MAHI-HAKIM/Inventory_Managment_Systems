@@ -113,7 +113,7 @@ namespace IMS_GUI.GUI_Form
                 string enteredPassword = password_txt.Text;
 
                 UserRepository userRepository = new UserRepository();
-                User user = userRepository.LogUserIn(enteredUsername, enteredPassword);
+                Users user = userRepository.LogUserIn(enteredUsername, enteredPassword);
 
                 if (user != null)
                 {

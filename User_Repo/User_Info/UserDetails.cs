@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace User_Repo.User_Repo
+namespace User_Repo
 {
     public class UserDetails
     {
