@@ -1,15 +1,17 @@
-﻿using System.Data.Common;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
-using IMS_DataAccess;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using User_Repo.User_Repo;
+using IMS_DataAccess;
 
-namespace User_Repo
+namespace User_Repo.User_Access
 {
-    public class User_Mg_control
+    public class User_Accessory : IUser_Accessory
     {
         IDBConnection dBConnection = new DBConnection();
-
-
         public List<UserDetails> GetAllUserDetails()
         {
             List<UserDetails> userDetailsList = new List<UserDetails>();
@@ -62,8 +64,6 @@ namespace User_Repo
 
             return userDetailsList;
         }
-
-
         public List<Role> FetchRoles()
         {
             List<Role> rolesList = new List<Role>();

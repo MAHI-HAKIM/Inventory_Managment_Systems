@@ -11,13 +11,15 @@ using System.Security.Cryptography; //Simpler way to Hash and Salt Passwords for
 using IMS_DataAccess;
 using System.Data.SqlClient;
 using User_Repo;
+using Guna.UI2.WinForms;
+using static Guna.UI2.WinForms.Suite.Descriptions;
 
 namespace IMS_GUI.GUI_Form
 {
     public partial class Login_Form : Form
     {
         // Create a list that contains your TextBoxes and Buttons in the order they should be navigated
-        List<Guna.UI2.WinForms.Guna2TextBox> controls;
+        List<Guna.UI2.WinForms.Guna2TextBox> textboxes;
 
         //Some Class initializing
         IFormValidator validator;
@@ -34,7 +36,7 @@ namespace IMS_GUI.GUI_Form
             password_txt.UseSystemPasswordChar = true;
 
             // Initialize the Control list here
-            controls = new List<Guna.UI2.WinForms.Guna2TextBox> { username_txt, password_txt };
+            textboxes = new List<Guna.UI2.WinForms.Guna2TextBox> { username_txt, password_txt };
 
             // Initialize the IDatabaseConnection object here
             dbConnection = new DBConnection();
@@ -45,7 +47,8 @@ namespace IMS_GUI.GUI_Form
 
             // Set KeyPreview to true
             this.KeyPreview = true;
-            validator.SetupNavigation(this, controls);
+
+            validator.SetupNavigation(this, textboxes);
 
             // attach the KeyPress event to your TextBox controls
             // attach the KeyPress event to your TextBox controls
@@ -57,7 +60,6 @@ namespace IMS_GUI.GUI_Form
             validator.ResetColor_TextChanged(password_txt);
 
         }
-
         private void Login_Form_Load(object sender, EventArgs e)
         {
             // Set focus on username_txt

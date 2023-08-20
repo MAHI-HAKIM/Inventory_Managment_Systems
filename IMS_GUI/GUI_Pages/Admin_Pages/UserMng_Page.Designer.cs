@@ -70,17 +70,22 @@
             guna2TextBox1 = new Guna.UI2.WinForms.Guna2TextBox();
             add_btn = new Guna.UI2.WinForms.Guna2Button();
             menu_panel = new Guna.UI2.WinForms.Guna2ShadowPanel();
-            label7 = new Label();
+            lastname_lbl = new Label();
+            password_lbl = new Label();
+            phonenumber_lbl = new Label();
+            firstname_lbl = new Label();
+            username_lbl = new Label();
+            password_txt = new Guna.UI2.WinForms.Guna2TextBox();
             phonenumber_txt = new Guna.UI2.WinForms.Guna2TextBox();
+            lastname_txt = new Guna.UI2.WinForms.Guna2TextBox();
+            firstname_txt = new Guna.UI2.WinForms.Guna2TextBox();
+            label7 = new Label();
             save_btn = new Button();
             label5 = new Label();
             address_txt = new Guna.UI2.WinForms.Guna2TextBox();
             label4 = new Label();
-            lastname_txt = new Guna.UI2.WinForms.Guna2TextBox();
             label3 = new Label();
-            firstname_txt = new Guna.UI2.WinForms.Guna2TextBox();
             label2 = new Label();
-            password_txt = new Guna.UI2.WinForms.Guna2TextBox();
             label6 = new Label();
             Role_cmb = new Guna.UI2.WinForms.Guna2ComboBox();
             label1 = new Label();
@@ -337,17 +342,22 @@
             // menu_panel
             // 
             menu_panel.BackColor = Color.Transparent;
-            menu_panel.Controls.Add(label7);
+            menu_panel.Controls.Add(lastname_lbl);
+            menu_panel.Controls.Add(password_lbl);
+            menu_panel.Controls.Add(phonenumber_lbl);
+            menu_panel.Controls.Add(firstname_lbl);
+            menu_panel.Controls.Add(username_lbl);
+            menu_panel.Controls.Add(password_txt);
             menu_panel.Controls.Add(phonenumber_txt);
+            menu_panel.Controls.Add(lastname_txt);
+            menu_panel.Controls.Add(firstname_txt);
+            menu_panel.Controls.Add(label7);
             menu_panel.Controls.Add(save_btn);
             menu_panel.Controls.Add(label5);
             menu_panel.Controls.Add(address_txt);
             menu_panel.Controls.Add(label4);
-            menu_panel.Controls.Add(lastname_txt);
             menu_panel.Controls.Add(label3);
-            menu_panel.Controls.Add(firstname_txt);
             menu_panel.Controls.Add(label2);
-            menu_panel.Controls.Add(password_txt);
             menu_panel.Controls.Add(label6);
             menu_panel.Controls.Add(Role_cmb);
             menu_panel.Controls.Add(label1);
@@ -364,23 +374,91 @@
             menu_panel.TabIndex = 7;
             menu_panel.Visible = false;
             // 
-            // label7
+            // lastname_lbl
             // 
-            label7.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            label7.AutoSize = true;
-            label7.Font = new Font("Tahoma", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
-            label7.ForeColor = Color.FromArgb(64, 64, 64);
-            label7.Location = new Point(18, 279);
-            label7.Name = "label7";
-            label7.Size = new Size(87, 22);
-            label7.TabIndex = 31;
-            label7.Text = "Phone No";
+            lastname_lbl.AutoSize = true;
+            lastname_lbl.ForeColor = Color.Red;
+            lastname_lbl.Location = new Point(127, 449);
+            lastname_lbl.Name = "lastname_lbl";
+            lastname_lbl.Size = new Size(183, 20);
+            lastname_lbl.TabIndex = 40;
+            lastname_lbl.Text = "Last name cant't be empty";
+            lastname_lbl.Visible = false;
+            // 
+            // password_lbl
+            // 
+            password_lbl.AutoSize = true;
+            password_lbl.ForeColor = Color.Red;
+            password_lbl.Location = new Point(127, 227);
+            password_lbl.Name = "password_lbl";
+            password_lbl.Size = new Size(177, 20);
+            password_lbl.TabIndex = 39;
+            password_lbl.Text = "Password cant't be empty";
+            password_lbl.Visible = false;
+            // 
+            // phonenumber_lbl
+            // 
+            phonenumber_lbl.AutoSize = true;
+            phonenumber_lbl.ForeColor = Color.Red;
+            phonenumber_lbl.Location = new Point(129, 297);
+            phonenumber_lbl.Name = "phonenumber_lbl";
+            phonenumber_lbl.Size = new Size(215, 20);
+            phonenumber_lbl.TabIndex = 38;
+            phonenumber_lbl.Text = "Phone Number cant't be empty";
+            phonenumber_lbl.Visible = false;
+            // 
+            // firstname_lbl
+            // 
+            firstname_lbl.AutoSize = true;
+            firstname_lbl.ForeColor = Color.Red;
+            firstname_lbl.Location = new Point(127, 369);
+            firstname_lbl.Name = "firstname_lbl";
+            firstname_lbl.Size = new Size(184, 20);
+            firstname_lbl.TabIndex = 37;
+            firstname_lbl.Text = "First name cant't be empty";
+            firstname_lbl.Visible = false;
+            // 
+            // username_lbl
+            // 
+            username_lbl.AutoSize = true;
+            username_lbl.ForeColor = Color.Red;
+            username_lbl.Location = new Point(127, 153);
+            username_lbl.Name = "username_lbl";
+            username_lbl.Size = new Size(182, 20);
+            username_lbl.TabIndex = 36;
+            username_lbl.Text = "Username cant't be empty";
+            username_lbl.Visible = false;
+            // 
+            // password_txt
+            // 
+            password_txt.BorderColor = Color.Gray;
+            password_txt.BorderRadius = 10;
+            password_txt.CustomizableEdges = customizableEdges5;
+            password_txt.DefaultText = "";
+            password_txt.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
+            password_txt.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
+            password_txt.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
+            password_txt.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
+            password_txt.FillColor = Color.WhiteSmoke;
+            password_txt.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
+            password_txt.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
+            password_txt.ForeColor = Color.FromArgb(64, 64, 64);
+            password_txt.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
+            password_txt.Location = new Point(118, 182);
+            password_txt.Name = "password_txt";
+            password_txt.PasswordChar = '\0';
+            password_txt.PlaceholderText = "";
+            password_txt.SelectedText = "";
+            password_txt.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            password_txt.Size = new Size(428, 40);
+            password_txt.TabIndex = 35;
+            password_txt.TextChanged += password_txt_TextChanged;
             // 
             // phonenumber_txt
             // 
             phonenumber_txt.BorderColor = Color.Gray;
-            phonenumber_txt.BorderRadius = 15;
-            phonenumber_txt.CustomizableEdges = customizableEdges5;
+            phonenumber_txt.BorderRadius = 10;
+            phonenumber_txt.CustomizableEdges = customizableEdges7;
             phonenumber_txt.DefaultText = "";
             phonenumber_txt.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             phonenumber_txt.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -391,14 +469,77 @@
             phonenumber_txt.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
             phonenumber_txt.ForeColor = Color.FromArgb(64, 64, 64);
             phonenumber_txt.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            phonenumber_txt.Location = new Point(133, 268);
+            phonenumber_txt.Location = new Point(118, 252);
             phonenumber_txt.Name = "phonenumber_txt";
             phonenumber_txt.PasswordChar = '\0';
             phonenumber_txt.PlaceholderText = "";
             phonenumber_txt.SelectedText = "";
-            phonenumber_txt.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            phonenumber_txt.Size = new Size(427, 49);
-            phonenumber_txt.TabIndex = 30;
+            phonenumber_txt.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            phonenumber_txt.Size = new Size(428, 40);
+            phonenumber_txt.TabIndex = 34;
+            phonenumber_txt.TextChanged += phonenumber_txt_TextChanged;
+            // 
+            // lastname_txt
+            // 
+            lastname_txt.BorderColor = Color.Gray;
+            lastname_txt.BorderRadius = 10;
+            lastname_txt.CustomizableEdges = customizableEdges9;
+            lastname_txt.DefaultText = "";
+            lastname_txt.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
+            lastname_txt.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
+            lastname_txt.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
+            lastname_txt.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
+            lastname_txt.FillColor = Color.WhiteSmoke;
+            lastname_txt.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
+            lastname_txt.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
+            lastname_txt.ForeColor = Color.FromArgb(64, 64, 64);
+            lastname_txt.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
+            lastname_txt.Location = new Point(116, 398);
+            lastname_txt.Name = "lastname_txt";
+            lastname_txt.PasswordChar = '\0';
+            lastname_txt.PlaceholderText = "";
+            lastname_txt.SelectedText = "";
+            lastname_txt.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            lastname_txt.Size = new Size(428, 40);
+            lastname_txt.TabIndex = 33;
+            lastname_txt.TextChanged += lastname_txt_TextChanged;
+            // 
+            // firstname_txt
+            // 
+            firstname_txt.BorderColor = Color.Gray;
+            firstname_txt.BorderRadius = 10;
+            firstname_txt.CustomizableEdges = customizableEdges11;
+            firstname_txt.DefaultText = "";
+            firstname_txt.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
+            firstname_txt.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
+            firstname_txt.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
+            firstname_txt.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
+            firstname_txt.FillColor = Color.WhiteSmoke;
+            firstname_txt.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
+            firstname_txt.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
+            firstname_txt.ForeColor = Color.FromArgb(64, 64, 64);
+            firstname_txt.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
+            firstname_txt.Location = new Point(117, 324);
+            firstname_txt.Name = "firstname_txt";
+            firstname_txt.PasswordChar = '\0';
+            firstname_txt.PlaceholderText = "";
+            firstname_txt.SelectedText = "";
+            firstname_txt.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            firstname_txt.Size = new Size(428, 40);
+            firstname_txt.TabIndex = 32;
+            firstname_txt.TextChanged += firstname_txt_TextChanged;
+            // 
+            // label7
+            // 
+            label7.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            label7.AutoSize = true;
+            label7.Font = new Font("Tahoma", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
+            label7.ForeColor = Color.FromArgb(64, 64, 64);
+            label7.Location = new Point(38, 263);
+            label7.Name = "label7";
+            label7.Size = new Size(59, 22);
+            label7.TabIndex = 31;
+            label7.Text = "Phone";
             // 
             // save_btn
             // 
@@ -429,7 +570,7 @@
             // 
             address_txt.BorderColor = Color.Gray;
             address_txt.BorderRadius = 15;
-            address_txt.CustomizableEdges = customizableEdges7;
+            address_txt.CustomizableEdges = customizableEdges13;
             address_txt.DefaultText = "";
             address_txt.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             address_txt.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -447,7 +588,7 @@
             address_txt.PasswordChar = '\0';
             address_txt.PlaceholderText = "";
             address_txt.SelectedText = "";
-            address_txt.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            address_txt.ShadowDecoration.CustomizableEdges = customizableEdges14;
             address_txt.Size = new Size(426, 143);
             address_txt.TabIndex = 27;
             // 
@@ -457,35 +598,11 @@
             label4.AutoSize = true;
             label4.Font = new Font("Tahoma", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
             label4.ForeColor = Color.FromArgb(64, 64, 64);
-            label4.Location = new Point(23, 425);
+            label4.Location = new Point(20, 409);
             label4.Name = "label4";
             label4.Size = new Size(85, 22);
             label4.TabIndex = 26;
             label4.Text = "Lastname";
-            // 
-            // lastname_txt
-            // 
-            lastname_txt.BorderColor = Color.Gray;
-            lastname_txt.BorderRadius = 15;
-            lastname_txt.CustomizableEdges = customizableEdges9;
-            lastname_txt.DefaultText = "";
-            lastname_txt.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
-            lastname_txt.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
-            lastname_txt.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
-            lastname_txt.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
-            lastname_txt.FillColor = Color.WhiteSmoke;
-            lastname_txt.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
-            lastname_txt.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
-            lastname_txt.ForeColor = Color.FromArgb(64, 64, 64);
-            lastname_txt.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            lastname_txt.Location = new Point(132, 410);
-            lastname_txt.Name = "lastname_txt";
-            lastname_txt.PasswordChar = '\0';
-            lastname_txt.PlaceholderText = "";
-            lastname_txt.SelectedText = "";
-            lastname_txt.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            lastname_txt.Size = new Size(428, 49);
-            lastname_txt.TabIndex = 25;
             // 
             // label3
             // 
@@ -493,35 +610,11 @@
             label3.AutoSize = true;
             label3.Font = new Font("Tahoma", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
             label3.ForeColor = Color.FromArgb(64, 64, 64);
-            label3.Location = new Point(22, 352);
+            label3.Location = new Point(19, 330);
             label3.Name = "label3";
             label3.Size = new Size(86, 22);
             label3.TabIndex = 24;
             label3.Text = "Firstname";
-            // 
-            // firstname_txt
-            // 
-            firstname_txt.BorderColor = Color.Gray;
-            firstname_txt.BorderRadius = 15;
-            firstname_txt.CustomizableEdges = customizableEdges11;
-            firstname_txt.DefaultText = "";
-            firstname_txt.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
-            firstname_txt.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
-            firstname_txt.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
-            firstname_txt.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
-            firstname_txt.FillColor = Color.WhiteSmoke;
-            firstname_txt.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
-            firstname_txt.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
-            firstname_txt.ForeColor = Color.FromArgb(64, 64, 64);
-            firstname_txt.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            firstname_txt.Location = new Point(132, 337);
-            firstname_txt.Name = "firstname_txt";
-            firstname_txt.PasswordChar = '\0';
-            firstname_txt.PlaceholderText = "";
-            firstname_txt.SelectedText = "";
-            firstname_txt.ShadowDecoration.CustomizableEdges = customizableEdges12;
-            firstname_txt.Size = new Size(428, 49);
-            firstname_txt.TabIndex = 23;
             // 
             // label2
             // 
@@ -529,35 +622,11 @@
             label2.AutoSize = true;
             label2.Font = new Font("Tahoma", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
             label2.ForeColor = Color.FromArgb(64, 64, 64);
-            label2.Location = new Point(20, 214);
+            label2.Location = new Point(21, 190);
             label2.Name = "label2";
             label2.Size = new Size(84, 22);
             label2.TabIndex = 22;
             label2.Text = "Password";
-            // 
-            // password_txt
-            // 
-            password_txt.BorderColor = Color.Gray;
-            password_txt.BorderRadius = 15;
-            password_txt.CustomizableEdges = customizableEdges13;
-            password_txt.DefaultText = "";
-            password_txt.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
-            password_txt.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
-            password_txt.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
-            password_txt.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
-            password_txt.FillColor = Color.WhiteSmoke;
-            password_txt.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
-            password_txt.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
-            password_txt.ForeColor = Color.FromArgb(64, 64, 64);
-            password_txt.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            password_txt.Location = new Point(132, 201);
-            password_txt.Name = "password_txt";
-            password_txt.PasswordChar = '\0';
-            password_txt.PlaceholderText = "";
-            password_txt.SelectedText = "";
-            password_txt.ShadowDecoration.CustomizableEdges = customizableEdges14;
-            password_txt.Size = new Size(428, 49);
-            password_txt.TabIndex = 21;
             // 
             // label6
             // 
@@ -584,7 +653,7 @@
             Role_cmb.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             Role_cmb.ForeColor = Color.FromArgb(68, 88, 112);
             Role_cmb.ItemHeight = 30;
-            Role_cmb.Location = new Point(419, 61);
+            Role_cmb.Location = new Point(423, 44);
             Role_cmb.Name = "Role_cmb";
             Role_cmb.ShadowDecoration.CustomizableEdges = customizableEdges16;
             Role_cmb.Size = new Size(141, 36);
@@ -596,7 +665,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Tahoma", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
             label1.ForeColor = Color.FromArgb(64, 64, 64);
-            label1.Location = new Point(20, 143);
+            label1.Location = new Point(23, 118);
             label1.Name = "label1";
             label1.Size = new Size(88, 22);
             label1.TabIndex = 10;
@@ -605,7 +674,7 @@
             // username_txt
             // 
             username_txt.BorderColor = Color.Gray;
-            username_txt.BorderRadius = 15;
+            username_txt.BorderRadius = 10;
             username_txt.CustomizableEdges = customizableEdges17;
             username_txt.DefaultText = "";
             username_txt.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
@@ -617,14 +686,15 @@
             username_txt.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
             username_txt.ForeColor = Color.FromArgb(64, 64, 64);
             username_txt.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            username_txt.Location = new Point(131, 130);
+            username_txt.Location = new Point(122, 109);
             username_txt.Name = "username_txt";
             username_txt.PasswordChar = '\0';
             username_txt.PlaceholderText = "";
             username_txt.SelectedText = "";
             username_txt.ShadowDecoration.CustomizableEdges = customizableEdges18;
-            username_txt.Size = new Size(428, 49);
+            username_txt.Size = new Size(428, 40);
             username_txt.TabIndex = 3;
+            username_txt.TextChanged += username_txt_TextChanged;
             // 
             // pnlClose
             // 
@@ -652,7 +722,7 @@
             lbl_title.AutoSize = true;
             lbl_title.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             lbl_title.ForeColor = Color.FromArgb(64, 64, 64);
-            lbl_title.Location = new Point(14, 60);
+            lbl_title.Location = new Point(10, 57);
             lbl_title.Name = "lbl_title";
             lbl_title.Size = new Size(105, 28);
             lbl_title.TabIndex = 1;
@@ -683,16 +753,12 @@
         private Guna.UI2.WinForms.Guna2DataGridView Users_Dgv;
         private Guna.UI2.WinForms.Guna2ShadowPanel menu_panel;
         private Label label7;
-        private Guna.UI2.WinForms.Guna2TextBox phonenumber_txt;
         private Button save_btn;
         private Label label5;
         private Guna.UI2.WinForms.Guna2TextBox address_txt;
         private Label label4;
-        private Guna.UI2.WinForms.Guna2TextBox lastname_txt;
         private Label label3;
-        private Guna.UI2.WinForms.Guna2TextBox firstname_txt;
         private Label label2;
-        private Guna.UI2.WinForms.Guna2TextBox password_txt;
         private Label label6;
         private Guna.UI2.WinForms.Guna2ComboBox Role_cmb;
         private Label label1;
@@ -713,5 +779,14 @@
         private DataGridViewTextBoxColumn Column4;
         private DataGridViewImageColumn delete_U;
         private DataGridViewTextBoxColumn Column5;
+        private Guna.UI2.WinForms.Guna2TextBox password_txt;
+        private Guna.UI2.WinForms.Guna2TextBox phonenumber_txt;
+        private Guna.UI2.WinForms.Guna2TextBox lastname_txt;
+        private Guna.UI2.WinForms.Guna2TextBox firstname_txt;
+        private Label username_lbl;
+        private Label lastname_lbl;
+        private Label password_lbl;
+        private Label phonenumber_lbl;
+        private Label firstname_lbl;
     }
 }

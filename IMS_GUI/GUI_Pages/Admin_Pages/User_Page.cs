@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using User_Repo;
+using User_Repo.User_Access;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
@@ -21,7 +22,7 @@ namespace IMS_GUI
 
 
         IDBConnection dbConnection;
-        User_Mg_control userManagement;
+        IUser_Accessory accessUser;
 
         public User_Page()
         {
@@ -30,7 +31,7 @@ namespace IMS_GUI
             //textBoxes = new List<Guna2TextBox> { username_txt, password_txt, phoneno_txt, firstname_txt, lastname_txt, address_txt };
 
             dbConnection = new DBConnection();
-            userManagement = new User_Mg_control();
+            accessUser = new User_Accessory();
         }
         private void User_Page_Load(object sender, EventArgs e)
         {

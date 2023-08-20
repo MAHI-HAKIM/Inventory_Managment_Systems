@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using User_Repo;
 using IMS_DataAccess;
 using Guna.UI2.WinForms;
+using System.Windows.Forms;
+using Microsoft.VisualBasic.ApplicationServices;
 
 namespace IMS_GUI
 {
@@ -21,43 +23,6 @@ namespace IMS_GUI
             return false;
         }
 
-        //public Role? ValidateRoleSelection(bool isSuperAdminChecked, bool isAdminChecked, bool isEmployeeChecked)
-        //{
-        //    if (isSuperAdminChecked)
-        //    {
-        //        return Role.SuperAdmin;
-        //    }
-        //    else if (isAdminChecked)
-        //    {
-        //        return Role.Admin;
-        //    }
-        //    else if (isEmployeeChecked)
-        //    {
-        //        return Role.Employee;
-        //    }
-        //    else
-        //    {
-        //        MessageBox.Show("Please select a role.", "Role Not Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        //        return null;
-        //    }
-        //}
-
-        public string ValidateRole(RadioButton adminRadio, RadioButton employeeRadio)
-        {
-            if (adminRadio.Checked)
-            {
-                return "Admin";
-            }
-            else if (employeeRadio.Checked)
-            {
-                return "Employee";
-            }
-            else
-            {
-                MessageBox.Show("Please select a role.", "Missing Role", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return null;
-            }
-        }
         public void ClearFormControls(List<Control> controls)
         {
             foreach (Control control in controls)
@@ -71,18 +36,6 @@ namespace IMS_GUI
                 {
                     Guna.UI2.WinForms.Guna2TextBox guna2TextBox = (Guna.UI2.WinForms.Guna2TextBox)control;
                     guna2TextBox.Text = string.Empty;
-                }
-            }
-        }
-
-        public void UncheckRadioButtons(List<Control> containers)
-        {
-            foreach (Control container in containers)
-            {
-                if (container is RadioButton)
-                {
-                    RadioButton radioButton = (RadioButton)container;
-                    radioButton.Checked = false;
                 }
             }
         }
@@ -157,6 +110,7 @@ namespace IMS_GUI
                 textBox.ForeColor = SystemColors.WindowText; // Or any default color
             }
         }
+
         public void SetupNavigation(Form form, List<Guna.UI2.WinForms.Guna2TextBox> controls)
         {
             form.KeyDown += (sender, e) =>
@@ -184,5 +138,6 @@ namespace IMS_GUI
                 }
             };
         }
+
     }
 }

@@ -31,8 +31,8 @@ namespace IMS_GUI
             //    Application.Run(signUpForm); // Run Signup form if no admin exists
             //}
 
-            //Application.Run(new Admin_Form());
-            Application.Run(new Login_Form());
+            Application.Run(new Admin_Form());
+          //  Application.Run(new Login_Form());
 
         }
     }
