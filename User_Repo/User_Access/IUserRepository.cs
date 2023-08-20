@@ -10,14 +10,7 @@ namespace User_Repo
     {
         void CreateUser(Users user);
         void DeleteUser(int userId);
-
         Users LogUserIn(string enteredUsername, string enteredPassword);
-
         bool UpdateUserDetails(Users updatedUser);
-
-
-        // void UpdateUser(User user);
-
-        //User GetUser(int userId);
     }
 }

@@ -27,7 +27,6 @@ namespace IMS_GUI
             }
             return false;
         }
-
         public void ClearFormControls(List<Control> controls)
         {
             foreach (Control control in controls)
@@ -44,17 +43,21 @@ namespace IMS_GUI
                 }
             }
         }
-        public void CheckSpace_KeyPress(Guna.UI2.WinForms.Guna2TextBox control, KeyPressEventArgs e, string fieldName)
+        public void CheckSpace_KeyPress(Control control, KeyPressEventArgs e, string fieldName)
         {
-            if (e.KeyChar == ' ') // ASCII value for space
+            if (control is Guna.UI2.WinForms.Guna2TextBox)
             {
-                e.Handled = true; // Stops the character from being entered into the TextBox
-                ((Guna.UI2.WinForms.Guna2TextBox)control).ForeColor = Color.Red; // Change the TextBox's text color to red
-                MessageBox.Show(fieldName + " cannot contain spaces.", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                ResetColor_TextChanged(control); // Reset color after showing the MessageBox
+                Guna.UI2.WinForms.Guna2TextBox guna2TextBox = (Guna.UI2.WinForms.Guna2TextBox)control;
+
+                if (e.KeyChar == ' ') // ASCII value for space
+                {
+                    e.Handled = true; // Stops the character from being entered into the TextBox
+                    guna2TextBox.ForeColor = Color.Red; // Change the TextBox's text color to red
+                    MessageBox.Show(fieldName + " cannot contain spaces.", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    ResetColor_TextChanged(guna2TextBox); // Reset color after showing the MessageBox
+                }
             }
         }
-
         public void CheckNumeric_KeyPress(Control control, KeyPressEventArgs e, String fieldName)
         {
             Guna.UI2.WinForms.Guna2TextBox textBox = control as Guna.UI2.WinForms.Guna2TextBox;
@@ -74,7 +77,6 @@ namespace IMS_GUI
                 }
             }
         }
-
         public string ValidateAndTransformPhoneNumber(Control control)
         {
             string phoneNumber = "";
@@ -106,7 +108,6 @@ namespace IMS_GUI
             // Convert phone number to international format
             return "+251 " + phoneNumber.Substring(1);
         }
-
         public string FormatPhoneNumberForDisplay(string phoneNumber)
         {
             // Remove the '+251 ' prefix and return the last 10 digits
@@ -115,8 +116,7 @@ namespace IMS_GUI
             // Add a leading zero
             return "0" + last10Digits;
         }
-
-        public void ResetColor_TextChanged(Guna.UI2.WinForms.Guna2TextBox control)
+        public void ResetColor_TextChanged(Control control)
         {
             if (control is Guna.UI2.WinForms.Guna2TextBox)
             {
@@ -124,7 +124,6 @@ namespace IMS_GUI
                 textBox.ForeColor = SystemColors.WindowText; // Or any default color
             }
         }
-
         public void SetupNavigation(Form form, List<Guna.UI2.WinForms.Guna2TextBox> controls)
         {
             form.KeyDown += (sender, e) =>
@@ -152,7 +151,5 @@ namespace IMS_GUI
                 }
             };
         }
-
-  
     }
 }

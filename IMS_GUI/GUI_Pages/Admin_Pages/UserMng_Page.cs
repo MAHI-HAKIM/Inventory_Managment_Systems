@@ -21,27 +21,29 @@ namespace IMS_GUI.GUI_Pages.Admin_Pages
     public partial class UserMng_Page : UserControl
     {
         List<Control> textboxes;
-        List<UserDetails> userDetailsList;
-        List<Role> rolesList;
-        private int UserID;
+        List<UserDetails> userDetailsList = null;
+        List<Role> rolesList = null;
 
         //Some Class initializing
         IFormValidator validator;
         IDBConnection dbConnection;
         IHandleDbOperation hdo;
         PasswordWithSaltHasher hashing;
+        IUser_Accessory accessUser;
 
-        IUser_Accessory accessUser = new User_Accessory();
-
-
-        private event EventHandler UserDeleted;
-
+        private int UserID;
+        private event EventHandler UserDeleted = null;
+        private enum FormMode
+        {
+            Add,
+            Update
+        }
+        private FormMode currentMode = FormMode.Add; // Default mode is Add
         public UserMng_Page()
         {
             InitializeComponent();
 
             textboxes = new List<Control> { username_txt, password_txt, phonenumber_txt, firstname_txt, lastname_txt, address_txt };
-            rolesList = accessUser.FetchRoles();
 
             // Initialize the IDatabaseConnection object here
             dbConnection = new DBConnection();
@@ -51,28 +53,22 @@ namespace IMS_GUI.GUI_Pages.Admin_Pages
             hashing = new PasswordWithSaltHasher();
             // Initialize the HandleDbOperation object here
             hdo = new HandleDbOperation();
+            // Initialize the User_Accessory object here
+            accessUser = new User_Accessory();
 
+            rolesList = accessUser.FetchRoles();
 
             // attach the KeyPress event to your TextBox controls
-            username_txt.KeyPress += (sender, e) => validator.CheckSpace_KeyPress(sender as Guna.UI2.WinForms.Guna2TextBox, e, "Username");
-            password_txt.KeyPress += (sender, e) => validator.CheckSpace_KeyPress(sender as Guna.UI2.WinForms.Guna2TextBox, e, "Password");
+            username_txt.KeyPress += (sender, e) => validator.CheckSpace_KeyPress(sender as Guna2TextBox, e, "Username");
+            password_txt.KeyPress += (sender, e) => validator.CheckSpace_KeyPress(sender as Guna2TextBox, e, "Password");
 
             // attach the TextChanged event to your TextBox controls
             validator.ResetColor_TextChanged(username_txt);
             validator.ResetColor_TextChanged(password_txt);
-            
+
             //check if any charachter rather than a numeric is entered
             phonenumber_txt.KeyPress += (sender, e) => validator.CheckNumeric_KeyPress(sender as Control, e, "Phone Number");
         }
-
-        private enum FormMode
-        {
-            Add,
-            Update
-        }
-
-        private FormMode currentMode = FormMode.Add; // Default mode is Add
-
         private void UserMng_Page_Load(object sender, EventArgs e)
         {
             PopulateRoleComboBox();
@@ -90,155 +86,7 @@ namespace IMS_GUI.GUI_Pages.Admin_Pages
             else if (currentMode == FormMode.Update) 
             {
                   Update_User();
-               // validator.UpdateUserInformation(1, true, DateTime.Now, 1, "Mahisha", "Hakim", "+251 915743030", "Ethiopia");
             }
-
-
-
-        }
-
-        private void Add_NewUser()
-        {
-            if (!ValidateForm())
-            {
-                return;
-            }
-
-            string phoneNumber = validator.ValidateAndTransformPhoneNumber(phonenumber_txt);
-            if (phoneNumber == null) return;
-
-            string enteredAddress = string.IsNullOrWhiteSpace(address_txt.Text) ? "ET" : address_txt.Text;
-
-            string password = password_txt.Text;
-            string salt = hashing.GenerateSalt();
-            string hashedPassword = hashing.HashPassword(password, salt);
-
-
-            // Step 3: Use UserRepository to create the user
-            try
-            {
-                // Create a new Contact object
-                ContactInfo newContact = new ContactInfo
-                {
-                    FirstName = firstname_txt.Text,
-                    LastName = lastname_txt.Text,
-                    PhoneNumber = phoneNumber,
-                    Address = enteredAddress
-                };
-
-                Role selectedRole = (Role)Role_cmb.SelectedItem;
-
-                // Create a new User object
-                Users newUser = new Users
-                {
-                    Username = username_txt.Text,
-                    PasswordHash = hashedPassword,
-                    Salt = salt,
-                    IsActive = true, // Assuming the user is active upon creation
-                    AssignedDate = DateTime.Now,
-                    RoleAssignment = DateTime.Now,
-                    RoleId = selectedRole.RoleID, // The function we discussed earlier
-                    UserContact = newContact
-                };
-
-                // Use UserRepository to create the user
-                IUserRepository userRepository = new UserRepository();
-
-                userRepository.CreateUser(newUser);
-
-                // Show a success message
-                MessageBox.Show("Successfully signed up!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                // validator.ClearFormControls(textboxes);
-                Loaddata();
-                Users_Dgv.Refresh();
-            }
-            catch (SqlException ex)
-            {
-                // This block will catch any SQL related exceptions
-                MessageBox.Show("A SQL error occurred: " + ex.Message);
-            }
-            catch (Exception ex)
-            {
-                // This block will catch any general exceptions
-                MessageBox.Show("An error occurred: " + ex.Message);
-            }
-            finally
-            {
-                dbConnection.CloseConnection();
-            }
-        }
-        private void Update_User()
-        {
-            if (!ValidateForm())
-            {
-                return;
-            }
-            string phoneNumber = validator.ValidateAndTransformPhoneNumber(phonenumber_txt);
-            if (phoneNumber == null) return;
-
-            string enteredAddress = string.IsNullOrWhiteSpace(address_txt.Text) ? "ET" : address_txt.Text;
-
-
-            // Fetch the existing user from the database
-            Users existingUser = accessUser.GetUserById(UserID);
-
-            if (existingUser == null)
-            {
-                MessageBox.Show("User not found.");
-                return;
-            }
-
-            // Prepare user information for update
-            Users updatedUser = new Users
-            {
-                UserId = UserID,
-                Username = username_txt.Text,
-                RoleId = (int)Role_cmb.SelectedValue,
-                IsActive = true, // Set to appropriate value
-                UserContact = new ContactInfo
-                {
-                    FirstName = firstname_txt.Text,
-                    LastName = lastname_txt.Text,
-                    PhoneNumber = phoneNumber,
-                    Address = enteredAddress,
-                }
-            };
-
-            // Check if the role is changing and update RoleAssignment if necessary
-            if (updatedUser.RoleId != existingUser.RoleId)
-            {
-                updatedUser.RoleAssignment = DateTime.Now;
-            }
-            else
-            {
-                updatedUser.RoleAssignment = existingUser.RoleAssignment;
-            }
-
-
-            // Use UserRepository to create the user
-              IUserRepository userRepository = new UserRepository();
-
-            // Call the update function and handle the result
-            bool updateResult = userRepository.UpdateUserDetails(updatedUser);
-
-            //bool updateResult = validator.UpdateUserInformation(UserID, true, updatedUser.RoleAssignment, updatedUser.RoleId, updatedUser.UserContact.FirstName,
-            //                                                    updatedUser.UserContact.LastName, updatedUser.UserContact.PhoneNumber, updatedUser.UserContact.Address);
-
-            if (updateResult)
-            {
-                MessageBox.Show("User updated successfully.");
-                validator.ClearFormControls(textboxes);
-                menu_panel.Visible = false;
-               
-
-                currentMode = FormMode.Add;
-                Loaddata(); // Refresh the data grid view
-            }
-            else
-            {
-                MessageBox.Show("Failed to update user.");
-            }
-
         }
         private void add_btn_MouseDown(object sender, MouseEventArgs e)
         {
@@ -347,12 +195,6 @@ namespace IMS_GUI.GUI_Pages.Admin_Pages
         }
         #endregion
 
-        private Users PopulateUser()
-        {
-            Users user = null;
-
-            return user;
-        }
         #region Access Functions
         private void Loaddata()
         {
@@ -412,6 +254,140 @@ namespace IMS_GUI.GUI_Pages.Admin_Pages
                 lastname_txt.Focus();
 
             return !(isUsernameEmpty || isPasswordEmpty || isPhoneEmpty || isFirstnameEmpty || isLastnameEmpty);
+        }
+        private void Add_NewUser()
+        {
+            if (!ValidateForm())
+            {
+                return;
+            }
+
+            string phoneNumber = validator.ValidateAndTransformPhoneNumber(phonenumber_txt);
+            if (phoneNumber == null) return;
+
+            string enteredAddress = string.IsNullOrWhiteSpace(address_txt.Text) ? "ET" : address_txt.Text;
+
+            string password = password_txt.Text;
+            string salt = hashing.GenerateSalt();
+            string hashedPassword = hashing.HashPassword(password, salt);
+
+            try
+            {
+                // Create a new Contact object
+                ContactInfo newContact = new ContactInfo
+                {
+                    FirstName = firstname_txt.Text,
+                    LastName = lastname_txt.Text,
+                    PhoneNumber = phoneNumber,
+                    Address = enteredAddress
+                };
+
+                Role selectedRole = (Role)Role_cmb.SelectedItem;
+
+                // Create a new User object
+                Users newUser = new Users
+                {
+                    Username = username_txt.Text,
+                    PasswordHash = hashedPassword,
+                    Salt = salt,
+                    IsActive = true, // Assuming the user is active upon creation
+                    AssignedDate = DateTime.Now,
+                    RoleAssignment = DateTime.Now,
+                    RoleId = selectedRole.RoleID, // The function we discussed earlier
+                    UserContact = newContact
+                };
+
+                // Use UserRepository to create the user
+                IUserRepository userRepository = new UserRepository();
+
+                userRepository.CreateUser(newUser);
+
+                // Show a success message
+                MessageBox.Show("Successfully signed up!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // validator.ClearFormControls(textboxes);
+                Loaddata();
+                Users_Dgv.Refresh();
+            }
+            catch (SqlException ex)
+            {
+                // This block will catch any SQL related exceptions
+                MessageBox.Show("A SQL error occurred: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                // This block will catch any general exceptions
+                MessageBox.Show("An error occurred: " + ex.Message);
+            }
+            finally
+            {
+                dbConnection.CloseConnection();
+            }
+        }
+        private void Update_User()
+        {
+            if (!ValidateForm())
+            {
+                return;
+            }
+            string phoneNumber = validator.ValidateAndTransformPhoneNumber(phonenumber_txt);
+            if (phoneNumber == null) return;
+
+            string enteredAddress = string.IsNullOrWhiteSpace(address_txt.Text) ? "ET" : address_txt.Text;
+
+
+            // Fetch the existing user from the database
+            Users existingUser = accessUser.GetUserById(UserID);
+
+            if (existingUser == null)
+            {
+                MessageBox.Show("User not found.");
+                return;
+            }
+
+            // Prepare user information for update
+            Users updatedUser = new Users
+            {
+                UserId = UserID,
+                Username = username_txt.Text,
+                RoleId = (int)Role_cmb.SelectedValue,
+                IsActive = true, // Set to appropriate value
+                UserContact = new ContactInfo
+                {
+                    FirstName = firstname_txt.Text,
+                    LastName = lastname_txt.Text,
+                    PhoneNumber = phoneNumber,
+                    Address = enteredAddress,
+                }
+            };
+
+            // Check if the role is changing and update RoleAssignment if necessary
+            if (updatedUser.RoleId != existingUser.RoleId)
+            {
+                updatedUser.RoleAssignment = DateTime.Now;
+            }
+            else
+            {
+                updatedUser.RoleAssignment = existingUser.RoleAssignment;
+            }
+
+            // Use UserRepository to create the user
+              IUserRepository userRepository = new UserRepository();
+
+            // Call the update function and handle the result
+            bool updateResult = userRepository.UpdateUserDetails(updatedUser);
+
+            if (updateResult)
+            {
+                MessageBox.Show("User updated successfully.");
+                validator.ClearFormControls(textboxes);
+                menu_panel.Visible = false;
+                currentMode = FormMode.Add;
+                Loaddata(); // Refresh the data grid view
+            }
+            else
+            {
+                MessageBox.Show("Failed to update user.");
+            }
         }
         #endregion
 

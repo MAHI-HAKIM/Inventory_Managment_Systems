@@ -124,11 +124,10 @@ namespace IMS_GUI.GUI_Form
                         // You can also check the RoleId to determine access permissions
                         int roleId = user.RoleId;
 
-                        Admin_Form ad = new Admin_Form();
-                        ad.FormClosed += (s, args) => this.Close();
+                        Admin_Form admin = new Admin_Form();
+                        admin.FormClosed += (s, args) => this.Close();
                         this.Hide();
-                        ad.Show();
-
+                        admin.Show();
                     }
 
                 }

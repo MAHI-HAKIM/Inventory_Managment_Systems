@@ -25,7 +25,6 @@ namespace User_Repo
 
             return hashString;
         }
-
         public string GenerateSalt()
         {
             RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();

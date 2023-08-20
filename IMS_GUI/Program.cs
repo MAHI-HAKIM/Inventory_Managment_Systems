@@ -1,5 +1,7 @@
 using IMS_DataAccess;
 using IMS_GUI.GUI_Form;
+using System.Data.SqlClient;
+using System.Transactions;
 
 namespace IMS_GUI
 {
@@ -11,28 +13,30 @@ namespace IMS_GUI
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+            try 
+            {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
 
-            IHandleDbOperation hdo = new HandleDbOperation();
-            Signup_Form signUpForm = new Signup_Form();
-            Login_Form loginForm = new Login_Form();
+                IHandleDbOperation hdo = new HandleDbOperation();
+                Signup_Form signUpForm = new Signup_Form();
+                Login_Form loginForm = new Login_Form();
 
-            //if (hdo.SuperAdminExists())
-            //{
-            //    Application.Run(loginForm); // Run Login form if admin exists
-            //}
-            //else if (hdo.AdminExist())
-            //{
-            //    Application.Run(loginForm); // Run Login form if admin exists
-            //}
-            //else
-            //{
-            //    Application.Run(signUpForm); // Run Signup form if no admin exists
-            //}
 
-            Application.Run(new Admin_Form());
-          //  Application.Run(new Login_Form());
+                Application.Run(new Admin_Form());
+                //  Application.Run(new Login_Form());
+
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+
+            }
+          
 
         }
     }

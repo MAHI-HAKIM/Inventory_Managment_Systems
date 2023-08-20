@@ -15,7 +15,6 @@ namespace User_Repo
         IDBConnection dbConnection = new DBConnection();
 
         PasswordWithSaltHasher hasher = new PasswordWithSaltHasher();
-
         public void CreateUser(Users user)
         {
             dbConnection.OpenConnection();
@@ -218,7 +217,6 @@ namespace User_Repo
                                 return false; // User update failed
                             }
                         }
-
                         // Only update contact information if there are changes
                         if (!string.IsNullOrEmpty(updatedUser.UserContact.FirstName) || !string.IsNullOrEmpty(updatedUser.UserContact.LastName) || !string.IsNullOrEmpty(updatedUser.UserContact.PhoneNumber) || !string.IsNullOrEmpty(updatedUser.UserContact.Address))
                         {
@@ -232,8 +230,6 @@ namespace User_Repo
                                 updateContactCommand.Parameters.AddWithValue("@Address", updatedUser.UserContact.Address);
                                 updateContactCommand.Parameters.AddWithValue("@UserID", updatedUser.UserId);
 
-
-
                                 int contactRowsAffected = updateContactCommand.ExecuteNonQuery();
 
                                 if (contactRowsAffected <= 0)
@@ -242,7 +238,6 @@ namespace User_Repo
                                     return false; // Contact update failed
                                 }
                             }
-
                         }
                         transaction.Commit();
                         return true;
