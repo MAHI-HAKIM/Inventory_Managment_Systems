@@ -22,8 +22,8 @@ namespace IMS_GUI.GUI_Form
         }
         private void Admin_Form_Load(object sender, EventArgs e)
         {
+            ActivateButton(btn_userpage, Properties.Resources.group_2_);
             ShowUserControl(typeof(UserMng_Page));
-
         }
 
         private void ShowUserControl(Type userControlType)
@@ -88,9 +88,9 @@ namespace IMS_GUI.GUI_Form
         { // Respond only to the left mouse button
             if (e.Button == MouseButtons.Left)
             {
-                Signup_Form sg = new Signup_Form();
-                this.Hide();
-                sg.Show();
+                //Signup_Form sg = new Signup_Form();
+                //this.Hide();
+                //sg.Show();
             }
 
         }

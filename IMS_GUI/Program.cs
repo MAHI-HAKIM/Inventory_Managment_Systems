@@ -23,8 +23,8 @@ namespace IMS_GUI
                 Login_Form loginForm = new Login_Form();
 
 
+               // Application.Run(new Admin_Form());
                 Application.Run(new Admin_Form());
-                //  Application.Run(new Login_Form());
 
             }
             catch (SqlException ex)

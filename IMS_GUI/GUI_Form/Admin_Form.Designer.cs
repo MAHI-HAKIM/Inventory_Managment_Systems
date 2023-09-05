@@ -29,17 +29,17 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Admin_Form));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Elipse = new Guna.UI2.WinForms.Guna2Elipse(components);
             side_panel = new Panel();
             btn_setting = new Guna.UI2.WinForms.Guna2CircleButton();
@@ -52,7 +52,7 @@
             Dera = new Label();
             maximize_btn = new Guna.UI2.WinForms.Guna2ControlBox();
             minimize_btn = new Guna.UI2.WinForms.Guna2ControlBox();
-            guna2ControlBox1 = new Guna.UI2.WinForms.Guna2ControlBox();
+            exit_btn = new Guna.UI2.WinForms.Guna2ControlBox();
             menu_panel = new Panel();
             guna2DragControl1 = new Guna.UI2.WinForms.Guna2DragControl(components);
             guna2DragControl2 = new Guna.UI2.WinForms.Guna2DragControl(components);
@@ -78,7 +78,7 @@
             side_panel.Dock = DockStyle.Left;
             side_panel.Location = new Point(0, 0);
             side_panel.Name = "side_panel";
-            side_panel.Size = new Size(64, 734);
+            side_panel.Size = new Size(65, 734);
             side_panel.TabIndex = 1;
             // 
             // btn_setting
@@ -96,7 +96,7 @@
             btn_setting.Image = Properties.Resources.settings;
             btn_setting.Location = new Point(8, 604);
             btn_setting.Name = "btn_setting";
-            btn_setting.ShadowDecoration.CustomizableEdges = customizableEdges7;
+            btn_setting.ShadowDecoration.CustomizableEdges = customizableEdges11;
             btn_setting.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             btn_setting.Size = new Size(48, 48);
             btn_setting.TabIndex = 6;
@@ -117,7 +117,7 @@
             logout_btn.Image = (Image)resources.GetObject("logout_btn.Image");
             logout_btn.Location = new Point(11, 670);
             logout_btn.Name = "logout_btn";
-            logout_btn.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            logout_btn.ShadowDecoration.CustomizableEdges = customizableEdges12;
             logout_btn.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             logout_btn.Size = new Size(48, 48);
             logout_btn.TabIndex = 5;
@@ -139,7 +139,7 @@
             btn_userpage.ImageSize = new Size(23, 23);
             btn_userpage.Location = new Point(9, 199);
             btn_userpage.Name = "btn_userpage";
-            btn_userpage.ShadowDecoration.CustomizableEdges = customizableEdges9;
+            btn_userpage.ShadowDecoration.CustomizableEdges = customizableEdges13;
             btn_userpage.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             btn_userpage.Size = new Size(48, 48);
             btn_userpage.TabIndex = 4;
@@ -159,7 +159,7 @@
             btn_homepage.Image = (Image)resources.GetObject("btn_homepage.Image");
             btn_homepage.Location = new Point(9, 112);
             btn_homepage.Name = "btn_homepage";
-            btn_homepage.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            btn_homepage.ShadowDecoration.CustomizableEdges = customizableEdges14;
             btn_homepage.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             btn_homepage.Size = new Size(48, 48);
             btn_homepage.TabIndex = 3;
@@ -182,11 +182,11 @@
             Controlbox.Controls.Add(Dera);
             Controlbox.Controls.Add(maximize_btn);
             Controlbox.Controls.Add(minimize_btn);
-            Controlbox.Controls.Add(guna2ControlBox1);
+            Controlbox.Controls.Add(exit_btn);
             Controlbox.Dock = DockStyle.Top;
-            Controlbox.Location = new Point(64, 0);
+            Controlbox.Location = new Point(65, 0);
             Controlbox.Name = "Controlbox";
-            Controlbox.Size = new Size(1195, 42);
+            Controlbox.Size = new Size(1194, 42);
             Controlbox.TabIndex = 2;
             // 
             // store
@@ -215,13 +215,13 @@
             // 
             maximize_btn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             maximize_btn.ControlBoxType = Guna.UI2.WinForms.Enums.ControlBoxType.MaximizeBox;
-            maximize_btn.CustomizableEdges = customizableEdges1;
+            maximize_btn.CustomizableEdges = customizableEdges15;
             maximize_btn.FillColor = Color.Transparent;
             maximize_btn.HoverState.FillColor = Color.FromArgb(128, 128, 255);
             maximize_btn.IconColor = Color.Black;
-            maximize_btn.Location = new Point(1084, -1);
+            maximize_btn.Location = new Point(1083, -1);
             maximize_btn.Name = "maximize_btn";
-            maximize_btn.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            maximize_btn.ShadowDecoration.CustomizableEdges = customizableEdges16;
             maximize_btn.Size = new Size(56, 40);
             maximize_btn.TabIndex = 5;
             // 
@@ -229,30 +229,30 @@
             // 
             minimize_btn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             minimize_btn.ControlBoxType = Guna.UI2.WinForms.Enums.ControlBoxType.MinimizeBox;
-            minimize_btn.CustomizableEdges = customizableEdges3;
+            minimize_btn.CustomizableEdges = customizableEdges17;
             minimize_btn.FillColor = Color.Transparent;
             minimize_btn.ForeColor = Color.Black;
             minimize_btn.HoverState.FillColor = Color.FromArgb(192, 192, 255);
             minimize_btn.IconColor = Color.Black;
-            minimize_btn.Location = new Point(1024, -2);
+            minimize_btn.Location = new Point(1023, -2);
             minimize_btn.Name = "minimize_btn";
-            minimize_btn.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            minimize_btn.ShadowDecoration.CustomizableEdges = customizableEdges18;
             minimize_btn.Size = new Size(56, 41);
             minimize_btn.TabIndex = 4;
             // 
-            // guna2ControlBox1
+            // exit_btn
             // 
-            guna2ControlBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            guna2ControlBox1.BackColor = Color.Red;
-            guna2ControlBox1.CustomizableEdges = customizableEdges5;
-            guna2ControlBox1.FillColor = Color.Red;
-            guna2ControlBox1.HoverState.FillColor = Color.FromArgb(192, 0, 0);
-            guna2ControlBox1.IconColor = Color.White;
-            guna2ControlBox1.Location = new Point(1140, -2);
-            guna2ControlBox1.Name = "guna2ControlBox1";
-            guna2ControlBox1.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            guna2ControlBox1.Size = new Size(56, 41);
-            guna2ControlBox1.TabIndex = 3;
+            exit_btn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            exit_btn.BackColor = Color.Red;
+            exit_btn.CustomizableEdges = customizableEdges19;
+            exit_btn.FillColor = Color.Red;
+            exit_btn.HoverState.FillColor = Color.FromArgb(192, 0, 0);
+            exit_btn.IconColor = Color.White;
+            exit_btn.Location = new Point(1139, -2);
+            exit_btn.Name = "exit_btn";
+            exit_btn.ShadowDecoration.CustomizableEdges = customizableEdges20;
+            exit_btn.Size = new Size(56, 41);
+            exit_btn.TabIndex = 3;
             // 
             // menu_panel
             // 
@@ -319,7 +319,7 @@
         private Panel Controlbox;
         private Guna.UI2.WinForms.Guna2ControlBox maximize_btn;
         private Guna.UI2.WinForms.Guna2ControlBox minimize_btn;
-        private Guna.UI2.WinForms.Guna2ControlBox guna2ControlBox1;
+        private Guna.UI2.WinForms.Guna2ControlBox exit_btn;
         private Panel side_panel;
         private Label store;
         private Label Dera;

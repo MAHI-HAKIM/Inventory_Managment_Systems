@@ -21,8 +21,8 @@ namespace IMS_GUI.GUI_Pages.Admin_Pages
     public partial class UserMng_Page : UserControl
     {
         List<Control> textboxes;
-        List<UserDetails> userDetailsList = null;
-        List<Role> rolesList = null;
+        List<UserDetails> userDetailsList;
+        List<Role> rolesList;
 
         //Some Class initializing
         IFormValidator validator;
@@ -32,7 +32,7 @@ namespace IMS_GUI.GUI_Pages.Admin_Pages
         IUser_Accessory accessUser;
 
         private int UserID;
-        private event EventHandler UserDeleted = null;
+        private event EventHandler UserDeleted;
         private enum FormMode
         {
             Add,
@@ -67,13 +67,12 @@ namespace IMS_GUI.GUI_Pages.Admin_Pages
             validator.ResetColor_TextChanged(password_txt);
 
             //check if any charachter rather than a numeric is entered
-            phonenumber_txt.KeyPress += (sender, e) => validator.CheckNumeric_KeyPress(sender as Control, e, "Phone Number");
+            phonenumber_txt.KeyPress += (sender, e) => validator.CheckNumeric_KeyPress(sender as Guna2TextBox, e, "Phone Number");
         }
         private void UserMng_Page_Load(object sender, EventArgs e)
         {
             PopulateRoleComboBox();
-            SetDefaultRole();  // set the default role after populating the ComboBox
-            Loaddata();
+            LoadUsersToDataGridView();
         }
 
         #region Button Functionality
@@ -81,22 +80,30 @@ namespace IMS_GUI.GUI_Pages.Admin_Pages
         {
             if (currentMode == FormMode.Add)
             {
+
                 Add_NewUser();
             }
-            else if (currentMode == FormMode.Update) 
+            else if (currentMode == FormMode.Update)
             {
-                  Update_User();
+
+                Update_User();
             }
         }
         private void add_btn_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
+                DateTime currentDate = DateTime.Now.Date;
+
                 currentMode = FormMode.Add;
                 validator.ClearFormControls(textboxes);
                 menu_panel.Visible = true;
                 username_txt.Enabled = true;
                 password_txt.Enabled = true;
+                active_toggle.Visible = false;
+                is_Active_lable.Visible = false;
+                role_lbl.Visible = false;
+                date_lbl.Text = currentDate.ToString("d");
                 username_txt.Focus();
             }
         }
@@ -137,7 +144,7 @@ namespace IMS_GUI.GUI_Pages.Admin_Pages
 
                             // Raise the UserDeleted event
                             UserDeleted?.Invoke(this, EventArgs.Empty);
-                            Loaddata();
+                            LoadUsersToDataGridView();
                         }
                         else
                         {
@@ -172,44 +179,73 @@ namespace IMS_GUI.GUI_Pages.Admin_Pages
                 currentMode = FormMode.Update;
                 username_txt.Enabled = false;
                 password_txt.Enabled = false; // Disable user input
+                role_lbl.Visible = true;
+                date_lbl.Visible = true;
+                active_toggle.Visible = true;
+                is_Active_lable.Visible = true;
 
-
-                // Get the UserID associated with the clicked row's index
-                UserID = userDetailsList[e.RowIndex].UserId;
-
-                Users userToUpdate = accessUser.GetUserById(UserID);
-
-                if(userToUpdate != null) 
+                try
                 {
-                    username_txt.Text = userToUpdate.Username;
-                    password_txt.Text = "UnabletoAccess";
-                    password_txt.UseSystemPasswordChar = true; // Hide characters
-                    string UserPhonenumber = validator.FormatPhoneNumberForDisplay(userToUpdate.UserContact.PhoneNumber);
-                    phonenumber_txt.Text = UserPhonenumber;
-                    firstname_txt.Text= userToUpdate.UserContact.FirstName;
-                    lastname_txt.Text = userToUpdate.UserContact.LastName;
-                    address_txt.Text = userToUpdate.UserContact.Address;
-                    Role_cmb.SelectedValue = userToUpdate.RoleId;
+
+
+
+                    UserID = Convert.ToInt32(Users_Dgv.Rows[e.RowIndex].Cells["UserIDColumn"].Value);
+
+                    Users userToUpdate = accessUser.GetUserById(UserID);
+
+                    if (userToUpdate != null)
+                    {
+                        username_txt.Text = userToUpdate.Username;
+                        password_txt.Text = "UnabletoAccess";
+                        password_txt.UseSystemPasswordChar = true; // Hide characters
+                        string UserPhonenumber = validator.FormatPhoneNumberForDisplay(userToUpdate.UserContact.PhoneNumber);
+                        phonenumber_txt.Text = UserPhonenumber;
+                        firstname_txt.Text = userToUpdate.UserContact.FirstName;
+                        lastname_txt.Text = userToUpdate.UserContact.LastName;
+                        address_txt.Text = userToUpdate.UserContact.Address;
+                        date_lbl.Text = userToUpdate.RoleAssignment.ToString("d");
+                        active_toggle.Checked = userToUpdate.IsActive;
+                        Role_cmb.SelectedValue = userToUpdate.RoleId;
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    // This block will catch any SQL related exceptions
+                    MessageBox.Show("A SQL error occurred: " + ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    // This block will catch any general exceptions
+                    MessageBox.Show("An error occurred: " + ex.Message);
                 }
             }
         }
         #endregion
 
         #region Access Functions
-        private void Loaddata()
+        private void UpdateDataGridView(List<UserDetails> users)
+        {
+            Users_Dgv.AutoGenerateColumns = false;
+            Users_Dgv.DataSource = null;
+            Users_Dgv.DataSource = users;
+
+            for (int i = 0; i < users.Count; i++)
+            {
+                Users_Dgv.Rows[i].Tag = users[i];
+            }
+        }
+        private void LoadUsersToDataGridView()
         {
             try
             {
-                userDetailsList = accessUser.GetAllUserDetails();
-
-                Users_Dgv.AutoGenerateColumns = false;
-                Users_Dgv.DataSource = null;
-                Users_Dgv.DataSource = userDetailsList;
-
-                // Attach each UserDetails object to the corresponding row's Tag property
-                for (int i = 0; i < userDetailsList.Count; i++)
+                try
                 {
-                    Users_Dgv.Rows[i].Tag = userDetailsList[i];
+                    userDetailsList = accessUser.GetAllUserDetails();
+                    UpdateDataGridView(userDetailsList);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"An error occurred: {ex.Message}");
                 }
             }
             catch (Exception ex)
@@ -222,6 +258,7 @@ namespace IMS_GUI.GUI_Pages.Admin_Pages
             Role_cmb.DataSource = rolesList;
             Role_cmb.DisplayMember = "RoleName";  // This is the text that's displayed
             Role_cmb.ValueMember = "RoleID";      // This is the underlying value
+            SetDefaultRole();
         }
         private void SetDefaultRole()
         {
@@ -304,8 +341,9 @@ namespace IMS_GUI.GUI_Pages.Admin_Pages
 
                 // Show a success message
                 MessageBox.Show("Successfully signed up!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                // validator.ClearFormControls(textboxes);
-                Loaddata();
+                validator.ClearFormControls(textboxes);
+                menu_panel.Visible = false;
+                LoadUsersToDataGridView();
                 Users_Dgv.Refresh();
             }
             catch (SqlException ex)
@@ -350,7 +388,7 @@ namespace IMS_GUI.GUI_Pages.Admin_Pages
                 UserId = UserID,
                 Username = username_txt.Text,
                 RoleId = (int)Role_cmb.SelectedValue,
-                IsActive = true, // Set to appropriate value
+                IsActive = active_toggle.Checked, // Set to appropriate value
                 UserContact = new ContactInfo
                 {
                     FirstName = firstname_txt.Text,
@@ -371,7 +409,7 @@ namespace IMS_GUI.GUI_Pages.Admin_Pages
             }
 
             // Use UserRepository to create the user
-              IUserRepository userRepository = new UserRepository();
+            IUserRepository userRepository = new UserRepository();
 
             // Call the update function and handle the result
             bool updateResult = userRepository.UpdateUserDetails(updatedUser);
@@ -382,13 +420,14 @@ namespace IMS_GUI.GUI_Pages.Admin_Pages
                 validator.ClearFormControls(textboxes);
                 menu_panel.Visible = false;
                 currentMode = FormMode.Add;
-                Loaddata(); // Refresh the data grid view
+                LoadUsersToDataGridView(); // Refresh the data grid view
             }
             else
             {
                 MessageBox.Show("Failed to update user.");
             }
         }
+
         #endregion
 
         #region Form Features
@@ -402,7 +441,7 @@ namespace IMS_GUI.GUI_Pages.Admin_Pages
         }
         private void phonenumber_txt_TextChanged(object sender, EventArgs e)
         {
-            phonenumber_lbl.Visible=false;
+            phonenumber_lbl.Visible = false;
         }
         private void firstname_txt_TextChanged(object sender, EventArgs e)
         {
@@ -412,6 +451,19 @@ namespace IMS_GUI.GUI_Pages.Admin_Pages
         {
             lastname_lbl.Visible = false;
         }
+        private void search_txt_TextChanged(object sender, EventArgs e)
+        {
+            string searchTerm = search_txt.Text.Trim().ToLower(); // Convert to lowercase for case-insensitive search
+
+            // Filter the users based on the search term
+            var filteredUsers = userDetailsList
+                .Where(u => u.Firstname.ToLower().Contains(searchTerm))
+                .ToList();
+
+            UpdateDataGridView(filteredUsers);
+        }
         #endregion
+
+
     }
 }

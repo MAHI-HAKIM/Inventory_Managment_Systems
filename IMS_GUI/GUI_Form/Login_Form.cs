@@ -201,7 +201,7 @@ namespace IMS_GUI.GUI_Form
         }
         private void password_txt_TextChanged(object sender, EventArgs e)
         {
-            password_label.Visible=false;
+            password_label.Visible = false;
         }
 
         #endregion

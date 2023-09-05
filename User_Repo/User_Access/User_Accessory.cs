@@ -62,8 +62,71 @@ namespace User_Repo
                 // Close the connection
                 dbConnection.CloseConnection();
             }
-
             return userDetailsList;
+        }
+        public List<UserDetails> UserDetails(string firstName = null)
+        {
+            List<UserDetails> userDetailsList = new List<UserDetails>();
+            IDBConnection dbConnection = new DBConnection();
+
+            try
+            {
+                string query = @"SELECT u.UserID ,c.FirstName, c.LastName, c.PhoneNumber, c.Address, u.AssignedDate, r.RoleName 
+                         FROM Users u
+                         JOIN Contact c ON u.ContactID = c.ContactID
+                         JOIN Role r ON u.RoleID = r.RoleID";
+
+                // If a filter is provided, adjust the query to include it
+                if (!string.IsNullOrEmpty(firstName))
+                {
+                    query += " WHERE c.FirstName LIKE @FirstName";
+                }
+
+                using (SqlCommand command = new SqlCommand(query, dbConnection.OpenConnection()))
+                {
+                    // If a filter is provided, add the parameter
+                    if (!string.IsNullOrEmpty(firstName))
+                    {
+                        command.Parameters.AddWithValue("@FirstName", "%" + firstName + "%");
+                    }
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            UserDetails userDetails = new UserDetails
+                            {
+                                UserId = reader.GetInt32(reader.GetOrdinal("UserId")),
+                                Firstname = reader.GetString(reader.GetOrdinal("FirstName")),
+                                PhoneNumber = reader.GetString(reader.GetOrdinal("PhoneNumber")),
+                                Address = reader.GetString(reader.GetOrdinal("Address")),  // Assign Address here
+                                AssignedDate = reader.GetDateTime(reader.GetOrdinal("AssignedDate")),
+                                RoleType = reader.GetString(reader.GetOrdinal("RoleName"))  // Changed from RoleID to RoleName
+                            };
+
+                            userDetailsList.Add(userDetails);
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                // Handle database-related exceptions here
+                throw new Exception("Database error: " + ex.Message, ex);
+            }
+            catch (Exception ex)
+            {
+                // Handle other general exceptions here
+                throw new Exception("An error occurred: " + ex.Message, ex);
+            }
+            finally
+            {
+                // Close the connection
+                dbConnection.CloseConnection();
+            }
+            //... rest remains the same
+            return userDetailsList;
+
         }
         public List<Role> FetchRoles()
         {
@@ -147,7 +210,6 @@ namespace User_Repo
                                     Address = reader["Address"].ToString()
                                 }
                             };
-
                             return user;
                         }
                     }

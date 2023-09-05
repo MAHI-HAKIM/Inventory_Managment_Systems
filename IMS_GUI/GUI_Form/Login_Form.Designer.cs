@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -50,7 +48,6 @@
             panel1 = new Panel();
             linkLabel1 = new LinkLabel();
             login_btn = new Guna.UI2.WinForms.Guna2GradientButton();
-            signup_btn = new Guna.UI2.WinForms.Guna2GradientButton();
             guna2DragControl1 = new Guna.UI2.WinForms.Guna2DragControl(components);
             username_lbl = new Label();
             password_label = new Label();
@@ -66,7 +63,7 @@
             // username_txt
             // 
             username_txt.Cursor = Cursors.IBeam;
-            username_txt.CustomizableEdges = customizableEdges9;
+            username_txt.CustomizableEdges = customizableEdges7;
             username_txt.DefaultText = "";
             username_txt.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             username_txt.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -77,13 +74,13 @@
             username_txt.ForeColor = Color.FromArgb(64, 64, 64);
             username_txt.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
             username_txt.IconLeft = Properties.Resources.user;
-            username_txt.Location = new Point(736, 232);
+            username_txt.Location = new Point(690, 236);
             username_txt.Margin = new Padding(4, 6, 4, 6);
             username_txt.Name = "username_txt";
             username_txt.PasswordChar = '\0';
             username_txt.PlaceholderText = "Username";
             username_txt.SelectedText = "";
-            username_txt.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            username_txt.ShadowDecoration.CustomizableEdges = customizableEdges8;
             username_txt.Size = new Size(313, 67);
             username_txt.Style = Guna.UI2.WinForms.Enums.TextBoxStyle.Material;
             username_txt.TabIndex = 4;
@@ -95,7 +92,7 @@
             // password_txt
             // 
             password_txt.Cursor = Cursors.IBeam;
-            password_txt.CustomizableEdges = customizableEdges7;
+            password_txt.CustomizableEdges = customizableEdges5;
             password_txt.DefaultText = "";
             password_txt.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             password_txt.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -107,13 +104,13 @@
             password_txt.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
             password_txt.IconLeft = Properties.Resources.padlock;
             password_txt.IconRight = Properties.Resources.hide;
-            password_txt.Location = new Point(736, 345);
+            password_txt.Location = new Point(690, 349);
             password_txt.Margin = new Padding(4, 6, 4, 6);
             password_txt.Name = "password_txt";
             password_txt.PasswordChar = '\0';
             password_txt.PlaceholderText = "Password";
             password_txt.SelectedText = "";
-            password_txt.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            password_txt.ShadowDecoration.CustomizableEdges = customizableEdges6;
             password_txt.Size = new Size(313, 67);
             password_txt.Style = Guna.UI2.WinForms.Enums.TextBoxStyle.Material;
             password_txt.TabIndex = 5;
@@ -127,7 +124,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 19.8F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(819, 158);
+            label1.Location = new Point(773, 162);
             label1.Name = "label1";
             label1.Size = new Size(154, 45);
             label1.TabIndex = 6;
@@ -136,7 +133,7 @@
             // pictureBox1
             // 
             pictureBox1.Image = Properties.Resources.shop;
-            pictureBox1.Location = new Point(833, 77);
+            pictureBox1.Location = new Point(787, 81);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(125, 62);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
@@ -146,13 +143,13 @@
             // exit_btn
             // 
             exit_btn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            exit_btn.CustomizableEdges = customizableEdges5;
+            exit_btn.CustomizableEdges = customizableEdges3;
             exit_btn.FillColor = Color.FromArgb(0, 0, 192);
             exit_btn.HoverState.FillColor = Color.Red;
             exit_btn.IconColor = Color.White;
-            exit_btn.Location = new Point(1091, 0);
+            exit_btn.Location = new Point(1057, 0);
             exit_btn.Name = "exit_btn";
-            exit_btn.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            exit_btn.ShadowDecoration.CustomizableEdges = customizableEdges4;
             exit_btn.Size = new Size(55, 43);
             exit_btn.TabIndex = 8;
             exit_btn.Click += exit_btn_Click;
@@ -162,9 +159,9 @@
             side_panel.BackColor = Color.Transparent;
             side_panel.BackgroundImage = Properties.Resources.analysis_pic;
             side_panel.BackgroundImageLayout = ImageLayout.Zoom;
-            side_panel.Location = new Point(133, 78);
+            side_panel.Location = new Point(123, 90);
             side_panel.Name = "side_panel";
-            side_panel.Size = new Size(468, 403);
+            side_panel.Size = new Size(453, 403);
             side_panel.TabIndex = 9;
             // 
             // panel1
@@ -175,14 +172,14 @@
             panel1.Controls.Add(side_panel);
             panel1.Location = new Point(0, -1);
             panel1.Name = "panel1";
-            panel1.Size = new Size(631, 631);
+            panel1.Size = new Size(602, 670);
             panel1.TabIndex = 10;
             // 
             // linkLabel1
             // 
             linkLabel1.AutoSize = true;
             linkLabel1.LinkColor = Color.Blue;
-            linkLabel1.Location = new Point(925, 423);
+            linkLabel1.Location = new Point(879, 427);
             linkLabel1.Name = "linkLabel1";
             linkLabel1.Size = new Size(124, 20);
             linkLabel1.TabIndex = 11;
@@ -192,7 +189,7 @@
             // login_btn
             // 
             login_btn.BorderRadius = 15;
-            login_btn.CustomizableEdges = customizableEdges3;
+            login_btn.CustomizableEdges = customizableEdges1;
             login_btn.DisabledState.BorderColor = Color.DarkGray;
             login_btn.DisabledState.CustomBorderColor = Color.DarkGray;
             login_btn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -204,36 +201,13 @@
             login_btn.ForeColor = Color.White;
             login_btn.HoverState.FillColor = Color.MidnightBlue;
             login_btn.HoverState.FillColor2 = Color.Blue;
-            login_btn.Location = new Point(736, 469);
+            login_btn.Location = new Point(764, 483);
             login_btn.Name = "login_btn";
-            login_btn.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            login_btn.ShadowDecoration.CustomizableEdges = customizableEdges2;
             login_btn.Size = new Size(146, 59);
             login_btn.TabIndex = 6;
             login_btn.Text = "Login";
             login_btn.MouseDown += login_btn_MouseDown;
-            // 
-            // signup_btn
-            // 
-            signup_btn.BorderRadius = 15;
-            signup_btn.CustomizableEdges = customizableEdges1;
-            signup_btn.DisabledState.BorderColor = Color.DarkGray;
-            signup_btn.DisabledState.CustomBorderColor = Color.DarkGray;
-            signup_btn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            signup_btn.DisabledState.FillColor2 = Color.FromArgb(169, 169, 169);
-            signup_btn.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            signup_btn.FillColor = Color.Lime;
-            signup_btn.FillColor2 = Color.Green;
-            signup_btn.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            signup_btn.ForeColor = Color.White;
-            signup_btn.HoverState.FillColor = Color.Green;
-            signup_btn.HoverState.FillColor2 = Color.Lime;
-            signup_btn.Location = new Point(911, 469);
-            signup_btn.Name = "signup_btn";
-            signup_btn.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            signup_btn.Size = new Size(138, 59);
-            signup_btn.TabIndex = 12;
-            signup_btn.Text = "Signup";
-            signup_btn.Click += signup_btn_Click;
             // 
             // guna2DragControl1
             // 
@@ -245,7 +219,7 @@
             // 
             username_lbl.AutoSize = true;
             username_lbl.ForeColor = Color.Red;
-            username_lbl.Location = new Point(738, 308);
+            username_lbl.Location = new Point(692, 312);
             username_lbl.Name = "username_lbl";
             username_lbl.Size = new Size(177, 20);
             username_lbl.TabIndex = 13;
@@ -256,7 +230,7 @@
             // 
             password_label.AutoSize = true;
             password_label.ForeColor = Color.Red;
-            password_label.Location = new Point(738, 417);
+            password_label.Location = new Point(692, 421);
             password_label.Name = "password_label";
             password_label.Size = new Size(172, 20);
             password_label.TabIndex = 14;
@@ -268,10 +242,9 @@
             AutoScaleDimensions = new SizeF(120F, 120F);
             AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = SystemColors.ButtonHighlight;
-            ClientSize = new Size(1147, 621);
+            ClientSize = new Size(1113, 662);
             Controls.Add(password_label);
             Controls.Add(username_lbl);
-            Controls.Add(signup_btn);
             Controls.Add(login_btn);
             Controls.Add(linkLabel1);
             Controls.Add(panel1);
@@ -305,7 +278,6 @@
         private Panel side_panel;
         private Guna.UI2.WinForms.Guna2GradientButton login_btn;
         private LinkLabel linkLabel1;
-        private Guna.UI2.WinForms.Guna2GradientButton signup_btn;
         private Guna.UI2.WinForms.Guna2DragControl guna2DragControl1;
         private Label password_label;
         private Label username_lbl;
